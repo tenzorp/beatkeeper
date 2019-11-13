@@ -1,4 +1,5 @@
 {
+  "author": "Zach Levitt zlevitt@middlebury, Tenzin Dorjee tdorjee@middlebury.edu, Hamza Kiyani mkiyani@middlebury.edu",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -12,7 +13,12 @@
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
-    "react-native-web": "^0.11.7"
+    "react-native-gesture-handler": "^1.5.0",
+    "react-native-screens": "^1.0.0-alpha.23",
+    "react-native-swiper": "^1.5.14",
+    "react-native-web": "^0.11.7",
+    "react-navigation": "^4.0.10",
+    "react-navigation-stack": "^1.10.3"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.1.0"
