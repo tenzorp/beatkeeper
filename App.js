@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
   },
   hexagons: {
   	flex: 3,
-  	border: '1px solid black',
+  	borderWidth: 1,
+    borderStyle:  'solid',
   	width: '100%',
   }
 });
