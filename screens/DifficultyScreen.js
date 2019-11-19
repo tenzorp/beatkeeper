@@ -10,7 +10,8 @@ export default function LevelScreen() {
 }
 
 LevelScreen.navigationOptions = {
-    title: 'Difficulty'
+    title: 'Difficulty',
+    header: null
 };
 
 const styles = StyleSheet.create({
