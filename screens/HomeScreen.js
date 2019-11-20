@@ -1,6 +1,7 @@
 import Swiper from "react-native-swiper";
-import {Button, StyleSheet, Text, View} from "react-native";
+import {Button, StyleSheet, Text, View, TouchableOpacity} from "react-native";
 import Hexagons from "../components/Hexagons";
+import GameMode from "../components/GameMode";
 import React, { PropTypes, Component } from 'react';
 
 export default class HomeScreen extends Component {
@@ -11,8 +12,22 @@ export default class HomeScreen extends Component {
                 showsPagination={false}
                 index={1}>
                 <View style={styles.containerSingle}>
-                    <Text style={styles.player}>SINGLE PLAYER</Text>
-                    <Button onPress={()=> this.props.navigation.navigate('Levels')} title={'Tap'}/>
+                    <View style={styles.singleplayer}>
+                    <Text style={styles.singleplayerText}>SINGLE</Text>
+                    <Text style={styles.singleplayerText}>PLAYER</Text>
+                    </View>
+                    <View style={styles.modeButtonGroup}>
+                    <Text style={{fontSize:20,marginBottom:20}}>Choose a gameplay mode:</Text>
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Levels')}>
+                    <Text style={styles.buttonText}>Tap</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                    <Text style={styles.buttonText2}>Snap</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                    <Text style={styles.buttonText2}>Shake</Text>
+                    </TouchableOpacity>
+                    </View>
                 </View>
                 <Swiper
                     showsPagination={false}
@@ -31,8 +46,22 @@ export default class HomeScreen extends Component {
                 </Swiper>
 
                 <View style={styles.containerMulti}>
-                    <Text style={styles.player}>MULTIPLAYER</Text>
-                    <Button onPress={()=> this.props.navigation.navigate('Difficulty')} title={'Tap'}/>
+                    <View style={styles.multiplayer}>
+                    <Text style={styles.multiplayerText}>MULTI</Text>
+                    <Text style={styles.multiplayerText}>PLAYER</Text>
+                    </View>
+                    <View style={styles.modeButtonGroup}>
+                    <Text style={{fontSize:20,marginBottom:20}}>Choose a gameplay mode:</Text>
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Levels')}>
+                    <Text style={styles.buttonText}>Tap</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                    <Text style={styles.buttonText2}>Snap</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                    <Text style={styles.buttonText2}>Shake</Text>
+                    </TouchableOpacity>
+                    </View>
                 </View>
 
             </Swiper>
@@ -47,35 +76,36 @@ HomeScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 5,
+        flex: 4,
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: 'yellow',
+        backgroundColor: '#FFFF99',
     },
     containerMulti: {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'yellow',
+        backgroundColor: '#FFFF99',
         height: '100%',
     },
     containerProfile: {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'yellow',
+        backgroundColor: '#FFFF99',
         height: '100%',
     },
     containerSingle: {
+        flex: 2,
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'yellow',
+        backgroundColor: '#FFFF99',
         height: '100%',
     },
     header: {
         fontSize:80,
         textAlign: 'center',
+        fontWeight: 'bold',
     },
     headerText : {
         flex:2,
@@ -84,14 +114,50 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    buttonText: {
+        fontSize: 40,
+        textAlign: 'center',
+        margin: 20,
+        fontWeight: 'bold',
+    },
+    buttonText2: {
+        fontSize: 40,
+        textAlign: 'center',
+        margin: 20,
+        color: 'lightgray',
+        fontWeight: 'bold',
+    },
     player: {
         fontSize: 30,
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',
     },
+    singleplayer: {
+        flex: 1,
+        textAlign: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    singleplayerText: {
+        fontSize: 60,
+        fontWeight: 'bold',
+    },
+    multiplayer: {
+        flex: 1,
+        textAlign: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    multiplayerText: {
+        fontSize: 60,
+        fontWeight: 'bold',
+    },
+    modeButtonGroup: {
+        flex: 1,
+    },
     hexagons: {
-        flex: 3,
+        flex: 2,
         width: '100%',
     }
 });
