@@ -1,10 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import HexagonsLevels from "../components/HexagonsLevels";
 
 export default function LevelScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Levels</Text>
+            <View style={styles.headerText}>
+            <Text style={styles.text}>LEVELS</Text>
+            </View>
+            <HexagonsLevels style={styles.hexagons} />
         </View>
     );
 }
@@ -19,11 +23,21 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFE632',
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1,
+        flex: 6,
 
+    },
+    headerText:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    hexagons: {
+        flex: 5,
+        width: '100%',
     },
     text: {
         fontSize: 30,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontWeight: 'bold',
     }
 });
