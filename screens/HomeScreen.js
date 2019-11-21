@@ -1,7 +1,6 @@
 import Swiper from "react-native-swiper";
-import {Button, StyleSheet, Text, View, TouchableOpacity} from "react-native";
+import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Hexagons from "../components/Hexagons";
-import GameMode from "../components/GameMode";
 import React, { PropTypes, Component } from 'react';
 
 export default class HomeScreen extends Component {
@@ -13,20 +12,20 @@ export default class HomeScreen extends Component {
                 index={1}>
                 <View style={styles.containerSingle}>
                     <View style={styles.singleplayer}>
-                    <Text style={styles.singleplayerText}>SINGLE</Text>
-                    <Text style={styles.singleplayerText}>PLAYER</Text>
+                        <Text style={styles.singleplayerText}>SINGLE</Text>
+                        <Text style={styles.singleplayerText}>PLAYER</Text>
                     </View>
                     <View style={styles.modeButtonGroup}>
-                    <Text style={{fontSize:20,marginBottom:20}}>Choose a gameplay mode:</Text>
-                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Levels')}>
-                    <Text style={styles.buttonText}>Tap</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                    <Text style={styles.buttonText2}>Snap</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                    <Text style={styles.buttonText2}>Shake</Text>
-                    </TouchableOpacity>
+                        <Text style={{fontSize:20,marginBottom:20}}>Choose a gameplay mode:</Text>
+                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Levels')}>
+                            <Text style={styles.buttonText}>Tap</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text style={styles.buttonText2}>Snap</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text style={styles.buttonText2}>Shake</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <Swiper
@@ -47,24 +46,24 @@ export default class HomeScreen extends Component {
 
                 <View style={styles.containerMulti}>
                     <View style={styles.multiplayer}>
-                    <Text style={styles.multiplayerText}>MULTI</Text>
-                    <Text style={styles.multiplayerText}>PLAYER</Text>
+                        <Text style={styles.multiplayerText}>MULTI</Text>
+                        <Text style={styles.multiplayerText}>PLAYER</Text>
                     </View>
                     <View style={styles.modeButtonGroup}>
-                    <Text style={{fontSize:20,marginBottom:20}}>Choose a gameplay mode:</Text>
-                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Levels')}>
-                    <Text style={styles.buttonText}>Tap</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                    <Text style={styles.buttonText2}>Snap</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                    <Text style={styles.buttonText2}>Shake</Text>
-                    </TouchableOpacity>
+                        <Text style={{fontSize:20,marginBottom:20}}>Choose a gameplay mode:</Text>
+                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('NumPlayers')}>
+                            <Text style={styles.buttonText}>Tap</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Number of Players')}>
+                            <Text style={styles.buttonText2}>Snap</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Choose Players')}>
+                            <Text style={styles.buttonText2}>Shake</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-
             </Swiper>
+
         );
     }
 };
@@ -79,27 +78,27 @@ const styles = StyleSheet.create({
         flex: 4,
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: '#FFFF99',
+        backgroundColor: '#FFE632',
     },
     containerMulti: {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#FFFF99',
+        backgroundColor: '#FFE632',
         height: '100%',
     },
     containerProfile: {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#FFFF99',
+        backgroundColor: '#FFE632',
         height: '100%',
     },
     containerSingle: {
         flex: 2,
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: '#FFFF99',
+        backgroundColor: '#FFE632',
         height: '100%',
     },
     header: {

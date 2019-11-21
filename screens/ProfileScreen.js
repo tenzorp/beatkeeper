@@ -15,7 +15,7 @@ ProfileScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'yellow',
+        backgroundColor: '#FFE632',
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
