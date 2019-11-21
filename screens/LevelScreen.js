@@ -5,8 +5,8 @@ import HexagonsLevels from "../components/HexagonsLevels";
 export default function LevelScreen() {
     return (
         <View style={styles.container}>
-            <View style={styles.headerText>
-            <Text style={styles.text}>Levels</Text>
+            <View style={styles.headerText}>
+            <Text style={styles.text}>LEVELS</Text>
             </View>
             <HexagonsLevels style={styles.hexagons} />
         </View>
@@ -28,14 +28,16 @@ const styles = StyleSheet.create({
     },
     headerText:{
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     hexagons: {
         flex: 5,
         width: '100%',
-        backgroundColor: 'green',
     },
     text: {
         fontSize: 30,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontWeight: 'bold',
     }
 });
