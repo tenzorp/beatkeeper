@@ -43,7 +43,7 @@ export default class HomeScreen extends Component {
                     <View style={styles.containerProfile}>
                         <Text style={styles.player}>John Doe</Text>
                         <Text style={styles.player}>You have played this game 117 times</Text>
-                        <Text style={styles.player}>Your over all progress</Text>
+                        <Text style={styles.player}>Your Average Precision is 78%</Text>
                         <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
 
                     </View>
@@ -89,10 +89,11 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     fbar: {
-        width: '100%',
-        height: '100%',
-        flex: 1,
+        width: '90%',
+        height: '1%',
+        flex :0.5,
         justifyContent: 'center',
+        resizeMode: 'contain',
     },
     containerProfile: {
         flexDirection: 'column',

@@ -7,10 +7,10 @@ export default function FeedBack(props) {
 
     return (
         <View style={StyleSheet.container}>
-            <Image style={styles.stars} src={stars} alt={"3 stars"} />
+            <Image style={styles.stars} source={stars} alt={"3 stars"} />
             <Text style={styles.text}>You did great!</Text>
             <Text style={styles.text}></Text>
-            <Image style={styles.fbar} src={feedbackBar} alt="feedbackBar" />
+            <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
 
         </View>
 
