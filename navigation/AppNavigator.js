@@ -9,7 +9,7 @@ import HexagonsLevels from "../components/HexagonsLevels";
 const AppNavigator = createStackNavigator({
     Home: HomeScreen,
     Levels: LevelScreen,
-    Multiplayer: MPStackNavigator
+    Multiplayer: MPStackNavigator,
     Hexagons: HexagonsLevels,
 }, {
     initialRouteName: 'Home'
