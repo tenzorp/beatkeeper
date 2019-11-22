@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#FFE632',
       alignItems: 'center',
       justifyContent: 'center',
-      flex: 1,
+      flex: 4,
     },
     nextText: {
         color: 'white',
@@ -42,10 +42,16 @@ const styles = StyleSheet.create({
     fbar: {
         width: 20, 
         height: 50,
+        flex: 1,
+        justifyContent: 'center',
+        resizeMode: 'contain',
     },
     stars: {
         width: 50,
         height: 50,
+        flex: 1,
+        justifyContent: 'center',
+        resizeMode: 'contain',
     }
 
 
