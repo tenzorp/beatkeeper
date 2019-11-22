@@ -10,11 +10,12 @@ export default class HomeScreen extends Component {
             <Swiper
                 loop={false}
                 showsPagination={false}
-                index={1}>
+                index={1}
+                showButtons={true}>
                 <View style={styles.containerSingle}>
-                    <View style={styles.singlePlayer}>
-                        <Text style={styles.singlePlayerText}>SINGLE</Text>
-                        <Text style={styles.singlePlayerText}>PLAYER</Text>
+                    <View style={styles.playerView}>
+                        <Text style={styles.playerText}>SINGLE</Text>
+                        <Text style={styles.playerText}>PLAYER</Text>
                     </View>
                     <View style={styles.modeButtonGroup}>
                         <Text style={styles.gameplayMode}>Choose a gameplay mode!</Text>
@@ -32,7 +33,8 @@ export default class HomeScreen extends Component {
                 <Swiper
                     showsPagination={false}
                     loop={false}
-                    horizontal={false}>
+                    horizontal={false}
+                    showButtons={true}>
                     <View style={styles.container}>
                         <View style={styles.header}>
                             <Text style={styles.headerText}>BEAT</Text>
@@ -50,9 +52,9 @@ export default class HomeScreen extends Component {
                 </Swiper>
 
                 <View style={styles.containerMulti}>
-                    <View style={styles.multiplayer}>
-                        <Text style={styles.multiplayerText}>MULTI</Text>
-                        <Text style={styles.multiplayerText}>PLAYER</Text>
+                    <View style={styles.playerView}>
+                        <Text style={styles.playerText}>MULTI</Text>
+                        <Text style={styles.playerText}>PLAYER</Text>
                     </View>
                     <View style={styles.modeButtonGroup}>
                         <Text style={styles.gameplayMode}>Choose a gameplay mode!</Text>
@@ -147,24 +149,13 @@ const styles = StyleSheet.create({
         padding: 20
 
     },
-    singlePlayer: {
+    playerView: {
         flex: 1,
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    singlePlayerText: {
-        fontSize: 60,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    multiplayer: {
-        flex: 1,
-        textAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    multiplayerText: {
+    playerText: {
         fontSize: 60,
         fontWeight: 'bold',
         color: 'white',

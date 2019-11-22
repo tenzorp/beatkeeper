@@ -1,11 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 
-export default function DifficultyScreen() {
+export default function DifficultyScreen(props) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Choose your difficulty!</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> props.navigation.navigate('Gameplay')}>
                 <Text style={styles.gameplayMode}>Easy</Text>
             </TouchableOpacity>
             <TouchableOpacity>

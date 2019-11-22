@@ -12,7 +12,7 @@ var hexHeight,
     levels = [],
     chosen = false
 
-function drawHexagon(ctx, x, y, sideLength, level,truth) {  
+function drawHexagon(ctx, x, y, sideLength, level,truth) {
     hexHeight = Math.sin(hexagonAngle) * sideLength;
     hexRadius = Math.cos(hexagonAngle) * sideLength;
     hexRectangleHeight = sideLength + 2 * hexHeight;
@@ -22,15 +22,15 @@ function drawHexagon(ctx, x, y, sideLength, level,truth) {
         //console.log(truth);
         if (truth){
             //console.log("red");
-            ctx.strokeStyle = 'red'; 
+            ctx.strokeStyle = 'lightblue';
             ctx.lineWidth = 10;
-            ctx.fillStyle = 'red';
+            ctx.fillStyle = 'lightblue';
         }
         else {
             //console.log("black");
-            ctx.strokeStyle = 'black'; 
+            ctx.strokeStyle = 'black';
             ctx.fillStyle = 'black';
-            ctx.lineWidth = 5;
+            ctx.lineWidth = 15;
         }
         ctx.beginPath();
         ctx.moveTo(x + hexRadius, y);
@@ -46,7 +46,8 @@ function drawHexagon(ctx, x, y, sideLength, level,truth) {
 
     else {
         ctx.strokeStyle = 'white';
-        ctx.lineWidth = 5;
+        ctx.lineWidth = 15;
+
         ctx.beginPath();
         ctx.moveTo(x + hexRadius, y);
         ctx.lineTo(x + hexRectangleWidth, y + hexHeight);
@@ -56,7 +57,7 @@ function drawHexagon(ctx, x, y, sideLength, level,truth) {
         ctx.lineTo(x, y + hexHeight);
         ctx.lineTo(x + hexRadius, y);
         ctx.stroke();
-    }  
+    }
 }
 
 export default function HexagonsLevels(props){
@@ -76,7 +77,7 @@ export default function HexagonsLevels(props){
         //drawHexagon(ctx,100,10,150);
         //
         ctx.fillStyle = "black";
-        ctx.font = "bold 90pt serif";
+        ctx.font = "bold 120pt sans-serif";
         var width = ctx.width;
         var hexagonSideLength = width/8;
 
@@ -85,12 +86,12 @@ export default function HexagonsLevels(props){
             levels.push(level1)
         }
 
-        for (var index = 0; index < taps.length; index++) { 
+        for (var index = 0; index < taps.length; index++) {
             var record = taps[index];
             if ((record.x-levels[0].x <= hexagonSideLength) && (record.y-levels[0].y <= hexagonSideLength)){
                 //This is where the navigation to gameplay should go, but navigation isn't working
-                var chosen = true; 
-                
+                var chosen = true;
+
             }
         }
         ctx.lineWidth = 5;
@@ -148,7 +149,7 @@ export default function HexagonsLevels(props){
 
     function updateTaps(ctx) {
         ctx.strokeStyle = 'black';
-        for (var index = 0; index < taps.length; index++) { 
+        for (var index = 0; index < taps.length; index++) {
             var record = taps[index];
 
             ctx.clearRect(0, 0, ctx.width, ctx.height);
@@ -159,8 +160,8 @@ export default function HexagonsLevels(props){
     }
 
 
-	
-	return (<GLView 
+
+	return (<GLView
 				style={props.style}
 				onContextCreate={setup}
                 onStartShouldSetResponder={truth}

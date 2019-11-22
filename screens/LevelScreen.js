@@ -5,11 +5,11 @@ import HexagonsLevels from "../components/HexagonsLevels";
 export default function LevelScreen(props) {
     return (
         <View style={styles.container}>
-            <View style={styles.headerText}>
-                <Text style={styles.text}>CHOOSE A LEVEL</Text>
+            <View style={styles.headerView}>
+                <Text style={styles.text}>Choose a level!</Text>
             </View>
             <HexagonsLevels style={styles.hexagons} />
-            <View style={styles.headerText}>
+            <View style={styles.headerView}>
                 <TouchableOpacity style={styles.next} onPress={()=> props.navigation.navigate('Gameplay')}>
                     <Text style={styles.nextText}>Next</Text>
                 </TouchableOpacity>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         flex: 7,
 
     },
-    headerText:{
+    headerView:{
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -42,9 +42,10 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     text: {
-        fontSize: 30,
+        fontSize: 40,
         textAlign: 'center',
         fontWeight: 'bold',
+        color: 'white'
     },
     next: {
         flex: 2,
