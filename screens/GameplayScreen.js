@@ -4,8 +4,8 @@ import HexagonsGameplay from "../components/HexagonsGameplay";
 
 export default function GameplayScreen(props) {
     setTimeout(() => {
-        props.navigation.navigate('Levels'); //this.props.navigation.navigate('Login')
-    }, 20000);
+        props.navigation.navigate('Feedback'); //this.props.navigation.navigate('Login')
+    }, 10);
 
     return (
         <View style={styles.container}>

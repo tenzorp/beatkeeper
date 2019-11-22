@@ -6,6 +6,7 @@ import LevelScreen from '../screens/LevelScreen';
 import GameplayScreen from '../screens/GameplayScreen';
 import MPStackNavigator from "./MPStackNavigator";
 import HexagonsLevels from "../components/HexagonsLevels";
+import FeedBackScreen from '../screens/FeedBackScreen';
 
 const AppNavigator = createStackNavigator({
     Home: HomeScreen,
@@ -13,6 +14,7 @@ const AppNavigator = createStackNavigator({
     Multiplayer: MPStackNavigator,
     Hexagons: HexagonsLevels,
     Gameplay: GameplayScreen,
+    Feedback: FeedBackScreen
 }, {
     initialRouteName: 'Home'
 });
