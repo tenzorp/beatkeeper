@@ -2,6 +2,7 @@ import Swiper from "react-native-swiper";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Hexagons from "../components/Hexagons";
 import React, { PropTypes, Component } from 'react';
+//wow
 
 export default class HomeScreen extends Component {
     render() {
@@ -40,7 +41,11 @@ export default class HomeScreen extends Component {
                         <Hexagons style={styles.hexagons} />
                     </View>
                     <View style={styles.containerProfile}>
-                        <Text style={styles.player}>PROFILE</Text>
+                        <Text style={styles.player}>John Doe</Text>
+                        <BR></BR>
+                        <Text style={styles.player}>You have played this game 117 times</Text>
+                        <Text style={styles.player}>Your over all progress</Text>
+                        <image ></image>
                     </View>
                 </Swiper>
 

@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { useScreens } from "react-native-screens";
 import AppNavigator from './navigation/AppNavigator';
 
+
 useScreens();
 
 export default function App() {
