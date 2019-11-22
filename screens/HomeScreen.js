@@ -2,7 +2,7 @@ import Swiper from "react-native-swiper";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Hexagons from "../components/Hexagons";
 import React, { PropTypes, Component } from 'react';
-//wow
+import feedbackBar from '../pictures/feedbackBar.png';
 
 export default class HomeScreen extends Component {
     render() {
@@ -45,7 +45,8 @@ export default class HomeScreen extends Component {
                         <BR></BR>
                         <Text style={styles.player}>You have played this game 117 times</Text>
                         <Text style={styles.player}>Your over all progress</Text>
-                        <image ></image>
+                        <img style={styles.fbar} src={feedbackBar} alt="feedbackBar" />
+
                     </View>
                 </Swiper>
 
@@ -87,6 +88,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#FFE632',
         height: '100%',
+    },
+    fbar: {
+        width: "50",
+        height: "50",
     },
     containerProfile: {
         flexDirection: 'column',
