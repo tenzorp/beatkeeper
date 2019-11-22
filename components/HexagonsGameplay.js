@@ -13,15 +13,15 @@ var hexHeight,
     chosen = false,
     counter = 500000
 
-function drawHexagon(ctx, x, y, sideLength,truth) {  
+function drawHexagon(ctx, x, y, sideLength,truth) {
     hexHeight = Math.sin(hexagonAngle) * sideLength;
     hexRadius = Math.cos(hexagonAngle) * sideLength;
     hexRectangleHeight = sideLength + 2 * hexHeight;
     hexRectangleWidth = 2 * hexRadius;
 
         if (truth){
-            ctx.strokeStyle = 'red'; 
-            ctx.lineWidth = 10;
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 20;
             counter = counter + 1;
 
         }
@@ -29,15 +29,15 @@ function drawHexagon(ctx, x, y, sideLength,truth) {
         else {
 
             if (counter < 450000) {
-                ctx.strokeStyle = 'red'; 
+                ctx.strokeStyle = 'lightblue';
                 ctx.lineWidth = 10;
             }
 
             else {
-                ctx.strokeStyle='black';
-                ctx.lineWidth = 3;
+                ctx.strokeStyle='white';
+                ctx.lineWidth = 15;
             }
-            
+
         }
 
         ctx.beginPath();
@@ -71,14 +71,14 @@ const updateHex = (hexagons, ctx) => {
             }
             hexagons[i] = hexagon;
         }
-        
-        ctx.beginPath();   
+
+        ctx.beginPath();
         ctx.lineWidth = 3;
         ctx.strokeStyle = `rgb(0, 0, 0, ${hexagon.alpha})`;
         //console.log(chosen);
         drawHexagon(ctx, hexagon.x, hexagon.y, hexagon.radius)
         ctx.stroke();
-    } 
+    }
 }
 
 export default function HexagonsGameplay(props){
@@ -107,11 +107,11 @@ export default function HexagonsGameplay(props){
         var width = ctx.width;
         var hexagonSideLength = width/2.5;
 
-        for (var index = 0; index < taps.length; index++) { 
+        for (var index = 0; index < taps.length; index++) {
             var record = taps[index];
             if ((record.x-ctx.width/2 <= hexagonSideLength) && (record.y-ctx.height/1.5 <= hexagonSideLength)){
                 //This is where the navigation to gameplay should go, but navigation isn't working
-                var chosen = true; 
+                var chosen = true;
                 var counter = 0;
                 taps = [];
             }
@@ -166,7 +166,7 @@ export default function HexagonsGameplay(props){
 
     function updateTaps(ctx) {
         ctx.strokeStyle = 'black';
-        for (var index = 0; index < taps.length; index++) { 
+        for (var index = 0; index < taps.length; index++) {
             var record = taps[index];
 
             ctx.clearRect(0, 0, ctx.width, ctx.height);
@@ -177,8 +177,8 @@ export default function HexagonsGameplay(props){
     }
 
 
-	
-	return (<GLView 
+
+	return (<GLView
 				style={props.style}
 				onContextCreate={setup}
                 onStartShouldSetResponder={truth}

@@ -9,7 +9,8 @@ export default class HomeScreen extends Component {
             <Swiper
                 loop={false}
                 showsPagination={false}
-                index={1}>
+                index={1}
+                showButtons={true}>
                 <View style={styles.containerSingle}>
                     <View style={styles.singlePlayer}>
                         <Text style={styles.singlePlayerText}>SINGLE</Text>
@@ -31,7 +32,8 @@ export default class HomeScreen extends Component {
                 <Swiper
                     showsPagination={false}
                     loop={false}
-                    horizontal={false}>
+                    horizontal={false}
+                    showButtons={true}>
                     <View style={styles.container}>
                         <View style={styles.header}>
                             <Text style={styles.headerText}>BEAT</Text>

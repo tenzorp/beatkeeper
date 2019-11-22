@@ -49,7 +49,7 @@ export default function Hexagons(props){
 	function renderer(){
 		ctx.save(); // save the current rendering context
 		//ctx.translate(ctx.width / 2, ctx.height/2); // move the origin to the middle
-		ctx.lineWidth = 5;
+		ctx.lineWidth = 10;
 		ctx.strokeStyle = 'white';
 		drawHexagon(ctx,-100,10,150);
 		drawHexagon(ctx,ctx.width-200,10,50);
