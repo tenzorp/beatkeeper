@@ -11,4 +11,8 @@ const MPStackNavigator = createStackNavigator({
     initialRouteName: 'NumPlayers'
   });
 
+MPStackNavigator.navigationOptions = {
+  header: null
+}
+
 export default MPStackNavigator;
