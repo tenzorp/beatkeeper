@@ -3,13 +3,13 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import HomeScreen from '../screens/HomeScreen';
 import LevelScreen from '../screens/LevelScreen';
-import DifficultyScreen from "../screens/DifficultyScreen";
+import MPStackNavigator from "./MPStackNavigator";
 import HexagonsLevels from "../components/HexagonsLevels";
 
 const AppNavigator = createStackNavigator({
     Home: HomeScreen,
     Levels: LevelScreen,
-    Difficulty: DifficultyScreen,
+    Multiplayer: MPStackNavigator
     Hexagons: HexagonsLevels,
 }, {
     initialRouteName: 'Home'

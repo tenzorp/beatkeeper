@@ -20,7 +20,8 @@ LevelScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FFFF99',
+        backgroundColor: '#FFE632',
+        color: 'white',
         alignItems: 'center',
         justifyContent: 'center',
         flex: 6,
