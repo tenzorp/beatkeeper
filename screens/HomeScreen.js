@@ -1,5 +1,5 @@
 import Swiper from "react-native-swiper";
-import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Hexagons from "../components/Hexagons";
 import React, { PropTypes, Component } from 'react';
 
@@ -11,20 +11,20 @@ export default class HomeScreen extends Component {
                 showsPagination={false}
                 index={1}>
                 <View style={styles.containerSingle}>
-                    <View style={styles.singleplayer}>
-                        <Text style={styles.singleplayerText}>SINGLE</Text>
-                        <Text style={styles.singleplayerText}>PLAYER</Text>
+                    <View style={styles.singlePlayer}>
+                        <Text style={styles.singlePlayerText}>SINGLE</Text>
+                        <Text style={styles.singlePlayerText}>PLAYER</Text>
                     </View>
                     <View style={styles.modeButtonGroup}>
-                        <Text style={{fontSize:20,marginBottom:20}}>Choose a gameplay mode:</Text>
+                        <Text style={styles.gameplayMode}>Choose a gameplay mode!</Text>
                         <TouchableOpacity onPress={()=> this.props.navigation.navigate('Levels')}>
                             <Text style={styles.buttonText}>Tap</Text>
                         </TouchableOpacity>
                         <TouchableOpacity>
-                            <Text style={styles.buttonText2}>Snap</Text>
+                            <Text style={styles.buttonDisabled}>Snap</Text>
                         </TouchableOpacity>
                         <TouchableOpacity>
-                            <Text style={styles.buttonText2}>Shake</Text>
+                            <Text style={styles.buttonDisabled}>Shake</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -33,9 +33,9 @@ export default class HomeScreen extends Component {
                     loop={false}
                     horizontal={false}>
                     <View style={styles.container}>
-                        <View style={styles.headerText}>
-                            <Text style={styles.header}>BEAT</Text>
-                            <Text style={styles.header}>KEEPER</Text>
+                        <View style={styles.header}>
+                            <Text style={styles.headerText}>BEAT</Text>
+                            <Text style={styles.headerText}>KEEPER</Text>
                         </View>
                         <Hexagons style={styles.hexagons} />
                     </View>
@@ -50,16 +50,12 @@ export default class HomeScreen extends Component {
                         <Text style={styles.multiplayerText}>PLAYER</Text>
                     </View>
                     <View style={styles.modeButtonGroup}>
-                        <Text style={{fontSize:20,marginBottom:20}}>Choose a gameplay mode:</Text>
+                        <Text style={styles.gameplayMode}>Choose a gameplay mode!</Text>
                         <TouchableOpacity onPress={()=> this.props.navigation.navigate('NumPlayers')}>
                             <Text style={styles.buttonText}>Tap</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Number of Players')}>
-                            <Text style={styles.buttonText2}>Snap</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Choose Players')}>
-                            <Text style={styles.buttonText2}>Shake</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.buttonDisabled}>Snap</Text>
+                        <Text style={styles.buttonDisabled}>Shake</Text>
                     </View>
                 </View>
             </Swiper>
@@ -101,12 +97,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFE632',
         height: '100%',
     },
-    header: {
+    headerText: {
         fontSize:80,
         textAlign: 'center',
         fontWeight: 'bold',
+        color: 'white',
     },
-    headerText : {
+    header : {
         flex:2,
         height:'100%',
         width: '100%',
@@ -118,13 +115,15 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 20,
         fontWeight: 'bold',
+        color: 'white',
     },
-    buttonText2: {
+    buttonDisabled: {
         fontSize: 40,
         textAlign: 'center',
         margin: 20,
-        color: 'lightgray',
+        color: 'gray',
         fontWeight: 'bold',
+        opacity: 0.5
     },
     player: {
         fontSize: 30,
@@ -132,15 +131,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    singleplayer: {
+    singlePlayer: {
         flex: 1,
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    singleplayerText: {
+    singlePlayerText: {
         fontSize: 60,
         fontWeight: 'bold',
+        color: 'white',
     },
     multiplayer: {
         flex: 1,
@@ -151,9 +151,16 @@ const styles = StyleSheet.create({
     multiplayerText: {
         fontSize: 60,
         fontWeight: 'bold',
+        color: 'white',
     },
     modeButtonGroup: {
         flex: 1,
+    },
+    gameplayMode: {
+        fontSize: 30,
+        marginBottom: 20,
+        color: 'white',
+        fontWeight: 'bold'
     },
     hexagons: {
         flex: 2,

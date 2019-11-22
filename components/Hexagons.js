@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { GLView } from 'expo-gl';
 import Expo2DContext from 'expo-2d-context';
 
@@ -9,11 +9,11 @@ var hexHeight,
     hexagonAngle = 0.523598776
 
 
-function drawHexagon(ctx, x, y, sideLength) {  
+function drawHexagon(ctx, x, y, sideLength) {
     hexHeight = Math.sin(hexagonAngle) * sideLength;
     hexRadius = Math.cos(hexagonAngle) * sideLength;
     hexRectangleHeight = sideLength + 2 * hexHeight;
-    hexRectangleWidth = 2 * hexRadius;  
+    hexRectangleWidth = 2 * hexRadius;
 
         ctx.beginPath();
         ctx.moveTo(x + hexRadius, y);
@@ -26,12 +26,12 @@ function drawHexagon(ctx, x, y, sideLength) {
         ctx.stroke();
 }
 
-function drawHexagonFill(ctx, x, y, sideLength) {  
+function drawHexagonFill(ctx, x, y, sideLength) {
     hexHeight = Math.sin(hexagonAngle) * sideLength;
     hexRadius = Math.cos(hexagonAngle) * sideLength;
     hexRectangleHeight = sideLength + 2 * hexHeight;
-    hexRectangleWidth = 2 * hexRadius;  
-    	ctx.fillStyle = '#000000';
+    hexRectangleWidth = 2 * hexRadius;
+    	ctx.fillStyle = '#FFFFFF';
         ctx.beginPath();
         ctx.moveTo(x + hexRadius, y);
         ctx.lineTo(x + hexRectangleWidth, y + hexHeight);
@@ -50,7 +50,7 @@ export default function Hexagons(props){
 		ctx.save(); // save the current rendering context
 		//ctx.translate(ctx.width / 2, ctx.height/2); // move the origin to the middle
 		ctx.lineWidth = 5;
-		ctx.strokeStyle = 'black';
+		ctx.strokeStyle = 'white';
 		drawHexagon(ctx,-100,10,150);
 		drawHexagon(ctx,ctx.width-200,10,50);
 		drawHexagon(ctx,ctx.width-100,50,20);
@@ -70,8 +70,8 @@ export default function Hexagons(props){
 	}
 
 
-	
-	return (<GLView 
+
+	return (<GLView
 				style={props.style}
 				onContextCreate={setup}
 			/>);

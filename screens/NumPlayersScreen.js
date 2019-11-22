@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
 import React, { useState } from 'react';
 
 
-export default function NumPlayersScreen() {
+export default function NumPlayersScreen(props) {
   const [players, setNum] = useState(2);
   return (
     <View style={styles.container}>
@@ -13,6 +13,9 @@ export default function NumPlayersScreen() {
           placeholder="2"
           onChangeText={(num) => setNum(num)}
           value={players.toString()}/>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.next} onPress={()=> props.navigation.navigate('Difficulty')}>
+        <Text style={styles.nextText}>Next</Text>
       </TouchableOpacity>
     </View>
   );
@@ -34,7 +37,8 @@ const styles = StyleSheet.create({
     fontSize: 60,
     fontWeight: 'bold',
     textAlign: 'center',
-    margin: '5%'
+    margin: '5%',
+    color: 'white',
   },
   input: {
     width: '20%',
@@ -42,8 +46,26 @@ const styles = StyleSheet.create({
     fontSize: 50,
     textAlign: 'center',
     margin: '5%',
-    paddingVertical: 1,
+    paddingVertical: 10,
     paddingHorizontal: 15,
     borderWidth: 5,
+    borderColor: 'white',
+    borderRadius: 10,
+    color: 'lightblue',
+  },
+  next: {
+    textAlign: 'center',
+    margin: 20,
+    top: '15%',
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    borderWidth: 5,
+    borderColor: 'white',
+    borderRadius: 10
+  },
+  nextText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 30,
   }
 });
