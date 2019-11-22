@@ -9,16 +9,29 @@ var hexHeight,
     hexRectangleHeight,
     hexRectangleWidth,
     hexagonAngle = 0.523598776,
-    levels = []
+    levels = [],
+    chosen = false
 
-function drawHexagon(ctx, x, y, sideLength, level) {  
+function drawHexagon(ctx, x, y, sideLength, level,truth) {  
     hexHeight = Math.sin(hexagonAngle) * sideLength;
     hexRadius = Math.cos(hexagonAngle) * sideLength;
     hexRectangleHeight = sideLength + 2 * hexHeight;
     hexRectangleWidth = 2 * hexRadius;
-
+    ctx.lineWidth = 5;
     if (levels.length >= level){
-        ctx.strokeStyle = 'black';
+        //console.log(truth);
+        if (truth){
+            //console.log("red");
+            ctx.strokeStyle = 'red'; 
+            ctx.lineWidth = 10;
+            ctx.fillStyle = 'red';
+        }
+        else {
+            //console.log("black");
+            ctx.strokeStyle = 'black'; 
+            ctx.fillStyle = 'black';
+            ctx.lineWidth = 5;
+        }
         ctx.beginPath();
         ctx.moveTo(x + hexRadius, y);
         ctx.lineTo(x + hexRectangleWidth, y + hexHeight);
@@ -32,7 +45,8 @@ function drawHexagon(ctx, x, y, sideLength, level) {
     }
 
     else {
-        ctx.strokeStyle = 'lightgray';
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 5;
         ctx.beginPath();
         ctx.moveTo(x + hexRadius, y);
         ctx.lineTo(x + hexRectangleWidth, y + hexHeight);
@@ -42,9 +56,7 @@ function drawHexagon(ctx, x, y, sideLength, level) {
         ctx.lineTo(x, y + hexHeight);
         ctx.lineTo(x + hexRadius, y);
         ctx.stroke();
-    }
-
-        
+    }  
 }
 
 export default function HexagonsLevels(props){
@@ -73,19 +85,19 @@ export default function HexagonsLevels(props){
             levels.push(level1)
         }
 
-        //updateTaps(ctx);
-
         for (var index = 0; index < taps.length; index++) { 
             var record = taps[index];
             if ((record.x-levels[0].x <= hexagonSideLength) && (record.y-levels[0].y <= hexagonSideLength)){
-                //that.props.navigation.navigate('Home')
                 //This is where the navigation to gameplay should go, but navigation isn't working
-                console.log("yup")
+                var chosen = true; 
+                
             }
         }
         ctx.lineWidth = 5;
         ctx.strokeStyle = 'black';
-        drawHexagon(ctx,0,0,hexagonSideLength,1);
+
+        drawHexagon(ctx,0,0,hexagonSideLength,1,chosen);
+
         drawHexagon(ctx,hexagonSideLength*2,0,hexagonSideLength,2);
         //ctx.fillText("2",hexagonSideLength*2.5, hexagonSideLength);
         drawHexagon(ctx,hexagonSideLength*4,0,hexagonSideLength,3);
