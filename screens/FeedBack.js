@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
 import React, { useState } from 'react';
 import feedbackBar from '../pictures/feedbackBar.png';
 import stars from '../pictures/stars.png'
@@ -7,10 +7,10 @@ export default function FeedBack(props) {
 
     return (
         <View style={StyleSheet.container}>
-            <img style={styles.stars} src={stars} alt={"3 stars"} />
+            <Image style={styles.stars} src={stars} alt={"3 stars"} />
             <Text style={styles.text}>You did great!</Text>
             <Text style={styles.text}></Text>
-            <img style={styles.fbar} src={feedbackBar} alt="feedbackBar" />
+            <Image style={styles.fbar} src={feedbackBar} alt="feedbackBar" />
 
         </View>
 
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     fbar: {
-        width: 50, 
+        width: 20, 
         height: 50,
     },
     stars: {
