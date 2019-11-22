@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import HexagonsGameplay from "../components/HexagonsGameplay";
 
 export default function GameplayScreen(props) {
     setTimeout(() => {
-        props.navigation.navigate('Feedback'); //this.props.navigation.navigate('Login')
-    }, 10);
+        props.navigation.navigate('Feedback');
+    }, 20000);
 
     return (
         <View style={styles.container}>
