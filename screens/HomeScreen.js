@@ -1,7 +1,8 @@
 import Swiper from "react-native-swiper";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import Hexagons from "../components/Hexagons";
 import React, { PropTypes, Component } from 'react';
+import feedbackBar from '../pictures/feedbackBar.png';
 
 export default class HomeScreen extends Component {
     render() {
@@ -40,7 +41,11 @@ export default class HomeScreen extends Component {
                         <Hexagons style={styles.hexagons} />
                     </View>
                     <View style={styles.containerProfile}>
-                        <Text style={styles.player}>PROFILE</Text>
+                        <Text style={styles.player}>John Doe</Text>
+                        <Text style={styles.player}>You have played this game 117 times</Text>
+                        <Text style={styles.player}>Your Average Precision is 78%</Text>
+                        <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
+
                     </View>
                 </Swiper>
 
@@ -82,6 +87,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#FFE632',
         height: '100%',
+    },
+    fbar: {
+        width: '90%',
+        height: '1%',
+        flex :0.5,
+        justifyContent: 'center',
+        resizeMode: 'contain',
     },
     containerProfile: {
         flexDirection: 'column',
@@ -130,6 +142,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',
+        color: 'white',
+        fontWeight: 'bold',
+        padding: 20
+
     },
     singlePlayer: {
         flex: 1,

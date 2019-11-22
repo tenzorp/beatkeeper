@@ -4,7 +4,8 @@ import React from 'react';
 export default function ProfileScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Profile</Text>
+            <Text style={styles.text}>Testing</Text>
+            <Text style={styles.text}>testing 123</Text>
         </View>
     );
 }
