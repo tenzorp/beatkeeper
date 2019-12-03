@@ -1,11 +1,55 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import HexagonsGameplay from "../components/HexagonsGameplay";
+import { useSelector } from 'react-redux';
+import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 
 export default function GameplayScreen(props) {
+    const firestore = useFirestore()
+    const auth = useSelector(state => state.firebase.auth);
+
+    useFirestoreConnect([
+        { collection: 'overallStats',
+          where:[
+            ['uid', '==', auth.uid]
+          ] } 
+    ]);
+
+    const userStats = useSelector(state => state.firestore.ordered.overallStats);
+
+    const createNewUserStats = () => ({
+            highestLevel: 1,
+            gamesPlayed: 1,
+            averagePrecision: 0,
+    });
+
+    const updateStats = () => {
+    
+        //console.log(userStats[0].id)
+        //CHECK IF A USER DB EXISTS WITH THAT ID
+        //console.log(userStats)
+        if (userStats.length > 0){
+            console.log("hello")
+            const ref = firestore.collection('overallStats').doc(userStats[0].id);
+            //console.log(ref);
+            var levelNew = userStats[0].highestLevel+1
+            let updateTimestamp = ref.update({highestLevel: levelNew});
+        }
+        else {
+            console.log("hello2")
+            const userStats = createNewUserStats();
+            userStats.uid = auth.uid;
+            firestore.add({collection:'overallStats'}, userStats);
+        }
+        
+    }
+
+    updateStats();
+
     setTimeout(() => {
+        //firebase.auth().currentUser.updateProfile({highestLevel: props.navigation.getParam('level')+1});
         props.navigation.navigate('Feedback');
-    }, 20000);
+    }, 5000);
 
     return (
         <View style={styles.container}>

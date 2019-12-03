@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import feedbackBar from '../pictures/feedbackBar.png';
 import stars from '../pictures/stars.png'
 
+
 export default function FeedBackScreen(props) {
+    
   return (
     <View style={styles.container}>
       <Image style={styles.stars} source={stars} alt={"3 stars"} />
