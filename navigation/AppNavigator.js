@@ -2,19 +2,15 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import HomeScreen from '../screens/HomeScreen';
-import LevelScreen from '../screens/LevelScreen';
-import GameplayScreen from '../screens/GameplayScreen';
 import MPStackNavigator from "./MPStackNavigator";
-import HexagonsLevels from "../components/HexagonsLevels";
-import FeedBackScreen from '../screens/FeedBackScreen';
+import SPStackNavigator from './SPStackNavigator';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const AppNavigator = createStackNavigator({
     Home: HomeScreen,
-    Levels: LevelScreen,
+    SinglePlayer: SPStackNavigator,
     Multiplayer: MPStackNavigator,
-    Hexagons: HexagonsLevels,
-    Gameplay: GameplayScreen,
-    Feedback: FeedBackScreen
+    Profile: ProfileScreen
 }, {
     initialRouteName: 'Home'
 });
