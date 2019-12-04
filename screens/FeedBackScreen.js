@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 import feedbackBar from '../pictures/feedbackBar.png';
 import stars from '../pictures/stars.png'
 
+
 export default function FeedBackScreen(props) {
+    
   return (
     <View style={styles.container}>
       <Image style={styles.stars} source={stars} alt={"3 stars"} />
       <Text style={styles.text}>You did great!</Text>
       <Text style={styles.text}></Text>
       <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
+      <Button title="Home" onPress={()=>{props.navigation.navigate('Home')}} />
     </View>
   );
 };

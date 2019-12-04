@@ -1,19 +1,98 @@
 import { StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 import React from 'react';
 import HexagonsLevels from "../components/HexagonsLevels";
+import { Col, Row, Grid } from "react-native-easy-grid";
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect } from 'react-redux-firebase';
+
 
 export default function LevelScreen(props) {
+    const auth = useSelector(state => state.firebase.auth);
+
+    useFirestoreConnect([
+    { collection: 'overallStats',
+      where:[
+        ['uid', '==', auth.uid]
+      ] } 
+    ]);
+
+    var userStats = useSelector(state => state.firestore.ordered.overallStats);
+    console.log(userStats)
+    var highestLevel = userStats[0].highestLevel
+    
     return (
         <View style={styles.container}>
             <View style={styles.headerView}>
                 <Text style={styles.text}>Choose a level!</Text>
             </View>
-            <HexagonsLevels style={styles.hexagons} />
-            <View style={styles.headerView}>
-                <TouchableOpacity style={styles.next} onPress={()=> props.navigation.navigate('Gameplay')}>
-                    <Text style={styles.nextText}>Next</Text>
-                </TouchableOpacity>
-            </View>
+            <Grid style={styles.grid}>
+                <Col>
+                    <Row style={styles.row}>
+                        <TouchableOpacity onPress={()=> {
+                                if (highestLevel>=1){
+                                    props.navigation.navigate('Gameplay',{level:1})    
+                                }
+                        }}>
+                            <Text style={[styles.level, highestLevel>=1 ? styles.textvalid : styles.textinvalid]}>1</Text>
+                        </TouchableOpacity>
+                    </Row>
+                    <Row style={styles.row}>
+                        <TouchableOpacity onPress={()=> {
+                                if (highestLevel>=4){
+                                    props.navigation.navigate('Gameplay',{level:4})    
+                                }
+                        }}>
+                            <Text style={[styles.level, highestLevel>=4 ? styles.textvalid : styles.textinvalid]}>4</Text>
+                        </TouchableOpacity>
+                    </Row>
+                    <Row style={styles.row}>
+                            <Text style={[styles.level, highestLevel>=7 ? styles.textvalid : styles.textinvalid]}>7</Text>
+                    </Row>
+                    <Row style={styles.row}>
+                        <Text style={[styles.level, highestLevel>=10 ? styles.textvalid : styles.textinvalid]}>10</Text>
+                    </Row>
+                </Col>
+                <Col>
+                    <Row style={styles.row}>
+                    <TouchableOpacity onPress={()=> {
+                                if (highestLevel>=2){
+                                    props.navigation.navigate('Gameplay',{level:2})    
+                                }
+                        }}>
+                        <Text style={[styles.level, highestLevel>=2 ? styles.textvalid : styles.textinvalid]}>2</Text>
+                        </TouchableOpacity>
+                    </Row>
+                    <Row style={styles.row}>
+                        <Text style={[styles.level, highestLevel>=5 ? styles.textvalid : styles.textinvalid]}>5</Text>
+                    </Row>
+                    <Row style={styles.row}>
+                        <Text style={[styles.level, highestLevel>=8 ? styles.textvalid : styles.textinvalid]}>8</Text>
+                    </Row>
+                    <Row style={styles.row}>
+                        <Text style={[styles.level, highestLevel>=11 ? styles.textvalid : styles.textinvalid]}>11</Text>
+                    </Row>
+                </Col>
+                <Col>
+                    <Row style={styles.row}>
+                    <TouchableOpacity onPress={()=> {
+                                if (highestLevel>=3){
+                                    props.navigation.navigate('Gameplay',{level:3})    
+                                }
+                        }}>
+                        <Text style={[styles.level, highestLevel>=3 ? styles.textvalid : styles.textinvalid]}>3</Text>
+                    </TouchableOpacity>
+                    </Row>
+                    <Row style={styles.row}>
+                        <Text style={[styles.level, highestLevel>=6 ? styles.textvalid : styles.textinvalid]}>6</Text>
+                    </Row>
+                    <Row style={styles.row}>
+                        <Text style={[styles.level, highestLevel>=9 ? styles.textvalid : styles.textinvalid]}>9</Text>
+                    </Row>
+                    <Row style={styles.row}>
+                        <Text style={[styles.level, highestLevel>=12 ? styles.textvalid : styles.textinvalid]}>12</Text>
+                    </Row>
+                </Col>
+            </Grid>
         </View>
     );
 }
@@ -30,16 +109,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flex: 7,
-
     },
-    headerView:{
-        flex: 1,
+    row: {
         justifyContent: 'center',
         alignItems: 'center',
+        borderWidth: 0.75,
+        borderColor: '#ffffff',
     },
-    hexagons: {
-        flex: 4,
-        width: '100%',
+    level: {
+        fontSize: 60,
+        fontWeight: 'bold',
+        color: '#ffffff'
+    },
+    grid: {
+        width: '90%',
+        flex: 5,
+        marginBottom: '10%',
+    },
+    headerView:{
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     text: {
         fontSize: 40,
@@ -47,22 +137,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white'
     },
-    next: {
-        flex: 2,
-        textAlign: 'center',
-        margin: 20,
-        top: '15%',
-        paddingVertical: 5,
-        paddingHorizontal: 15,
-        borderWidth: 5,
-        borderColor: 'white',
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    nextText: {
+    textvalid: {
         color: 'white',
-        fontWeight: 'bold',
-        fontSize: 30,
+    },
+    textinvalid: {
+        color: 'gray',
+        opacity: 0.5,
     },
 });

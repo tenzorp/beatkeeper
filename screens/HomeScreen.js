@@ -1,11 +1,40 @@
 import Swiper from "react-native-swiper";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image, Button } from "react-native";
 import Hexagons from "../components/Hexagons";
 import React, { PropTypes, Component } from 'react';
 import feedbackBar from '../pictures/feedbackBar.png';
+import { useSelector } from 'react-redux';
+import { useFirebase, useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
-export default class HomeScreen extends Component {
-    render() {
+export default function HomeScreen(props) {
+    const firebase = useFirebase()
+    const firestore = useFirestore()
+    const profile = useSelector(state => state.firebase.profile);
+    const auth = useSelector(state => state.firebase.auth);
+
+    useFirestoreConnect([
+    { collection: 'overallStats',
+      where:[
+        ['uid', '==', auth.uid]
+      ] } 
+    ]);
+
+    
+
+    var userStats = useSelector(state => state.firestore.ordered.overallStats);
+    //console.log("this is what userStats is from DB:",userStats)
+
+    /*if (userStats) {
+        console.log(userStats.length)
+        if (userStats.length < 1){
+            //console.log("hello yeah")
+        console.log("made it into the undefined section")
+        
+        //console.log("2: ",userStats)
+        }
+        
+    }*/
+    
         return (
             <Swiper
                 loop={false}
@@ -19,7 +48,7 @@ export default class HomeScreen extends Component {
                     </View>
                     <View style={styles.modeButtonGroup}>
                         <Text style={styles.gameplayMode}>Choose a gameplay mode!</Text>
-                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Levels')}>
+                        <TouchableOpacity onPress={()=> props.navigation.navigate('Levels')}>
                             <Text style={styles.buttonText}>Tap</Text>
                         </TouchableOpacity>
                         <TouchableOpacity>
@@ -43,11 +72,12 @@ export default class HomeScreen extends Component {
                         <Hexagons style={styles.hexagons} />
                     </View>
                     <View style={styles.containerProfile}>
-                        <Text style={styles.player}>John Doe</Text>
-                        <Text style={styles.player}>You have played this game 117 times</Text>
-                        <Text style={styles.player}>Your Average Precision is 78%</Text>
+                        <Text style={styles.player}>{profile.displayName}</Text>
+                        <Text style={styles.player}>Current level: 1</Text>
+                        <Text style={styles.player}>You have played this game 69 times</Text>
+                        <Text style={styles.player}>Your Average Precision is 69%</Text>
                         <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
-
+                        <Button title="Log out" onPress={()=>{firebase.logout(profile)}} />
                     </View>
                 </Swiper>
 
@@ -58,7 +88,7 @@ export default class HomeScreen extends Component {
                     </View>
                     <View style={styles.modeButtonGroup}>
                         <Text style={styles.gameplayMode}>Choose a gameplay mode!</Text>
-                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('NumPlayers')}>
+                        <TouchableOpacity onPress={()=> props.navigation.navigate('NumPlayers')}>
                             <Text style={styles.buttonText}>Tap</Text>
                         </TouchableOpacity>
                         <Text style={styles.buttonDisabled}>Snap</Text>
@@ -68,7 +98,6 @@ export default class HomeScreen extends Component {
             </Swiper>
 
         );
-    }
 };
 
 HomeScreen.navigationOptions = {
@@ -140,7 +169,7 @@ const styles = StyleSheet.create({
         opacity: 0.5
     },
     player: {
-        fontSize: 30,
+        fontSize: 40,
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',

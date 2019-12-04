@@ -3,6 +3,7 @@ import { GLView } from 'expo-gl';
 import Expo2DContext from 'expo-2d-context';
 import { PixelRatio } from 'react-native';
 import { useFocusEffect } from 'react-navigation-hooks';
+import { useFirestore } from 'react-redux-firebase';
 
 var hexHeight,
 	hexRadius,
@@ -82,6 +83,8 @@ const updateHex = (hexagons, ctx) => {
 }
 
 export default function HexagonsGameplay(props){
+    const firestore = useFirestore();
+
     let hexagons = [];
 	let ctx = undefined;
     let taps = [];
@@ -97,8 +100,9 @@ export default function HexagonsGameplay(props){
 
 
 	function renderer(){
-
+        //console.log("here")
 		ctx.save(); // save the current rendering context
+        //console.log("there")
         ctx.clearRect(0, 0, ctx.width, ctx.height);
 
         ctx.fillStyle = "black";
@@ -119,11 +123,12 @@ export default function HexagonsGameplay(props){
         //console.log(counter.toString());
         ctx.lineWidth = 5;
         ctx.strokeStyle = 'black';
+        
         drawHexagon(ctx,ctx.width/5,ctx.height/3,hexagonSideLength,chosen);
+        updateHex(hexagons, ctx);
         //drawChangingHexagon(ctx, ctx.width/5, ctx.height/2, hexagonSideLength)
         //console.log(hexagons);
         ctx.restore(); // restore to previous state
-        updateHex(hexagons, ctx);
 		ctx.flush()
 
         //I think we need something here
@@ -132,6 +137,12 @@ export default function HexagonsGameplay(props){
             requestAnimationFrame(renderer);
         }
 	}
+
+    /*const createNewGame = () => ({
+        level: randValue(ghostTypes),
+        age: Math.floor(Math.random() * 200 + 1),
+        captured: Date.now()
+    });*/
 
 	const setup = async (gl) => {
 		ctx = new Expo2DContext(gl);
@@ -145,6 +156,7 @@ export default function HexagonsGameplay(props){
             hexagons.push(hexagon);
         }
         await ctx.initializeText();
+        //firestore.add({ collection: 'games' }, createNewGame())
 		renderer();
 	}
 
