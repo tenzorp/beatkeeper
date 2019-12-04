@@ -3,17 +3,22 @@ import React from 'react';
 import HexagonsLevels from "../components/HexagonsLevels";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { useSelector } from 'react-redux';
+import { useFirestoreConnect } from 'react-redux-firebase';
+
 
 export default function LevelScreen(props) {
     const auth = useSelector(state => state.firebase.auth);
 
-    if (auth.highestLevel){
-        var highestLevel = auth.highestLevel
-    }
+    useFirestoreConnect([
+    { collection: 'overallStats',
+      where:[
+        ['uid', '==', auth.uid]
+      ] } 
+    ]);
 
-    else {
-        var highestLevel = 1;
-    }
+    var userStats = useSelector(state => state.firestore.ordered.overallStats);
+    console.log(userStats)
+    var highestLevel = userStats[0].highestLevel
     
     return (
         <View style={styles.container}>

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 
 export default function GameplayScreen(props) {
+    //console.log(props.navigation.getParam('level'))
     const firestore = useFirestore()
     const auth = useSelector(state => state.firebase.auth);
 
@@ -17,38 +18,22 @@ export default function GameplayScreen(props) {
 
     const userStats = useSelector(state => state.firestore.ordered.overallStats);
 
-    const createNewUserStats = () => ({
-            highestLevel: 1,
-            gamesPlayed: 1,
-            averagePrecision: 0,
-    });
-
     const updateStats = () => {
-    
-        //console.log(userStats[0].id)
-        //CHECK IF A USER DB EXISTS WITH THAT ID
-        //console.log(userStats)
-        if (userStats.length > 0){
-            console.log("hello")
-            const ref = firestore.collection('overallStats').doc(userStats[0].id);
-            //console.log(ref);
-            var levelNew = userStats[0].highestLevel+1
+        const ref = firestore.collection('overallStats').doc(userStats[0].id);
+        //console.log(ref);
+        var levelNew = userStats[0].highestLevel+1
+        console.log(userStats[0].highestLevel)
+        console.log(props.navigation.getParam('level'))
+        if (userStats[0].highestLevel == props.navigation.getParam('level')){
             let updateTimestamp = ref.update({highestLevel: levelNew});
+            console.log("made it to the updating")
         }
-        else {
-            console.log("hello2")
-            const userStats = createNewUserStats();
-            userStats.uid = auth.uid;
-            firestore.add({collection:'overallStats'}, userStats);
-        }
-        
+            
     }
-
-
 
     setTimeout(() => {
         //firebase.auth().currentUser.updateProfile({highestLevel: props.navigation.getParam('level')+1});
-        updateStats();q
+        updateStats();
         props.navigation.navigate('Feedback');
     }, 5000);
 

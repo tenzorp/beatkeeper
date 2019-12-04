@@ -12,6 +12,7 @@ export default function FeedBackScreen(props) {
       <Text style={styles.text}>You did great!</Text>
       <Text style={styles.text}></Text>
       <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
+      <Button title="Home" onPress={()=>{props.navigation.navigate('Home')}} />
     </View>
   );
 };

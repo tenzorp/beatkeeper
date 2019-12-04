@@ -4,10 +4,11 @@ import Hexagons from "../components/Hexagons";
 import React, { PropTypes, Component } from 'react';
 import feedbackBar from '../pictures/feedbackBar.png';
 import { useSelector } from 'react-redux';
-import { useFirebase, useFirestoreConnect } from 'react-redux-firebase';
+import { useFirebase, useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
 export default function HomeScreen(props) {
     const firebase = useFirebase()
+    const firestore = useFirestore()
     const profile = useSelector(state => state.firebase.profile);
     const auth = useSelector(state => state.firebase.auth);
 
@@ -17,8 +18,23 @@ export default function HomeScreen(props) {
         ['uid', '==', auth.uid]
       ] } 
     ]);
-    //console.log(profile.highestLevel)
 
+    
+
+    var userStats = useSelector(state => state.firestore.ordered.overallStats);
+    //console.log("this is what userStats is from DB:",userStats)
+
+    /*if (userStats) {
+        console.log(userStats.length)
+        if (userStats.length < 1){
+            //console.log("hello yeah")
+        console.log("made it into the undefined section")
+        
+        //console.log("2: ",userStats)
+        }
+        
+    }*/
+    
         return (
             <Swiper
                 loop={false}
@@ -57,7 +73,7 @@ export default function HomeScreen(props) {
                     </View>
                     <View style={styles.containerProfile}>
                         <Text style={styles.player}>{profile.displayName}</Text>
-                        <Text style={styles.player}>Current level: 69</Text>
+                        <Text style={styles.player}>Current level: 1</Text>
                         <Text style={styles.player}>You have played this game 69 times</Text>
                         <Text style={styles.player}>Your Average Precision is 69%</Text>
                         <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
