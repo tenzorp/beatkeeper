@@ -4,6 +4,8 @@ import 'firebase/firestore' ;
 import { firestoreReducer, createFirestoreInstance } from 'redux-firestore' ;
 import 'firebase/auth';
 import {firebaseReducer} from 'react-redux-firebase' ;
+import { persistStore, persistReducer } from 'redux-persist';
+import { AsyncStorage } from 'react-native';
 
 
 import {FIREBASE_KEY, FIREBASE_ID} from '../config.json';
@@ -30,10 +32,18 @@ const rootReducer = combineReducers({
   firestore: firestoreReducer,
 });
 
+const persistanceConfig = {
+    key: 'storage',
+    storage: AsyncStorage
+}
+
+const persistedReducer = persistReducer(persistanceConfig, rootReducer);
 
 const initialState = {firestore:{}};
 
-export const store = createStore(rootReducer, initialState); 
+export const store = createStore(persistedReducer, initialState);
+
+export default persistentStore = persistStore(store);
 
 
 export const rrfProps = {

@@ -1,25 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Hexagons from "../components/Hexagons";
 import React, { PropTypes, Component } from 'react';
-import { useSelector } from 'react-redux';
-import { useFirebase, useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
 export default function HomeScreen(props) {
-    const firebase = useFirebase()
-    const firestore = useFirestore()
-    const profile = useSelector(state => state.firebase.profile);
-    const auth = useSelector(state => state.firebase.auth);
-
-    useFirestoreConnect([
-    { collection: 'overallStats',
-      where:[
-        ['uid', '==', auth.uid]
-      ] } 
-    ]);
-
-    
-
-    var userStats = useSelector(state => state.firestore.ordered.overallStats);
     //console.log("this is what userStats is from DB:",userStats)
 
     /*if (userStats) {
@@ -36,8 +19,10 @@ export default function HomeScreen(props) {
         return (
           <View style={styles.container}>
             <View style={styles.header}>
+                <View style={styles.title}>
                 <Text style={styles.headerText}>BEAT</Text>
                 <Text style={styles.headerText}>KEEPER</Text>
+                </View>
                 <View style={styles.buttonGroup}>
                     <TouchableOpacity onPress={()=> props.navigation.navigate('Mode')}>
                         <Text style={styles.buttonText}>Play</Text>
@@ -62,7 +47,7 @@ HomeScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 6,
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: '#FFE632',
@@ -75,12 +60,17 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     buttonGroup: {
-        flex: 2
+        flex: 2,
     },
     header: {
-        flex: 1,
+        flex: 4,
         height:'100%',
         width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    title: {
+        flex: 2,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -92,7 +82,7 @@ const styles = StyleSheet.create({
     },
     hexagons: {
         zIndex: -1,
-        flex: 1,
+        flex: 2,
         width: '100%',
     }
 });
