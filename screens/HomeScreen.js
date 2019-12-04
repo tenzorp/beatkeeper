@@ -1,31 +1,58 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Hexagons from "../components/Hexagons";
 import React, { PropTypes, Component } from 'react';
+import { useSelector } from 'react-redux';
+import { useFirebase, useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
-export default class HomeScreen extends Component {
-    render() {
+export default function HomeScreen(props) {
+    const firebase = useFirebase()
+    const firestore = useFirestore()
+    const profile = useSelector(state => state.firebase.profile);
+    const auth = useSelector(state => state.firebase.auth);
+
+    useFirestoreConnect([
+    { collection: 'overallStats',
+      where:[
+        ['uid', '==', auth.uid]
+      ] } 
+    ]);
+
+    
+
+    var userStats = useSelector(state => state.firestore.ordered.overallStats);
+    //console.log("this is what userStats is from DB:",userStats)
+
+    /*if (userStats) {
+        console.log(userStats.length)
+        if (userStats.length < 1){
+            //console.log("hello yeah")
+        console.log("made it into the undefined section")
+        
+        //console.log("2: ",userStats)
+        }
+        
+    }*/
+    
         return (
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.headerText}>BEAT</Text>
-                    <Text style={styles.headerText}>KEEPER</Text>
-                    <View style={styles.buttonGroup}>
-                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Mode')}>
-                            <Text style={styles.buttonText}>Play</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Profile')}>
-                            <Text style={styles.buttonText}>Profile</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style={styles.buttonText}>Settings</Text>
-                        </TouchableOpacity>
-                    </View>
+          <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.headerText}>BEAT</Text>
+                <Text style={styles.headerText}>KEEPER</Text>
+                <View style={styles.buttonGroup}>
+                    <TouchableOpacity onPress={()=> props.navigation.navigate('Mode')}>
+                        <Text style={styles.buttonText}>Play</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> props.navigation.navigate('Profile')}>
+                        <Text style={styles.buttonText}>Profile</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Text style={styles.buttonText}>Settings</Text>
+                    </TouchableOpacity>
                 </View>
-                <Hexagons style={styles.hexagons} />
             </View>
-
-        );
-    }
+            <Hexagons style={styles.hexagons} />
+        </View>
+    );
 };
 
 HomeScreen.navigationOptions = {
