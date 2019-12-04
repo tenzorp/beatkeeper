@@ -44,10 +44,11 @@ export default function GameplayScreen(props) {
         
     }
 
-    updateStats();
+
 
     setTimeout(() => {
         //firebase.auth().currentUser.updateProfile({highestLevel: props.navigation.getParam('level')+1});
+        updateStats();q
         props.navigation.navigate('Feedback');
     }, 5000);
 
