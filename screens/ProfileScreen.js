@@ -19,21 +19,23 @@ export default function ProfileScreen(props) {
 
     
     var userStats = useSelector(state => state.firestore.ordered.overallStats);
-    //console.log(userStats)
+    console.log(userStats)
     //
 
   return (
     <View style={styles.container}>
     <View style={{width:'90%',flex:7}}>
+      <View style={styles.buttons}>
+        <Button color="#000000" title="Back" onPress={()=>{props.navigation.navigate('Home')}} />
+        <Button color="#000000" title="Log out" onPress={()=>{firebase.logout(profile)}} />
+      </View>
       <View style={styles.name}>
-        <Button color="#ffffff" title="Back" onPress={()=>{props.navigation.navigate('Home')}} />
         <Text style={styles.title}>{profile.displayName}</Text>
-        <Button color="#ffffff" title="Log out" onPress={()=>{firebase.logout(profile)}} />
       </View>
       <View style={styles.stats}>
-        {userStats && <Text style={styles.text}>You have kept the beat {userStats[0].gamesPlayed} times</Text>}
-        {userStats && <Text style={styles.text}>Current level: {userStats[0].highestLevel}</Text>}
-        <Text style={styles.text}>Your Average Precision is 78%</Text>
+        {userStats && <Text style={styles.text}>Games played: <Text style={{fontWeight:'bold'}}>{userStats[0].gamesPlayed}</Text></Text>}
+        {userStats && <Text style={styles.text}>Current level: <Text style={{fontWeight:'bold'}}>{userStats[0].highestLevel}</Text></Text>}
+        {userStats && <Text style={styles.text}>Average accuracy: <Text style={{fontWeight:'bold'}}>{userStats[0].highestLevel}</Text></Text>}
         <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
       </View>
     </View>
@@ -51,8 +53,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFE632',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 7,
+    flex: 8,
     height: '100%',
+  },
+  buttons: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: '7%',
   },
   title: {
     fontSize: 50,
@@ -62,7 +70,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 24,
-    textAlign: 'center',
+    textAlign: 'left',
     color: 'white',
   },
   fbar: {
@@ -73,13 +81,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   stats: {
-    flex: 5,
+    flex: 6,
   },
   name: {
-    marginTop: '10%',
-    flex: 2,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flex: 1,
   },
   logout: {
     color: '#ffffff',

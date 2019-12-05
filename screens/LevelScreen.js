@@ -18,7 +18,14 @@ export default function LevelScreen(props) {
 
     var userStats = useSelector(state => state.firestore.ordered.overallStats);
     console.log(userStats)
-    var highestLevel = userStats[0].highestLevel
+    if (userStats){
+        var highestLevel = userStats[0].highestLevel
+    }
+
+    else {
+        var highestLevel = 1
+    }
+    
     
     return (
         <View style={styles.container}>
