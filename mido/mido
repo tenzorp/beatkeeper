@@ -1,0 +1,46 @@
+from mido import MidiFile
+import json
+
+songName = 'beat1_120bpm_44.mid'
+
+def deltaT(file):
+    a = []
+    b = []
+    final = []
+
+    for msg in MidiFile(songName).play():
+
+        if msg.type == "note_off":
+            a.append(msg.time)
+        if msg.type == "note_on":
+            b.append(msg.time)
+    print("messages with notes_off" + ": " + str(a))
+    print("messages with notes_on" + ": " + str(b))
+    print("_________________")
+    # print(len(a))
+    # print(len(b))
+    # print(len(final))
+    # print(range(len(a)))
+
+    i = 0
+    while i < len(a):
+        # print(i)
+        final.append(a[i] + b[i])
+        # final[i] = a[i] + b[i]
+        i += 1
+    return(final)
+
+deltaTlist = deltaT(songName)
+
+data = {}
+data['songs'] = []
+data['songs'].append({
+    'name': str(songName),
+    'dtime': str(deltaTlist)
+})
+
+with open('data.txt', 'w') as outfile:
+    json.dump(data, outfile)
+
+
+
