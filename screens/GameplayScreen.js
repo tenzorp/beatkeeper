@@ -34,12 +34,13 @@ export default function GameplayScreen(props) {
     setTimeout(() => {
         //firebase.auth().currentUser.updateProfile({highestLevel: props.navigation.getParam('level')+1});
         updateStats();
-        props.navigation.navigate('Feedback');
+        props.navigation.navigate('Feedback',{level:props.navigation.getParam('level')});
     }, 5000);
 
     return (
         <View style={styles.container}>
             <View style={styles.headerView}>
+                <Text style={styles.text}>Level {props.navigation.getParam('level')}</Text>
                 <Text style={styles.text}>Tap on the screen when the hexagons match!</Text>
             </View>
             <HexagonsGameplay style={styles.hexagons} />
@@ -70,7 +71,9 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: 'white',
         fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        marginTop: '2%',
+        marginBottom: '2%',
     },
     hexagons: {
         flex: 8,
