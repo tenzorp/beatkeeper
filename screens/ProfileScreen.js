@@ -1,44 +1,63 @@
-import { Image, StyleSheet, Text, View, Button } from 'react-native';
+import {
+  Image, StyleSheet, Text, View, Button,
+} from 'react-native';
 import React from 'react';
-import feedbackBar from '../pictures/feedbackBar.png';
 import { useSelector } from 'react-redux';
 import { useFirebase, useFirestoreConnect, useFirestore } from 'react-redux-firebase';
+import feedbackBar from '../pictures/feedbackBar.png';
 
 export default function ProfileScreen(props) {
-  const firebase = useFirebase()
-    const firestore = useFirestore()
-    const profile = useSelector(state => state.firebase.profile);
-    const auth = useSelector(state => state.firebase.auth);
+  const firebase = useFirebase();
+  const firestore = useFirestore();
+  const profile = useSelector((state) => state.firebase.profile);
+  const auth = useSelector((state) => state.firebase.auth);
 
-    useFirestoreConnect([
-    { collection: 'overallStats',
-      where:[
-        ['uid', '==', auth.uid]
-      ] } 
-    ]);
+  useFirestoreConnect([
+    {
+      collection: 'overallStats',
+      where: [
+        ['uid', '==', auth.uid],
+      ],
+    },
+  ]);
 
-    
-    var userStats = useSelector(state => state.firestore.ordered.overallStats);
-    console.log(userStats)
-    //
+
+  const userStats = useSelector((state) => state.firestore.ordered.overallStats);
+  console.log(userStats);
+  //
 
   return (
     <View style={styles.container}>
-    <View style={{width:'90%',flex:7}}>
-      <View style={styles.buttons}>
-        <Button color="#000000" title="Back" onPress={()=>{props.navigation.navigate('Home')}} />
-        <Button color="#000000" title="Log out" onPress={()=>{firebase.logout(profile)}} />
+      <View style={{ width: '90%', flex: 7 }}>
+        <View style={styles.buttons}>
+          <Button color="#000000" title="Back" onPress={() => { props.navigation.navigate('Home'); }} />
+          <Button color="#000000" title="Log out" onPress={() => { firebase.logout(profile); }} />
+        </View>
+        <View style={styles.name}>
+          <Text style={styles.title}>{profile.displayName}</Text>
+        </View>
+        <View style={styles.stats}>
+          {userStats && (
+          <Text style={styles.text}>
+Games played:
+            <Text style={{ fontWeight: 'bold' }}>{userStats[0].gamesPlayed}</Text>
+          </Text>
+          )}
+          {userStats && (
+          <Text style={styles.text}>
+Current level:
+            <Text style={{ fontWeight: 'bold' }}>{userStats[0].highestLevel}</Text>
+          </Text>
+          )}
+          {userStats && (
+          <Text style={styles.text}>
+Average accuracy:
+            <Text style={{ fontWeight: 'bold' }}>{userStats[0].highestLevel}</Text>
+          </Text>
+          )}
+          <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
+        </View>
       </View>
-      <View style={styles.name}>
-        <Text style={styles.title}>{profile.displayName}</Text>
-      </View>
-      <View style={styles.stats}>
-        {userStats && <Text style={styles.text}>Games played: <Text style={{fontWeight:'bold'}}>{userStats[0].gamesPlayed}</Text></Text>}
-        {userStats && <Text style={styles.text}>Current level: <Text style={{fontWeight:'bold'}}>{userStats[0].highestLevel}</Text></Text>}
-        {userStats && <Text style={styles.text}>Average accuracy: <Text style={{fontWeight:'bold'}}>{userStats[0].highestLevel}</Text></Text>}
-        <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
-      </View>
-    </View>
     </View>
   );
 }
@@ -76,7 +95,7 @@ const styles = StyleSheet.create({
   fbar: {
     width: '90%',
     height: '1%',
-    flex :0.5,
+    flex: 0.5,
     justifyContent: 'center',
     resizeMode: 'contain',
   },
@@ -89,5 +108,5 @@ const styles = StyleSheet.create({
   logout: {
     color: '#ffffff',
     fontWeight: 'bold',
-  }
+  },
 });

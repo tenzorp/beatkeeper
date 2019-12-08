@@ -8,19 +8,19 @@ import GameplayScreen from '../screens/GameplayScreen';
 import FeedBackScreen from '../screens/FeedBackScreen';
 
 const SPStackNavigator = createStackNavigator({
-    Mode: ModeScreen,
-    Level: LevelScreen,
-    Difficulty: DifficultyScreen,
-    Hexagons: HexagonsLevels,
-    Gameplay: GameplayScreen,
-    Feedback: FeedBackScreen
-  },
-  {
-    initialRouteName: 'Mode'
-  });
+  Mode: ModeScreen,
+  Level: LevelScreen,
+  Difficulty: DifficultyScreen,
+  Hexagons: HexagonsLevels,
+  Gameplay: GameplayScreen,
+  Feedback: FeedBackScreen,
+},
+{
+  initialRouteName: 'Mode',
+});
 
 SPStackNavigator.navigationOptions = {
-  header: null
-}
+  header: null,
+};
 
 export default SPStackNavigator;

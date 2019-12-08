@@ -1,30 +1,31 @@
 import React from 'react';
-import { StyleSheet, View,Text } from 'react-native';
-import { useScreens } from "react-native-screens";
-import AppNavigator from './navigation/AppNavigator';
-import persistentStore, { store, rrfProps } from './store/store';
+import { StyleSheet, View, Text } from 'react-native';
+import { useScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';
 import { ReactReduxFirebaseProvider, ReduxFirestoreProvider } from 'react-redux-firebase';
-import Root from './components/Root'
-import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from 'redux-persist/integration/react';
+import AppNavigator from './navigation/AppNavigator';
+import persistentStore, { store, rrfProps } from './store/store';
+import Root from './components/Root';
 
 useScreens();
 
 export default function App() {
   return (
-    <Provider store={store} >
-    	<ReactReduxFirebaseProvider {...rrfProps}>
-  		<ReduxFirestoreProvider {...rrfProps}>
-      <PersistGate 
-        loading={<View><Text style={{textAlign:'center',marginTop:100}}>Loading</Text></View>} 
-        persistor={persistentStore}>
-    		<View style={styles.container}>
-      			<Root />
-    		</View>
-        </PersistGate>
-  		</ReduxFirestoreProvider>
-  		</ReactReduxFirebaseProvider>
-	</Provider>
+    <Provider store={store}>
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <ReduxFirestoreProvider {...rrfProps}>
+          <PersistGate
+            loading={<View><Text style={{ textAlign: 'center', marginTop: 100 }}>Loading</Text></View>}
+            persistor={persistentStore}
+          >
+            <View style={styles.container}>
+              <Root />
+            </View>
+          </PersistGate>
+        </ReduxFirestoreProvider>
+      </ReactReduxFirebaseProvider>
+    </Provider>
   );
 }
 

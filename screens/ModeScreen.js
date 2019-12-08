@@ -1,11 +1,13 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 import React from 'react';
 
 export default function ModeScreen(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose a gameplay mode!</Text>
-      <TouchableOpacity onPress={()=> props.navigation.navigate('Level')}>
+      <TouchableOpacity onPress={() => props.navigation.navigate('Level')}>
         <Text style={styles.buttonText}>Tap</Text>
       </TouchableOpacity>
       <TouchableOpacity>
@@ -20,7 +22,7 @@ export default function ModeScreen(props) {
 
 ModeScreen.navigationOptions = {
   title: 'Single Player',
-  header: null
+  header: null,
 };
 
 const styles = StyleSheet.create({
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',
-    marginVertical: '10%'
+    marginVertical: '10%',
   },
   buttonText: {
     fontSize: 40,
@@ -51,6 +53,6 @@ const styles = StyleSheet.create({
     margin: 20,
     color: 'gray',
     fontWeight: 'bold',
-    opacity: 0.5
+    opacity: 0.5,
   },
 });

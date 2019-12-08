@@ -1,43 +1,46 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
+import {
+  StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image,
+} from 'react-native';
 import React, { useState } from 'react';
-import feedbackBar from '../pictures/feedbackBar.png';
-import stars from '../pictures/stars.png'
 import { useSelector } from 'react-redux';
 import { useFirestoreConnect } from 'react-redux-firebase';
+import feedbackBar from '../pictures/feedbackBar.png';
+import stars from '../pictures/stars.png';
 
 export default function FeedBackScreen(props) {
+  const auth = useSelector((state) => state.firebase.auth);
 
-  const auth = useSelector(state => state.firebase.auth);
+  useFirestoreConnect([
+    {
+      collection: 'overallStats',
+      where: [
+        ['uid', '==', auth.uid],
+      ],
+    },
+  ]);
+  // <Image style={styles.stars} source={stars} alt={"3 stars"} />
+  // <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
+  const userStats = useSelector((state) => state.firestore.ordered.overallStats);
+  console.log(userStats);
+  const { highestLevel } = userStats[0];
 
-    useFirestoreConnect([
-    { collection: 'overallStats',
-      where:[
-        ['uid', '==', auth.uid]
-      ] } 
-    ]);
-//<Image style={styles.stars} source={stars} alt={"3 stars"} />
-//<Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
-    var userStats = useSelector(state => state.firestore.ordered.overallStats);
-    console.log(userStats)
-    var highestLevel = userStats[0].highestLevel
-    
   return (
     <View style={styles.container}>
       <View style={styles.feedback}>
-      <Text style={styles.text}>Nice job!</Text>
+        <Text style={styles.text}>Nice job!</Text>
       </View>
       <View style={styles.buttons}>
-      <Button color="#000000" title="Retry" onPress={()=>{props.navigation.navigate('Gameplay',{level:1})}} />
-      <Button color="#000000" title="Change Level" onPress={()=>{props.navigation.navigate('Levels')}} />
-      <Button color="#000000" title="Main Menu" onPress={()=>{props.navigation.navigate('Home')}} />
+        <Button color="#000000" title="Retry" onPress={() => { props.navigation.navigate('Gameplay', { level: 1 }); }} />
+        <Button color="#000000" title="Change Level" onPress={() => { props.navigation.navigate('Levels'); }} />
+        <Button color="#000000" title="Main Menu" onPress={() => { props.navigation.navigate('Home'); }} />
       </View>
     </View>
   );
-};
+}
 
 FeedBackScreen.navigationOptions = {
   title: 'Feedback',
-  header: null
+  header: null,
 };
 
 const styles = StyleSheet.create({
@@ -66,7 +69,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   fbar: {
-    flex : 2,
+    flex: 2,
     justifyContent: 'center',
     resizeMode: 'contain',
   },
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
     width: '70%',
     justifyContent: 'center',
     resizeMode: 'contain',
-  }
+  },
 
 
 });
