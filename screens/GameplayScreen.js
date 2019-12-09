@@ -43,7 +43,7 @@ export default function GameplayScreen(props) {
   callbackFunction = (childData) => {
       //this.setState({message: childData})
       //console.log("hello")
-      //console.log(childData)
+      console.log(childData)
       props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: childData[0],numCorrectTaps: childData[1],precision:(childData[0]/childData[1])*100 });
   }
 

@@ -12,8 +12,8 @@ export default class GameEngine extends PureComponent {
     this.state = {
       x: WIDTH / 2 - RADIUS,
       y: HEIGHT / 2 - RADIUS,
-      size: 0,
-      growing: true,
+      size: RADIUS*12,
+      growing: false,
       running: true,
       startTime: 0,
       color: 'white',
@@ -25,10 +25,6 @@ export default class GameEngine extends PureComponent {
     };
     this.gameEngine = null;
   }
-
-  /*componentDidMount(){
-    this.gameEngine.focus();
-  }*/
 
   sendData = () => {
     var data = [this.state.numTaps, this.state.correctTaps]
@@ -78,7 +74,7 @@ export default class GameEngine extends PureComponent {
         numTaps: this.state.numTaps + 1,
       })
       if (this.state.showRed == false){
-        if (this.state.size > (RADIUS*12 - 25)){
+        if (this.state.size > (RADIUS*12 - 50)){
 
           this.setState({
           color: 'blue',
@@ -115,7 +111,6 @@ export default class GameEngine extends PureComponent {
         });
       }
     }
-    console.log("size: ",this.state.size)
     
     if (this.state.growing){
       if (this.state.size >= RADIUS*12){

@@ -49,8 +49,11 @@ export default function FeedBackScreen(props) {
 
       var newPrecision = ((userStats[0].averagePrecision*userStats[0].gamesPlayed)+props.navigation.getParam('precision'))/newGamesPlayed
 
-      let updatePrecision = ref.update({averagePrecision: newPrecision})
-      let updateGamesPlayed = ref.update({gamesPlayed: newGamesPlayed})
+      if (props.navigation.getParam('numTaps') > 0){
+        let updatePrecision = ref.update({averagePrecision: newPrecision})
+        let updateGamesPlayed = ref.update({gamesPlayed: newGamesPlayed})
+      }
+      
 
     }
 
