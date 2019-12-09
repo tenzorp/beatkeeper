@@ -25,6 +25,12 @@ export default function GameplayScreen(props) {
     },
   ]);
 
+  Audio.setAudioModeAsync({
+    playsInSilentModeIOS: true,
+    staysActiveInBackground: false
+
+  })  
+
   /*useFirestoreConnect([
     { collection: 'games',
       where:[
@@ -36,6 +42,8 @@ export default function GameplayScreen(props) {
   const gameStats = useSelector(state => state.firestore.ordered.games);
 
   const soundObject = new Audio.Sound();
+
+
 
  
     async function playSong() {
