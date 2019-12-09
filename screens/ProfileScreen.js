@@ -1,10 +1,11 @@
 import {
-  Image, StyleSheet, Text, View, Button,
+  Image, StyleSheet, Text, View, Button, TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useFirebase, useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 import feedbackBar from '../pictures/feedbackBar.png';
+import { AntDesign, Entypo } from "@expo/vector-icons";
 
 export default function ProfileScreen(props) {
   const firebase = useFirebase();
@@ -27,11 +28,15 @@ export default function ProfileScreen(props) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.headerView}>
+        <TouchableOpacity>
+          <AntDesign name={'arrowleft'} size={50} color={'#FFFFFF'} onPress={()=> {props.navigation.navigate('Home')}} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Entypo name={'log-out'} size={50} color={'#FFFFFF'} onPress={()=> { firebase.logout(profile);}} />
+        </TouchableOpacity>
+      </View>
       <View style={{ width: '90%', flex: 7 }}>
-        <View style={styles.buttons}>
-          <Button color="#000000" title="Back" onPress={() => { props.navigation.navigate('Home'); }} />
-          <Button color="#000000" title="Log out" onPress={() => { firebase.logout(profile); }} />
-        </View>
         <View style={styles.name}>
           <Text style={styles.title}>{profile.displayName}</Text>
         </View>
@@ -39,19 +44,19 @@ export default function ProfileScreen(props) {
           {userStats && (
           <Text style={styles.text}>
             Games played:
-            <Text style={{ fontWeight: 'bold' }}>{userStats[0].gamesPlayed}</Text>
+            <Text style={{ fontWeight: 'bold' }}> {userStats[0].gamesPlayed}</Text>
           </Text>
           )}
           {userStats && (
           <Text style={styles.text}>
             Current level:
-            <Text style={{ fontWeight: 'bold' }}>{userStats[0].highestLevel}</Text>
+            <Text style={{ fontWeight: 'bold' }}> {userStats[0].highestLevel}</Text>
           </Text>
           )}
           {userStats && (
           <Text style={styles.text}>
             Average accuracy:
-            <Text style={{ fontWeight: 'bold' }}>{Math.round(userStats[0].averagePrecision)}%</Text>
+            <Text style={{ fontWeight: 'bold' }}> {Math.round(userStats[0].averagePrecision)}%</Text>
           </Text>
           )}
           <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
@@ -74,6 +79,15 @@ const styles = StyleSheet.create({
     flex: 8,
     height: '100%',
   },
+  headerView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'flex-start',
+    marginVertical: 10,
+    marginHorizontal: '5%',
+    width: '90%'
+  },
   buttons: {
     flex: 1,
     flexDirection: 'row',
@@ -88,7 +102,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 24,
-    textAlign: 'left',
+    textAlign: 'center',
     color: 'white',
   },
   fbar: {
