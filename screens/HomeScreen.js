@@ -1,20 +1,37 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Hexagons from "../components/Hexagons";
 import React, { PropTypes, Component } from 'react';
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
+
+
 
 export default function HomeScreen(props) {
-    //console.log("this is what userStats is from DB:",userStats)
+    const firestore = useFirestore()
+    const auth = useSelector(state => state.firebase.auth);
 
-    /*if (userStats) {
-        console.log(userStats.length)
-        if (userStats.length < 1){
-            //console.log("hello yeah")
-        console.log("made it into the undefined section")
-        
-        //console.log("2: ",userStats)
-        }
-        
-    }*/
+    useFirestoreConnect([
+    { collection: 'overallStats',
+      where:[
+        ['uid', '==', auth.uid]
+      ] } 
+    ]);
+
+    var userStats = useSelector(state => state.firestore.ordered.overallStats);
+    //console.log(userStats)
+
+    const createNewUserStats = () => ({
+            highestLevel: 1,
+            gamesPlayed: 0,
+            averagePrecision: 0,
+    });
+
+    if (userStats && userStats.length < 1){
+
+        var userStats = createNewUserStats();
+        userStats.uid = auth.uid;
+        firestore.add({collection:'overallStats'}, userStats);
+    }
     
         return (
           <View style={styles.container}>
