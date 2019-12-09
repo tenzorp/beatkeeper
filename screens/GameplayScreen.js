@@ -41,7 +41,7 @@ export default function GameplayScreen(props) {
     async function playSong() {
         //const soundObject = new Audio.Sound();
       try {
-        await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
+        await soundObject.loadAsync(require('./../songs/easybeat1.mp3'));
         await soundObject.playAsync();
       }  catch (error) {
         console.log("error0");
@@ -94,7 +94,7 @@ export default function GameplayScreen(props) {
   callbackFunction = (childData) => {
       stopSong();
       props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: childData[0],numCorrectTaps: childData[1],precision:(childData[0]/childData[1])*100 });
-      stopSong();
+      //stopSong();
   }
 
 
