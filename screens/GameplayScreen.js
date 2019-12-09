@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React, { useState,useCallback } from 'react';
+import React, { useState,useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 import HexagonsGameplay from '../components/HexagonsGameplay';
@@ -13,6 +13,7 @@ export default function GameplayScreen(props) {
   const [modal, setModal] = useState(false);
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
+  var test = true;
 
   useFirestoreConnect([
     {
@@ -30,23 +31,35 @@ export default function GameplayScreen(props) {
       ] }
   ]);*/
 
-  const userStats = useSelector(state => state.firestore.ordered.overallStats);
-  const gameStats = useSelector(state => state.firestore.ordered.games);
+  //const userStats = useSelector(state => state.firestore.ordered.overallStats);
+  //const gameStats = useSelector(state => state.firestore.ordered.games);
 
   /*
   }*/
-
+  //console.log(data)
 
   //<HexagonsGameplay style={styles.hexagons} />
-
-
+  
   callbackFunction = (childData) => {
+      var data = childData;
+      if (test == true){
+        props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
+        test = false;
+      }
       //this.setState({message: childData})
       //console.log("hello")
       //console.log(childData)
-
-      props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: childData[0],numCorrectTaps: childData[1],precision:(childData[1]/childData[0])*100 });
+      //console.log(props.navigation)
+      //console.log("callback")
+      //console.log(data);
+      
+      //console.log(props.navigation)
   }
+
+  /*useEffect(() => {
+    console.log(data);
+    props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
+  },[data])*/
 
 
   return (

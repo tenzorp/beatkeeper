@@ -19,7 +19,7 @@ export default function FeedBackScreen(props) {
   var userStats = useSelector(state => state.firestore.ordered.overallStats);
 
   useEffect(() => {
-
+    console.log(props.navigation)
     var gamePrecision = Math.random()*100
 
     const createNewGame = () => ({
