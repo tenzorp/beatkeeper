@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import feedbackBar from '../pictures/feedbackBar.png';
 import stars from '../pictures/stars.png'
 import { useSelector } from 'react-redux';
@@ -16,17 +16,50 @@ export default function FeedBackScreen(props) {
       ] } 
     ]);
 
-    //console.log(userStats)
-
-    
-    
-    var gameStatsTest = useSelector(state => state.firestore.ordered.games);
-    console.log(gameStatsTest)
-//<Image style={styles.stars} source={stars} alt={"3 stars"} />
-//<Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
     var userStats = useSelector(state => state.firestore.ordered.overallStats);
     //console.log(userStats)
-    var highestLevel = userStats[0].highestLevel
+    //var highestLevel = userStats[0].highestLevel
+
+
+    useEffect(() => {
+
+        console.log("updating!")
+        
+        var gamePrecision = Math.random()*100
+
+        const createNewGame = () => ({
+          level: props.navigation.getParam('level'),
+          precision: gamePrecision,
+        });
+
+        const updateGames = () => {
+          var newGameStats = createNewGame();
+          newGameStats.uid = auth.uid;
+          firestore.add({collection:'games'}, newGameStats);
+        }
+
+        const updateStats = () => {
+          const ref = firestore.collection('overallStats').doc(userStats[0].id);
+          var newLevel = userStats[0].highestLevel+1
+
+          if (userStats[0].highestLevel == props.navigation.getParam('level')){
+            let updateLevel = ref.update({highestLevel: newLevel});
+          }
+
+          var newGamesPlayed = userStats[0].gamesPlayed+1
+          //var newPrecision = userStats[0].averagePrecision+1
+
+          var newPrecision = ((userStats[0].averagePrecision*userStats[0].gamesPlayed)+gamePrecision)/newGamesPlayed
+
+          let updatePrecision = ref.update({averagePrecision: newPrecision})
+          let updateGamesPlayed = ref.update({gamesPlayed: newGamesPlayed})
+
+        }
+
+        updateGames();
+        updateStats();
+        
+    }, []);
     
   return (
     <View style={styles.container}>
