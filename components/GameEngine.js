@@ -7,14 +7,14 @@ const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
 const RADIUS = 25;
 
 export default class GameEngine extends PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       x: WIDTH / 2 - RADIUS,
       y: HEIGHT / 2 - RADIUS,
       size: 0,
       growing: true,
-      running: true,
+      running: this.props.paused,
       startTime: 0,
       color: 'white',
       width: 2,
@@ -53,21 +53,23 @@ export default class GameEngine extends PureComponent {
     }
 
   updateHandler = ({ touches, screen, time }) => {
+    if (this.props.paused !== this.state.running) {
+      this.setState({running: this.props.paused});
+    }
     //console.log("updateHandler")
     if (this.state.startTime == 0){
       this.setState({
           startTime: time.current,
           running: true,
-        })
+        });
     }
 
     if (time.current > (this.state.startTime + 10000)){
       //this.gameEngine.dispatch({ type: "game-over"});
       this.setState({
         running: false,
-      })
+      });
       this.sendData();
-
     }
     if (this.state.running == true){
 
