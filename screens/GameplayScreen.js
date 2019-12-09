@@ -74,7 +74,11 @@ export default function GameplayScreen(props) {
             console.log("levels")}} />
         </TouchableOpacity>
         <TouchableOpacity>
+<<<<<<< HEAD
           <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={()=> setModal(!modal)}/>
+=======
+          <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={ () => setModal(!modal) } />
+>>>>>>> master
         </TouchableOpacity>
       </View>
       <View style={styles.titleView}>
@@ -85,6 +89,7 @@ export default function GameplayScreen(props) {
         style={styles.hexagons}
         parentCallback = {this.callbackFunction}
         dataFromParent = {props.navigation.getParam('speed')}
+        paused={!modal}
       />
     </View>
   );
