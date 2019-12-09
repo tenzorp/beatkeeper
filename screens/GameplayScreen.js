@@ -84,7 +84,7 @@ export default function GameplayScreen(props) {
           <AntDesign name={'arrowleft'} size={50} color={'#FFFFFF'} onPress={ () => props.navigation.navigate('Levels') } />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={ ()=> setModal(!modal) } />
+          <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={ () => setModal(!modal) } />
         </TouchableOpacity>
       </View>
       <View style={styles.titleView}>
@@ -95,6 +95,7 @@ export default function GameplayScreen(props) {
         style={styles.hexagons}
         parentCallback = {this.callbackFunction}
         dataFromParent = {props.navigation.getParam('speed')}
+        paused={!modal}
       />
     </View>
   );
