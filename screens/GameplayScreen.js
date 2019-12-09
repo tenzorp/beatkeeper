@@ -81,11 +81,10 @@ export default function GameplayScreen(props) {
       </Modal>
       <View style={styles.headerView}>
         <TouchableOpacity>
-          <AntDesign name={'arrowleft'} size={50} color={'#FFFFFF'} onPress={()=> {props.navigation.navigate('Levels')
-            console.log("levels")}} />
+          <AntDesign name={'arrowleft'} size={50} color={'#FFFFFF'} onPress={ () => props.navigation.navigate('Levels') } />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={()=> setModal(!modal)}/>
+          <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={ ()=> setModal(!modal) } />
         </TouchableOpacity>
       </View>
       <View style={styles.titleView}>
