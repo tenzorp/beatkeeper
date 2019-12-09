@@ -1,28 +1,65 @@
-import {
-  StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image,
-} from 'react-native';
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useFirestoreConnect } from 'react-redux-firebase';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import feedbackBar from '../pictures/feedbackBar.png';
-import stars from '../pictures/stars.png';
+import stars from '../pictures/stars.png'
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
 export default function FeedBackScreen(props) {
-  const auth = useSelector((state) => state.firebase.auth);
+  const firestore = useFirestore()
+  const auth = useSelector(state => state.firebase.auth);
 
   useFirestoreConnect([
-    {
-      collection: 'overallStats',
-      where: [
-        ['uid', '==', auth.uid],
-      ],
-    },
+    { collection: 'overallStats',
+      where:[
+        ['uid', '==', auth.uid]
+      ] }
   ]);
-  // <Image style={styles.stars} source={stars} alt={"3 stars"} />
-  // <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
-  const userStats = useSelector((state) => state.firestore.ordered.overallStats);
-  console.log(userStats);
-  const { highestLevel } = userStats[0];
+
+  var userStats = useSelector(state => state.firestore.ordered.overallStats);
+  //console.log(userStats)
+  //var highestLevel = userStats[0].highestLevel
+
+
+  useEffect(() => {
+
+    console.log("updating!")
+
+    var gamePrecision = Math.random()*100
+
+    const createNewGame = () => ({
+      level: props.navigation.getParam('level'),
+      precision: gamePrecision,
+    });
+
+    const updateGames = () => {
+      var newGameStats = createNewGame();
+      newGameStats.uid = auth.uid;
+      firestore.add({collection:'games'}, newGameStats);
+    }
+
+    const updateStats = () => {
+      const ref = firestore.collection('overallStats').doc(userStats[0].id);
+      var newLevel = userStats[0].highestLevel+1
+
+      if (userStats[0].highestLevel == props.navigation.getParam('level')){
+        let updateLevel = ref.update({highestLevel: newLevel});
+      }
+
+      var newGamesPlayed = userStats[0].gamesPlayed+1
+      //var newPrecision = userStats[0].averagePrecision+1
+
+      var newPrecision = ((userStats[0].averagePrecision*userStats[0].gamesPlayed)+gamePrecision)/newGamesPlayed
+
+      let updatePrecision = ref.update({averagePrecision: newPrecision})
+      let updateGamesPlayed = ref.update({gamesPlayed: newGamesPlayed})
+
+    }
+
+    updateGames();
+    updateStats();
+
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -30,17 +67,17 @@ export default function FeedBackScreen(props) {
         <Text style={styles.text}>Nice job!</Text>
       </View>
       <View style={styles.buttons}>
-        <Button color="#000000" title="Retry" onPress={() => { props.navigation.navigate('Gameplay', { level: 1 }); }} />
-        <Button color="#000000" title="Change Level" onPress={() => { props.navigation.navigate('Levels'); }} />
-        <Button color="#000000" title="Main Menu" onPress={() => { props.navigation.navigate('Home'); }} />
+        <Button color="#000000" title="Retry" onPress={()=>{props.navigation.navigate('Gameplay',{level:1})}} />
+        <Button color="#000000" title="Change Level" onPress={()=>{props.navigation.navigate('Levels')}} />
+        <Button color="#000000" title="Main Menu" onPress={()=>{props.navigation.navigate('Home')}} />
       </View>
     </View>
   );
-}
+};
 
 FeedBackScreen.navigationOptions = {
   title: 'Feedback',
-  header: null,
+  header: null
 };
 
 const styles = StyleSheet.create({
@@ -69,7 +106,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   fbar: {
-    flex: 2,
+    flex : 2,
     justifyContent: 'center',
     resizeMode: 'contain',
   },
@@ -78,7 +115,7 @@ const styles = StyleSheet.create({
     width: '70%',
     justifyContent: 'center',
     resizeMode: 'contain',
-  },
+  }
 
 
 });

@@ -4,7 +4,6 @@ import { useScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';
 import { ReactReduxFirebaseProvider, ReduxFirestoreProvider } from 'react-redux-firebase';
 import { PersistGate } from 'redux-persist/integration/react';
-import AppNavigator from './navigation/AppNavigator';
 import persistentStore, { store, rrfProps } from './store/store';
 import Root from './components/Root';
 

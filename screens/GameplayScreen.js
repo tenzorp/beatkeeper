@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 import HexagonsGameplay from '../components/HexagonsGameplay';
 import { AntDesign, Foundation } from '@expo/vector-icons';
-import { Button } from 'react-native';
 import Modal from 'react-native-modal';
 
 export default function GameplayScreen(props) {
@@ -22,28 +21,29 @@ export default function GameplayScreen(props) {
     },
   ]);
 
+  /*useFirestoreConnect([
+    { collection: 'games',
+      where:[
+        ['uid', '==', auth.uid]
+      ] }
+  ]);*/
 
-  const userStats = useSelector((state) => state.firestore.ordered.overallStats);
+  const userStats = useSelector(state => state.firestore.ordered.overallStats);
+  const gameStats = useSelector(state => state.firestore.ordered.games);
 
-  const updateStats = () => {
-    const ref = firestore.collection('overallStats').doc(userStats[0].id);
-    // console.log(ref);
-    const levelNew = userStats[0].highestLevel + 1;
-    console.log(userStats[0].highestLevel);
-    console.log(props.navigation.getParam('level'));
-    if (userStats[0].highestLevel == props.navigation.getParam('level')) {
-      const updateTimestamp = ref.update({ highestLevel: levelNew });
-      console.log('made it to the updating');
-    }
-  };
+  /*
+  }*/
 
   setTimeout(() => {
-    // firebase.auth().currentUser.updateProfile({highestLevel: props.navigation.getParam('level')+1});
-    updateStats();
     props.navigation.navigate('Feedback', { level: props.navigation.getParam('level') });
   }, 5000);
 
 
+  setTimeout(() => {
+
+      props.navigation.navigate('Feedback',{level:props.navigation.getParam('level')});
+
+  }, 5000);
   return (
     <View style={styles.container}>
       <Modal isVisible={modal}>
@@ -72,6 +72,7 @@ export default function GameplayScreen(props) {
         </TouchableOpacity>
       </View>
       <View style={styles.titleView}>
+        <Text style={styles.text}>Level {props.navigation.getParam('level')}</Text>
         <Text style={styles.text}>Tap on the screen when the hexagons match!</Text>
       </View>
       <HexagonsGameplay style={styles.hexagons} />

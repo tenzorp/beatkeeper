@@ -1,45 +1,69 @@
 import {
   StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
-import React, { PropTypes, Component } from 'react';
 import Hexagons from '../components/Hexagons';
+import React, { PropTypes, Component } from 'react';
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
 export default function HomeScreen(props) {
   // console.log("this is what userStats is from DB:",userStats)
 
   /* if (userStats) {
-        console.log(userStats.length)
-        if (userStats.length < 1){
-            //console.log("hello yeah")
-        console.log("made it into the undefined section")
+      console.log(userStats.length)
+      if (userStats.length < 1){
+          //console.log("hello yeah")
+      console.log("made it into the undefined section")
 
-        //console.log("2: ",userStats)
-        }
+      //console.log("2: ",userStats)
+      }
 
-    } */
+  } */
+  const firestore = useFirestore()
+  const auth = useSelector(state => state.firebase.auth);
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.title}>
-          <Text style={styles.headerText}>BEAT</Text>
-          <Text style={styles.headerText}>KEEPER</Text>
+  useFirestoreConnect([
+  { collection: 'overallStats',
+    where:[
+      ['uid', '==', auth.uid]
+    ] }
+  ]);
+
+  let userStats = useSelector(state => state.firestore.ordered.overallStats);
+  //console.log(userStats)
+
+  const createNewUserStats = () => ({
+    highestLevel: 1,
+    gamesPlayed: 0,
+    averagePrecision: 0,
+  });
+  if (userStats && userStats.length < 1){
+    let userStats = createNewUserStats();
+    userStats.uid = auth.uid;
+    firestore.add({collection:'overallStats'}, userStats);
+  }
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.title}>
+            <Text style={styles.headerText}>BEAT</Text>
+            <Text style={styles.headerText}>KEEPER</Text>
+          </View>
+          <View style={styles.buttonGroup}>
+            <TouchableOpacity onPress={() => props.navigation.navigate('Mode')}>
+              <Text style={styles.buttonText}>Play</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => props.navigation.navigate('Profile')}>
+              <Text style={styles.buttonText}>Profile</Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.buttonText}>Settings</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.buttonGroup}>
-          <TouchableOpacity onPress={() => props.navigation.navigate('Mode')}>
-            <Text style={styles.buttonText}>Play</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.navigation.navigate('Profile')}>
-            <Text style={styles.buttonText}>Profile</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.buttonText}>Settings</Text>
-          </TouchableOpacity>
-        </View>
+        <Hexagons style={styles.hexagons} />
       </View>
-      <Hexagons style={styles.hexagons} />
-    </View>
-  );
+    );
 }
 
 HomeScreen.navigationOptions = {

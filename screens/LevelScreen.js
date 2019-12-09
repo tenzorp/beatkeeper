@@ -20,14 +20,16 @@ export default function LevelScreen(props) {
     },
   ]);
 
-  const userStats = useSelector((state) => state.firestore.ordered.overallStats);
-  console.log(userStats);
-  if (userStats) {
-    var { highestLevel } = userStats[0];
-  } else {
-    var highestLevel = 1;
-  }
+  var userStats = useSelector(state => state.firestore.ordered.overallStats);
+  //console.log(userStats)
+  var highestLevel = 1
+  if (userStats){
+    if (userStats != []){
+      var highestLevel = userStats[0].highestLevel
+    }
+    //console.log("already played")
 
+  }
 
   return (
     <View style={styles.container}>
@@ -108,7 +110,7 @@ export default function LevelScreen(props) {
       </Grid>
     </View>
   );
-}
+};
 
 LevelScreen.navigationOptions = {
   title: 'Levels',
