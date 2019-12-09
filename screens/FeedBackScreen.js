@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import feedbackBar from '../pictures/feedbackBar.png';
 import stars from '../pictures/stars.png'
 import { useSelector } from 'react-redux';
-import { useFirestoreConnect } from 'react-redux-firebase';
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
 export default function FeedBackScreen(props) {
-
-  const auth = useSelector(state => state.firebase.auth);
+    const firestore = useFirestore()
+    const auth = useSelector(state => state.firebase.auth);
 
     useFirestoreConnect([
     { collection: 'overallStats',
@@ -15,10 +15,17 @@ export default function FeedBackScreen(props) {
         ['uid', '==', auth.uid]
       ] } 
     ]);
+
+    //console.log(userStats)
+
+    
+    
+    var gameStatsTest = useSelector(state => state.firestore.ordered.games);
+    console.log(gameStatsTest)
 //<Image style={styles.stars} source={stars} alt={"3 stars"} />
 //<Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
     var userStats = useSelector(state => state.firestore.ordered.overallStats);
-    console.log(userStats)
+    //console.log(userStats)
     var highestLevel = userStats[0].highestLevel
     
   return (

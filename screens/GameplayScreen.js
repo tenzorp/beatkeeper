@@ -16,25 +16,48 @@ export default function GameplayScreen(props) {
           ] } 
     ]);
 
-    const userStats = useSelector(state => state.firestore.ordered.overallStats);
+    useFirestoreConnect([
+        { collection: 'games',
+          where:[
+            ['uid', '==', auth.uid]
+          ] } 
+    ]);
 
+    const userStats = useSelector(state => state.firestore.ordered.overallStats);
+    const gameStats = useSelector(state => state.firestore.ordered.games);
+    console.log(gameStats)
     const updateStats = () => {
         const ref = firestore.collection('overallStats').doc(userStats[0].id);
         //console.log(ref);
         var levelNew = userStats[0].highestLevel+1
-        console.log(userStats[0].highestLevel)
-        console.log(props.navigation.getParam('level'))
+        //console.log(userStats[0].highestLevel)
+        //console.log(props.navigation.getParam('level'))
         if (userStats[0].highestLevel == props.navigation.getParam('level')){
             let updateTimestamp = ref.update({highestLevel: levelNew});
-            console.log("made it to the updating")
+            //console.log("made it to the updating")
         }
             
+    }
+
+    const createNewGame = () => ({
+            level: 1,
+            precision: 0,
+        });
+
+    const updateGames = () => {
+        console.log("updating")
+        var newGameStats = createNewGame();
+        newGameStats.uid = auth.uid;
+        firestore.add({collection:'games'}, newGameStats);
     }
 
     setTimeout(() => {
         //firebase.auth().currentUser.updateProfile({highestLevel: props.navigation.getParam('level')+1});
         updateStats();
+        updateGames();
+
         props.navigation.navigate('Feedback',{level:props.navigation.getParam('level')});
+    
     }, 5000);
 
     return (
