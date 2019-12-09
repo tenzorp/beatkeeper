@@ -17,13 +17,13 @@ export default function LevelScreen(props) {
     ]);
 
     var userStats = useSelector(state => state.firestore.ordered.overallStats);
-    console.log(userStats)
+    //console.log(userStats)
     var highestLevel = 1
     if (userStats){
         if (userStats != []){
             var highestLevel = userStats[0].highestLevel
         }
-        console.log("already played")
+        //console.log("already played")
         
     }
     

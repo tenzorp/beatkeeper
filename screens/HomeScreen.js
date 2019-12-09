@@ -4,8 +4,6 @@ import React, { PropTypes, Component } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
-
-
 export default function HomeScreen(props) {
     const firestore = useFirestore()
     const auth = useSelector(state => state.firebase.auth);

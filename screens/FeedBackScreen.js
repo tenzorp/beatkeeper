@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import feedbackBar from '../pictures/feedbackBar.png';
 import stars from '../pictures/stars.png'
 import { useSelector } from 'react-redux';
-import { useFirestoreConnect } from 'react-redux-firebase';
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
 export default function FeedBackScreen(props) {
-
-  const auth = useSelector(state => state.firebase.auth);
+    const firestore = useFirestore()
+    const auth = useSelector(state => state.firebase.auth);
 
     useFirestoreConnect([
     { collection: 'overallStats',
@@ -15,11 +15,51 @@ export default function FeedBackScreen(props) {
         ['uid', '==', auth.uid]
       ] } 
     ]);
-//<Image style={styles.stars} source={stars} alt={"3 stars"} />
-//<Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
+
     var userStats = useSelector(state => state.firestore.ordered.overallStats);
-    console.log(userStats)
-    var highestLevel = userStats[0].highestLevel
+    //console.log(userStats)
+    //var highestLevel = userStats[0].highestLevel
+
+
+    useEffect(() => {
+
+        console.log("updating!")
+        
+        var gamePrecision = Math.random()*100
+
+        const createNewGame = () => ({
+          level: props.navigation.getParam('level'),
+          precision: gamePrecision,
+        });
+
+        const updateGames = () => {
+          var newGameStats = createNewGame();
+          newGameStats.uid = auth.uid;
+          firestore.add({collection:'games'}, newGameStats);
+        }
+
+        const updateStats = () => {
+          const ref = firestore.collection('overallStats').doc(userStats[0].id);
+          var newLevel = userStats[0].highestLevel+1
+
+          if (userStats[0].highestLevel == props.navigation.getParam('level')){
+            let updateLevel = ref.update({highestLevel: newLevel});
+          }
+
+          var newGamesPlayed = userStats[0].gamesPlayed+1
+          //var newPrecision = userStats[0].averagePrecision+1
+
+          var newPrecision = ((userStats[0].averagePrecision*userStats[0].gamesPlayed)+gamePrecision)/newGamesPlayed
+
+          let updatePrecision = ref.update({averagePrecision: newPrecision})
+          let updateGamesPlayed = ref.update({gamesPlayed: newGamesPlayed})
+
+        }
+
+        updateGames();
+        updateStats();
+        
+    }, []);
     
   return (
     <View style={styles.container}>

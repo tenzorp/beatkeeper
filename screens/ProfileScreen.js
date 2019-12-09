@@ -35,7 +35,7 @@ export default function ProfileScreen(props) {
       <View style={styles.stats}>
         {userStats && <Text style={styles.text}>Games played: <Text style={{fontWeight:'bold'}}>{userStats[0].gamesPlayed}</Text></Text>}
         {userStats && <Text style={styles.text}>Current level: <Text style={{fontWeight:'bold'}}>{userStats[0].highestLevel}</Text></Text>}
-        {userStats && <Text style={styles.text}>Average accuracy: <Text style={{fontWeight:'bold'}}>{userStats[0].highestLevel}</Text></Text>}
+        {userStats && <Text style={styles.text}>Average accuracy: <Text style={{fontWeight:'bold'}}>{Math.round(userStats[0].averagePrecision)}%</Text></Text>}
         <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
       </View>
     </View>
