@@ -12,6 +12,7 @@ import {Audio} from 'expo-av';
 export default function GameplayScreen(props) {
   // console.log(props.navigation.getParam('level'))
   const [modal, setModal] = useState(false);
+  const [play, setplay] = useState("play");
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
 
@@ -34,18 +35,56 @@ export default function GameplayScreen(props) {
   const userStats = useSelector(state => state.firestore.ordered.overallStats);
   const gameStats = useSelector(state => state.firestore.ordered.games);
 
-  async function playSong() {
-      const soundObject = new Audio.Sound();
-    try {
-      await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
-      await soundObject.playAsync();
-    }  catch (error) {
-      console.log("error");
+  const soundObject = new Audio.Sound();
+
+ 
+    async function playSong() {
+        //const soundObject = new Audio.Sound();
+      try {
+        await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
+        await soundObject.playAsync();
+      }  catch (error) {
+        console.log("error0");
+      }
+
     }
+
+    async function pauseSong() {
+      //const soundObject = new Audio.Sound();
+      try {
+        //await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
+        await soundObject.pauseAsync();
+      }  catch (error) {
+        console.log("error1");
+      }
+
+    }; 
+
+    async function stopSong() {
+      //const soundObject = new Audio.Sound();
+      soundObject.stopAsync();
+      soundObject.setStatusAsync({shouldPlay: false, positionMillis: 0});
+
+    }; 
+
+  if (play === "play"){
+
+    playSong();
+
+  }; 
+
+  if (play === "pause") {
+    
+    pauseSong();
+    console.log("pause song");
 
   }
 
-  playSong();
+  if (play === "stop") {
+    //stopSong();
+    console.log("stopped");
+    stopSong();
+  }
   
 
 
@@ -53,10 +92,9 @@ export default function GameplayScreen(props) {
 
 
   callbackFunction = (childData) => {
-      //this.setState({message: childData})
-      //console.log("hello")
-      //console.log(childData)
+      stopSong();
       props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: childData[0],numCorrectTaps: childData[1],precision:(childData[0]/childData[1])*100 });
+      stopSong();
   }
 
 
