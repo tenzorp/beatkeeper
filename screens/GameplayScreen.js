@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState,useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 import HexagonsGameplay from '../components/HexagonsGameplay';
+import GameEngine from '../components/GameEngine';
 import { AntDesign, Foundation } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
+
 
 export default function GameplayScreen(props) {
   // console.log(props.navigation.getParam('level'))
@@ -34,16 +36,18 @@ export default function GameplayScreen(props) {
   /*
   }*/
 
-  setTimeout(() => {
-    props.navigation.navigate('Feedback', { level: props.navigation.getParam('level') });
-  }, 5000);
+
+  //<HexagonsGameplay style={styles.hexagons} />
 
 
-  setTimeout(() => {
+  callbackFunction = (childData) => {
+      //this.setState({message: childData})
+      //console.log("hello")
+      //console.log(childData)
+      props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: childData[0],numCorrectTaps: childData[1],precision:(childData[0]/childData[1])*100 });
+  }
 
-      props.navigation.navigate('Feedback',{level:props.navigation.getParam('level')});
 
-  }, 5000);
   return (
     <View style={styles.container}>
       <Modal isVisible={modal}>
@@ -74,9 +78,13 @@ export default function GameplayScreen(props) {
       </View>
       <View style={styles.titleView}>
         <Text style={styles.text}>Level {props.navigation.getParam('level')}</Text>
-        <Text style={styles.text}>Tap on the screen when the hexagons match!</Text>
+        <Text style={styles.text2}>Tap on the screen when the circles match!</Text>
       </View>
-      <HexagonsGameplay style={styles.hexagons} />
+      <GameEngine 
+        style={styles.hexagons}
+        parentCallback = {this.callbackFunction}
+        dataFromParent = {props.navigation.getParam('speed')}
+      />
     </View>
   );
 }
@@ -112,6 +120,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  text2: {
+    fontSize: 24,
+    color: 'white',
+    textAlign: 'center',
+    marginLeft: '5%',
+    marginRight: '5%',
   },
   hexagons: {
     flex: 8,
