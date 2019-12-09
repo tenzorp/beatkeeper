@@ -19,6 +19,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-easy-grid": "^0.2.2",
     "react-native-gesture-handler": "^1.5.0",
+    "react-native-modal": "^11.5.3",
     "react-native-screens": "^1.0.0-alpha.23",
     "react-native-swiper": "^1.5.14",
     "react-native-web": "^0.11.7",
@@ -35,13 +36,12 @@
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "babel-preset-expo": "^7.1.0",
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.2",
     "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-react-hooks": "^2.3.0"
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^1.7.0"
   },
   "private": true
 }

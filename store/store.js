@@ -1,21 +1,21 @@
 import { createStore, combineReducers } from 'redux';
 import firebase from 'firebase/app';
-import 'firebase/firestore' ;
-import { firestoreReducer, createFirestoreInstance } from 'redux-firestore' ;
+import 'firebase/firestore';
+import { firestoreReducer, createFirestoreInstance } from 'redux-firestore';
 import 'firebase/auth';
-import {firebaseReducer} from 'react-redux-firebase' ;
+import { firebaseReducer } from 'react-redux-firebase';
 import { persistStore, persistReducer } from 'redux-persist';
 import { AsyncStorage } from 'react-native';
 
 
-import {FIREBASE_KEY, FIREBASE_ID} from '../config.json';
+import { FIREBASE_KEY, FIREBASE_ID } from '../config.json';
 
 
 // initialize firebase and set up the firebase store
 const firebaseConfig = {
   apiKey: FIREBASE_KEY,
   authDomain: `${FIREBASE_ID}.firebaseapp.com`,
-  projectId: FIREBASE_ID
+  projectId: FIREBASE_ID,
 };
 
 
@@ -33,13 +33,13 @@ const rootReducer = combineReducers({
 });
 
 const persistanceConfig = {
-    key: 'storage',
-    storage: AsyncStorage
-}
+  key: 'storage',
+  storage: AsyncStorage,
+};
 
 const persistedReducer = persistReducer(persistanceConfig, rootReducer);
 
-const initialState = {firestore:{}};
+const initialState = { firestore: {} };
 
 export const store = createStore(persistedReducer, initialState);
 
@@ -50,8 +50,8 @@ export const rrfProps = {
   firebase,
   config: {
     userProfile: 'users',
-    useFirestoreForProfile: true 
+    useFirestoreForProfile: true,
   },
   dispatch: store.dispatch,
-  createFirestoreInstance 
-}
+  createFirestoreInstance,
+};

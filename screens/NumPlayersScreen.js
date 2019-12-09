@@ -1,4 +1,6 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
+import {
+  StyleSheet, Text, View, TextInput, TouchableOpacity, Button,
+} from 'react-native';
 import React, { useState } from 'react';
 
 
@@ -12,9 +14,10 @@ export default function NumPlayersScreen(props) {
           style={styles.input}
           placeholder="2"
           onChangeText={(num) => setNum(num)}
-          value={players.toString()}/>
+          value={players.toString()}
+        />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.next} onPress={()=> props.navigation.navigate('Difficulty')}>
+      <TouchableOpacity style={styles.next} onPress={() => props.navigation.navigate('Difficulty')}>
         <Text style={styles.nextText}>Next</Text>
       </TouchableOpacity>
     </View>
@@ -23,7 +26,7 @@ export default function NumPlayersScreen(props) {
 
 NumPlayersScreen.navigationOptions = {
   title: 'Number of Players',
-  header: null
+  header: null,
 };
 
 const styles = StyleSheet.create({
@@ -61,11 +64,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderWidth: 5,
     borderColor: 'white',
-    borderRadius: 10
+    borderRadius: 10,
   },
   nextText: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: 30,
-  }
+  },
 });

@@ -6,70 +6,70 @@ import { useSelector } from 'react-redux';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
 export default function FeedBackScreen(props) {
-    const firestore = useFirestore()
-    const auth = useSelector(state => state.firebase.auth);
+  const firestore = useFirestore()
+  const auth = useSelector(state => state.firebase.auth);
 
-    useFirestoreConnect([
+  useFirestoreConnect([
     { collection: 'overallStats',
       where:[
         ['uid', '==', auth.uid]
-      ] } 
-    ]);
+      ] }
+  ]);
 
-    var userStats = useSelector(state => state.firestore.ordered.overallStats);
-    //console.log(userStats)
-    //var highestLevel = userStats[0].highestLevel
+  var userStats = useSelector(state => state.firestore.ordered.overallStats);
+  //console.log(userStats)
+  //var highestLevel = userStats[0].highestLevel
 
 
-    useEffect(() => {
+  useEffect(() => {
 
-        console.log("updating!")
-        
-        var gamePrecision = Math.random()*100
+    console.log("updating!")
 
-        const createNewGame = () => ({
-          level: props.navigation.getParam('level'),
-          precision: gamePrecision,
-        });
+    var gamePrecision = Math.random()*100
 
-        const updateGames = () => {
-          var newGameStats = createNewGame();
-          newGameStats.uid = auth.uid;
-          firestore.add({collection:'games'}, newGameStats);
-        }
+    const createNewGame = () => ({
+      level: props.navigation.getParam('level'),
+      precision: gamePrecision,
+    });
 
-        const updateStats = () => {
-          const ref = firestore.collection('overallStats').doc(userStats[0].id);
-          var newLevel = userStats[0].highestLevel+1
+    const updateGames = () => {
+      var newGameStats = createNewGame();
+      newGameStats.uid = auth.uid;
+      firestore.add({collection:'games'}, newGameStats);
+    }
 
-          if (userStats[0].highestLevel == props.navigation.getParam('level')){
-            let updateLevel = ref.update({highestLevel: newLevel});
-          }
+    const updateStats = () => {
+      const ref = firestore.collection('overallStats').doc(userStats[0].id);
+      var newLevel = userStats[0].highestLevel+1
 
-          var newGamesPlayed = userStats[0].gamesPlayed+1
-          //var newPrecision = userStats[0].averagePrecision+1
+      if (userStats[0].highestLevel == props.navigation.getParam('level')){
+        let updateLevel = ref.update({highestLevel: newLevel});
+      }
 
-          var newPrecision = ((userStats[0].averagePrecision*userStats[0].gamesPlayed)+gamePrecision)/newGamesPlayed
+      var newGamesPlayed = userStats[0].gamesPlayed+1
+      //var newPrecision = userStats[0].averagePrecision+1
 
-          let updatePrecision = ref.update({averagePrecision: newPrecision})
-          let updateGamesPlayed = ref.update({gamesPlayed: newGamesPlayed})
+      var newPrecision = ((userStats[0].averagePrecision*userStats[0].gamesPlayed)+gamePrecision)/newGamesPlayed
 
-        }
+      let updatePrecision = ref.update({averagePrecision: newPrecision})
+      let updateGamesPlayed = ref.update({gamesPlayed: newGamesPlayed})
 
-        updateGames();
-        updateStats();
-        
-    }, []);
-    
+    }
+
+    updateGames();
+    updateStats();
+
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.feedback}>
-      <Text style={styles.text}>Nice job!</Text>
+        <Text style={styles.text}>Nice job!</Text>
       </View>
       <View style={styles.buttons}>
-      <Button color="#000000" title="Retry" onPress={()=>{props.navigation.navigate('Gameplay',{level:1})}} />
-      <Button color="#000000" title="Change Level" onPress={()=>{props.navigation.navigate('Levels')}} />
-      <Button color="#000000" title="Main Menu" onPress={()=>{props.navigation.navigate('Home')}} />
+        <Button color="#000000" title="Retry" onPress={()=>{props.navigation.navigate('Gameplay',{level:1})}} />
+        <Button color="#000000" title="Change Level" onPress={()=>{props.navigation.navigate('Levels')}} />
+        <Button color="#000000" title="Main Menu" onPress={()=>{props.navigation.navigate('Home')}} />
       </View>
     </View>
   );
