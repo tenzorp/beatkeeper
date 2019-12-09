@@ -1,11 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 import HexagonsGameplay from '../components/HexagonsGameplay';
+import { AntDesign, Foundation } from '@expo/vector-icons';
+import { Button } from 'react-native';
+import Modal from 'react-native-modal';
 
 export default function GameplayScreen(props) {
   // console.log(props.navigation.getParam('level'))
+  const [modal, setModal] = useState(false);
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
 
@@ -17,6 +21,7 @@ export default function GameplayScreen(props) {
       ],
     },
   ]);
+
 
   const userStats = useSelector((state) => state.firestore.ordered.overallStats);
 
@@ -41,10 +46,10 @@ export default function GameplayScreen(props) {
   return (
     <View style={styles.container}>
       <View style={styles.headerView}>
-        <Text style={styles.text}>
-Level
-          {props.navigation.getParam('level')}
-        </Text>
+        <AntDesign name={'arrowleft'} size={50} color={'#FFFFFF'}  />
+        <Foundation name={'pause'} size={50} color={'#FFFFFF'}  />
+      </View>
+      <View style={styles.titleView}>
         <Text style={styles.text}>Tap on the screen when the hexagons match!</Text>
       </View>
       <HexagonsGameplay style={styles.hexagons} />
@@ -52,9 +57,10 @@ Level
   );
 }
 
+
 GameplayScreen.navigationOptions = {
-  title: 'Gameplay',
-  header: null,
+  title: '',
+  header: null
 };
 
 const styles = StyleSheet.create({
@@ -64,9 +70,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 10,
-
   },
   headerView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+    width: '90%'
+  },
+  titleView: {
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
