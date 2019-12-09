@@ -7,18 +7,7 @@ import { useSelector } from 'react-redux';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
 export default function HomeScreen(props) {
-  // console.log("this is what userStats is from DB:",userStats)
 
-  /* if (userStats) {
-      console.log(userStats.length)
-      if (userStats.length < 1){
-          //console.log("hello yeah")
-      console.log("made it into the undefined section")
-
-      //console.log("2: ",userStats)
-      }
-
-  } */
   const firestore = useFirestore()
   const auth = useSelector(state => state.firebase.auth);
 

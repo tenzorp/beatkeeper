@@ -12,7 +12,6 @@ export default function Root() {
   const auth = useSelector(state => state.firebase.auth);
 
   var userStats = useSelector(state => state.firestore.ordered.overallStats);
-  //console.log(userStats)
 
   const login = (email, password) => {
     var credentials = {

@@ -17,9 +17,6 @@ export default function FeedBackScreen(props) {
   ]);
 
   var userStats = useSelector(state => state.firestore.ordered.overallStats);
-  //console.log(userStats)
-  //var highestLevel = userStats[0].highestLevel
-
 
   useEffect(() => {
 

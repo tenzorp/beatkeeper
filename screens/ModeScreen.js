@@ -7,7 +7,7 @@ export default function ModeScreen(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Choose a gameplay mode!</Text>
-      <TouchableOpacity onPress={() => props.navigation.navigate('Level')}>
+      <TouchableOpacity onPress={() => props.navigation.navigate('Levels')}>
         <Text style={styles.buttonText}>Tap</Text>
       </TouchableOpacity>
       <TouchableOpacity>

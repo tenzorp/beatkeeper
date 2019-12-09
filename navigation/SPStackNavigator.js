@@ -9,7 +9,7 @@ import FeedBackScreen from '../screens/FeedBackScreen';
 
 const SPStackNavigator = createStackNavigator({
   Mode: ModeScreen,
-  Level: LevelScreen,
+  Levels: LevelScreen,
   Difficulty: DifficultyScreen,
   Hexagons: HexagonsLevels,
   Gameplay: GameplayScreen,
