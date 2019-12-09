@@ -34,7 +34,6 @@ export default class GameEngine extends PureComponent {
 
   onEvent = (e) => {
         if (e.type === "game-over"){
-            //Alert.alert("Game Over");
             this.setState({
                 running: false
             });
@@ -42,7 +41,6 @@ export default class GameEngine extends PureComponent {
     }
 
     reset = () => {
-        //this.gameEngine.swap(this.setupWorld());
         this.setState({
             running: true
         });

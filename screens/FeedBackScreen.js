@@ -17,11 +17,8 @@ export default function FeedBackScreen(props) {
   ]);
 
   var userStats = useSelector(state => state.firestore.ordered.overallStats);
-  //console.log("numTaps: ",props.navigation.getParam('numTaps'))
 
   useEffect(() => {
-
-    console.log("updating!")
 
     var gamePrecision = Math.random()*100
 
@@ -47,6 +44,8 @@ export default function FeedBackScreen(props) {
       var newGamesPlayed = userStats[0].gamesPlayed+1
       //var newPrecision = userStats[0].averagePrecision+1
 
+      //console.log("prev total: ",(userStats[0].averagePrecision*userStats[0].gamesPlayed))
+      //console.log("new total: ",(userStats[0].averagePrecision*userStats[0].gamesPlayed)+props.navigation.getParam('precision'))
       var newPrecision = ((userStats[0].averagePrecision*userStats[0].gamesPlayed)+props.navigation.getParam('precision'))/newGamesPlayed
 
       if (props.navigation.getParam('numTaps') > 0){
@@ -70,7 +69,7 @@ export default function FeedBackScreen(props) {
         <Text style={styles.text2}>Only {props.navigation.getParam('numCorrectTaps')} taps were on beat.</Text>
       </View>
       <View style={styles.buttons}>
-        <Button color="#000000" title="Retry" onPress={()=>{props.navigation.navigate('Gameplay',{level:1})}} />
+        <Button color="#000000" title="Retry" onPress={()=>{props.navigation.navigate('Gameplay',{level:props.navigation.getParam('level')})}} />
         <Button color="#000000" title="Change Level" onPress={()=>{props.navigation.navigate('Levels')}} />
         <Button color="#000000" title="Main Menu" onPress={()=>{props.navigation.navigate('Home')}} />
       </View>
