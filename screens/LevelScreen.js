@@ -27,7 +27,6 @@ export default function LevelScreen(props) {
     if (userStats != []){
       var highestLevel = userStats[0].highestLevel
     }
-    //console.log("already played")
 
   }
 
@@ -41,7 +40,7 @@ export default function LevelScreen(props) {
           <Row style={styles.row}>
             <TouchableOpacity onPress={() => {
               if (highestLevel >= 1) {
-                props.navigation.navigate('Gameplay', { level: 1 });
+                props.navigation.navigate('Gameplay', { level: 1, speed:2 });
               }
             }}
             >
@@ -51,7 +50,7 @@ export default function LevelScreen(props) {
           <Row style={styles.row}>
             <TouchableOpacity onPress={() => {
               if (highestLevel >= 4) {
-                props.navigation.navigate('Gameplay', { level: 4 });
+                props.navigation.navigate('Gameplay', { level: 4,speed:5 });
               }
             }}
             >
@@ -59,7 +58,14 @@ export default function LevelScreen(props) {
             </TouchableOpacity>
           </Row>
           <Row style={styles.row}>
+          <TouchableOpacity onPress={() => {
+              if (highestLevel >= 7) {
+                props.navigation.navigate('Gameplay', { level: 7,speed:8 });
+              }
+            }}
+            >
             <Text style={[styles.level, highestLevel >= 7 ? styles.textvalid : styles.textinvalid]}>7</Text>
+          </TouchableOpacity>
           </Row>
           <Row style={styles.row}>
             <Text style={[styles.level, highestLevel >= 10 ? styles.textvalid : styles.textinvalid]}>10</Text>
@@ -69,7 +75,7 @@ export default function LevelScreen(props) {
           <Row style={styles.row}>
             <TouchableOpacity onPress={() => {
               if (highestLevel >= 2) {
-                props.navigation.navigate('Gameplay', { level: 2 });
+                props.navigation.navigate('Gameplay', { level: 2,speed:3 });
               }
             }}
             >
@@ -77,10 +83,24 @@ export default function LevelScreen(props) {
             </TouchableOpacity>
           </Row>
           <Row style={styles.row}>
+          <TouchableOpacity onPress={() => {
+              if (highestLevel >= 5) {
+                props.navigation.navigate('Gameplay', { level: 5,speed:6 });
+              }
+            }}
+            >
             <Text style={[styles.level, highestLevel >= 5 ? styles.textvalid : styles.textinvalid]}>5</Text>
+          </TouchableOpacity>
           </Row>
           <Row style={styles.row}>
+          <TouchableOpacity onPress={() => {
+              if (highestLevel >= 8) {
+                props.navigation.navigate('Gameplay', { level: 8, speed:9 });
+              }
+            }}
+            >
             <Text style={[styles.level, highestLevel >= 8 ? styles.textvalid : styles.textinvalid]}>8</Text>
+          </TouchableOpacity>
           </Row>
           <Row style={styles.row}>
             <Text style={[styles.level, highestLevel >= 11 ? styles.textvalid : styles.textinvalid]}>11</Text>
@@ -90,7 +110,7 @@ export default function LevelScreen(props) {
           <Row style={styles.row}>
             <TouchableOpacity onPress={() => {
               if (highestLevel >= 3) {
-                props.navigation.navigate('Gameplay', { level: 3 });
+                props.navigation.navigate('Gameplay', { level: 3,speed:4 });
               }
             }}
             >
@@ -98,10 +118,24 @@ export default function LevelScreen(props) {
             </TouchableOpacity>
           </Row>
           <Row style={styles.row}>
+          <TouchableOpacity onPress={() => {
+              if (highestLevel >= 6) {
+                props.navigation.navigate('Gameplay', { level: 6,speed:7 });
+              }
+            }}
+            >
             <Text style={[styles.level, highestLevel >= 6 ? styles.textvalid : styles.textinvalid]}>6</Text>
+          </TouchableOpacity>
           </Row>
           <Row style={styles.row}>
+          <TouchableOpacity onPress={() => {
+              if (highestLevel >= 9) {
+                props.navigation.navigate('Gameplay', { level: 9,speed:10 });
+              }
+            }}
+            >
             <Text style={[styles.level, highestLevel >= 9 ? styles.textvalid : styles.textinvalid]}>9</Text>
+          </TouchableOpacity>
           </Row>
           <Row style={styles.row}>
             <Text style={[styles.level, highestLevel >= 12 ? styles.textvalid : styles.textinvalid]}>12</Text>

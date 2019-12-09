@@ -17,6 +17,7 @@ export default function FeedBackScreen(props) {
   ]);
 
   var userStats = useSelector(state => state.firestore.ordered.overallStats);
+  //console.log("numTaps: ",props.navigation.getParam('numTaps'))
 
   useEffect(() => {
 
@@ -26,7 +27,7 @@ export default function FeedBackScreen(props) {
 
     const createNewGame = () => ({
       level: props.navigation.getParam('level'),
-      precision: gamePrecision,
+      precision: props.navigation.getParam('precision'),
     });
 
     const updateGames = () => {
@@ -46,7 +47,7 @@ export default function FeedBackScreen(props) {
       var newGamesPlayed = userStats[0].gamesPlayed+1
       //var newPrecision = userStats[0].averagePrecision+1
 
-      var newPrecision = ((userStats[0].averagePrecision*userStats[0].gamesPlayed)+gamePrecision)/newGamesPlayed
+      var newPrecision = ((userStats[0].averagePrecision*userStats[0].gamesPlayed)+props.navigation.getParam('precision'))/newGamesPlayed
 
       let updatePrecision = ref.update({averagePrecision: newPrecision})
       let updateGamesPlayed = ref.update({gamesPlayed: newGamesPlayed})
@@ -62,6 +63,8 @@ export default function FeedBackScreen(props) {
     <View style={styles.container}>
       <View style={styles.feedback}>
         <Text style={styles.text}>Nice job!</Text>
+        <Text style={styles.text2}>You tapped on the screen {props.navigation.getParam('numTaps')} times.</Text>
+        <Text style={styles.text2}>Only {props.navigation.getParam('numCorrectTaps')} taps were on beat.</Text>
       </View>
       <View style={styles.buttons}>
         <Button color="#000000" title="Retry" onPress={()=>{props.navigation.navigate('Gameplay',{level:1})}} />
@@ -100,6 +103,11 @@ const styles = StyleSheet.create({
     fontSize: 60,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: 'white',
+  },
+  text2:{
+    fontSize: 30,
+    textAlign: 'left',
     color: 'white',
   },
   fbar: {
