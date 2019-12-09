@@ -87,7 +87,8 @@ export default function GameplayScreen(props) {
             console.log("levels")}} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={ () => setModal(!modal) } />
+          { !modal && <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={()=> setModal(!modal)} /> }
+          { modal && <Foundation name={'play'} size={50} color={'#FFFFFF'}  onPress={()=> setModal(!modal)} /> }
         </TouchableOpacity>
       </View>
       <View style={styles.titleView}>
