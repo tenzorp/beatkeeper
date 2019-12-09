@@ -6,6 +6,7 @@ import HexagonsGameplay from '../components/HexagonsGameplay';
 import GameEngine from '../components/GameEngine';
 import { AntDesign, Foundation } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
+import {Audio} from 'expo-av'; 
 
 
 export default function GameplayScreen(props) {
@@ -33,8 +34,19 @@ export default function GameplayScreen(props) {
   const userStats = useSelector(state => state.firestore.ordered.overallStats);
   const gameStats = useSelector(state => state.firestore.ordered.games);
 
-  /*
-  }*/
+  async function playSong() {
+      const soundObject = new Audio.Sound();
+    try {
+      await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
+      await soundObject.playAsync();
+    }  catch (error) {
+      console.log("error");
+    }
+
+  }
+
+  playSong();
+  
 
 
   //<HexagonsGameplay style={styles.hexagons} />
@@ -69,11 +81,10 @@ export default function GameplayScreen(props) {
       </Modal>
       <View style={styles.headerView}>
         <TouchableOpacity>
-          <AntDesign name={'arrowleft'} size={50} color={'#FFFFFF'} onPress={()=> {props.navigation.navigate('Levels')
-            console.log("levels")}} />
+          <AntDesign name={'arrowleft'} size={50} color={'#FFFFFF'} onPress={ () => props.navigation.navigate('Levels') } />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={()=> setModal(!modal)}/>
+          <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={ ()=> setModal(!modal) } />
         </TouchableOpacity>
       </View>
       <View style={styles.titleView}>
