@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useFirebase, isLoaded, isEmpty, useFirestore } from 'react-redux-firebase';
+import { useFirebase, isLoaded, isEmpty, useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 import AppNavigator from '../navigation/AppNavigator';
 import LoginComponent from './LoginComponent'
 
@@ -9,9 +9,10 @@ export default function Root() {
 
 	const firebase = useFirebase()
 	const firestore = useFirestore()
-
 	const auth = useSelector(state => state.firebase.auth);
+
 	var userStats = useSelector(state => state.firestore.ordered.overallStats);
+	//console.log(userStats)
 
 	const login = (email, password) => {
 		var credentials = {
@@ -63,21 +64,6 @@ export default function Root() {
 	}
 
 	else if (!isEmpty(auth)){
-
-		const createNewUserStats = () => ({
-            highestLevel: 1,
-            gamesPlayed: 0,
-            averagePrecision: 0,
-    	});
-		if (userStats!=undefined){
-			if (userStats.length < 1){
-    		console.log("undefined made it to it")
-    		var userStats = createNewUserStats();
-        	userStats.uid = auth.uid;
-        	firestore.add({collection:'overallStats'}, userStats);
-    	}
-		}
-    	
 
 		return (
 			<View style={styles.container}>
