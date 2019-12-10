@@ -49,17 +49,41 @@ export default function GameplayScreen(props) {
   const songName = props.navigation.getParam('song');
   
   console.log(songName);
-    async function playSong() {
-        //const soundObject = new Audio.Sound();
+  async function playSong() {
 
+    const level = props.navigation.getParam('level');
+    const songName = props.navigation.getParam('song');
+    
+    console.log(level);
+      //const soundObject = new Audio.Sound();
+    if (level === 1){ 
       try {
         await soundObject.loadAsync(require('./../songs/easybeat1.mp3'));
         await soundObject.playAsync();
       }  catch (error) {
         console.log("error0");
       }
-
     }
+
+    if (level === 2){ 
+      try {
+        await soundObject.loadAsync(require('./../songs/mediumbeat.mp3'));
+        await soundObject.playAsync();
+      }  catch (error) {
+        console.log("error0");
+      }
+    }
+
+    if (level === 3){ 
+      try {
+        await soundObject.loadAsync(require('./../songs/hardbeat.mp3'));
+        await soundObject.playAsync();
+      }  catch (error) {
+        console.log("error0");
+      }
+    }
+
+  }
 
     async function pauseSong() {
       //const soundObject = new Audio.Sound();
@@ -75,7 +99,7 @@ export default function GameplayScreen(props) {
     async function stopSong() {
       //const soundObject = new Audio.Sound();
       soundObject.stopAsync();
-      soundObject.setStatusAsync({shouldPlay: false, positionMillis: 0});
+      //soundObject.setStatusAsync({shouldPlay: false, positionMillis: 0});
 
     }; 
 
@@ -119,7 +143,8 @@ export default function GameplayScreen(props) {
 
   callbackFunction = (childData) => {
     var data = childData;
-    stopSong();
+    //stopSong();
+    setplay("stop");
     if (test == true){
       props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
       test = false;

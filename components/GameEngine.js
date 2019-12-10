@@ -58,7 +58,7 @@ export default class GameEngine extends PureComponent {
         });
     }
 
-    if (time.current > (this.state.startTime + 10000)){
+    if (time.current > (this.state.startTime + 8000)){
       //this.gameEngine.dispatch({ type: "game-over"});
       this.setState({
         running: false,
