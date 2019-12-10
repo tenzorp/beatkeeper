@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 import Modal from 'react-native-modal';
 import cats from '../assets/cats.gif';
+import {AntDesign} from "@expo/vector-icons";
 
 export default function HomeScreen(props) {
 
@@ -41,6 +42,9 @@ export default function HomeScreen(props) {
       <View style={styles.container}>
         <Modal isVisible={modal}>
           <View style={styles.modal}>
+            <TouchableOpacity style={{margin: 0, alignSelf: 'flex-start'}}>
+              <AntDesign name={'arrowleft'} size={50} color={'#FFFFFF'} onPress={()=> {setModal(!modal)}} />
+            </TouchableOpacity>
             <Text style={styles.modalTitle}>About</Text>
             <Text style={styles.modalText}>This app was created by Hamza Kiyani, Tenzin Dorjee, & Zach Levitt!</Text>
             <Image
