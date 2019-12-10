@@ -75,7 +75,7 @@ export default class GameEngine extends PureComponent {
         });
     }
 
-    if (time.current > (this.state.startTime + 8000)){
+    if (time.current > (this.state.startTime + this.props.duration)){
       //this.gameEngine.dispatch({ type: "game-over"});
       this.setState({
         running: false,
@@ -153,7 +153,7 @@ export default class GameEngine extends PureComponent {
       }
       else {
         this.setState({
-          size: this.state.size + this.props.dataFromParent,
+          size: this.state.size + this.props.speed,
         })
       }
       
@@ -167,7 +167,7 @@ export default class GameEngine extends PureComponent {
       }
       else {
         this.setState({
-          size: this.state.size - this.props.dataFromParent,
+          size: this.state.size - this.props.speed,
         })
       }
     }
