@@ -6,12 +6,14 @@ import GameEngine from '../components/GameEngine';
 import { AntDesign, Foundation } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
 import {Audio} from 'expo-av';
+import { set } from 'gl-matrix/src/gl-matrix/vec2';
 
 
 export default function GameplayScreen(props) {
   // console.log(props.navigation.getParam('level'))
   const [modal, setModal] = useState(false);
   const [play, setplay] = useState("play");
+  const [reset, setReset] = useState(false);
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
   var test = true;
@@ -81,12 +83,9 @@ export default function GameplayScreen(props) {
 
     async function pauseSong() {
       //const soundObject = new Audio.Sound();
-      try {
+   
         //await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
-        await soundObject.pauseAsync();
-      }  catch (error) {
-        console.log("error1");
-      }
+        soundObject.pauseAsync();
 
     }; 
 
@@ -110,6 +109,13 @@ export default function GameplayScreen(props) {
 
   }
 
+  // if (modal === true) {
+  //   //setPlay("pause");
+  //   console.log("paused");
+  //   setPlay("stop");
+  //   //soundObject.stopAsync();
+  // }
+
   if (play === "stop") {
     //stopSong();
     //console.log("stopped");
@@ -120,7 +126,7 @@ export default function GameplayScreen(props) {
 
   callbackFunction = (childData) => {
       var data = childData;
-      setplay("stop");
+      setPlay("stop");
       //stopSong();
       if (test == true){
         //console.log(data)
@@ -139,13 +145,13 @@ export default function GameplayScreen(props) {
             <Text style={styles.text} onPress={() => setModal(!modal)}>Resume</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.text}>Retry</Text>
+            <Text style={styles.text} onPress={() => setReset(!reset)}>Retry</Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={styles.text}>Settings</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.text} onPress={() => props.navigation.navigate('Home')}>Home</Text>
+            <Text style={styles.text} onPress={() => props.navigation.navigate('Home')}>Main Menu</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -169,6 +175,8 @@ export default function GameplayScreen(props) {
         speed = {props.navigation.getParam('speed')}
         duration = {props.navigation.getParam('duration')}
         paused={!modal}
+        reset={reset}
+        setReset={() => {setReset(false); setModal(false);}}
       />
     </View>
   );
