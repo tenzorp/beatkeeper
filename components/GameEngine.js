@@ -104,13 +104,13 @@ export default class GameEngine extends PureComponent {
         }
           else {
             if (this.state.growing == true){
-              console.log("early tap")
+              //console.log("early tap")
               this.setState({
                 earlyTaps: this.state.earlyTaps + 1,
               });
             }
             else {
-              console.log("late tap")
+              //console.log("late tap")
               this.setState({
                 lateTaps: this.state.lateTaps + 1,
               });
