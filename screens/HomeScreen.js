@@ -25,6 +25,9 @@ export default function HomeScreen(props) {
     highestLevel: 1,
     gamesPlayed: 0,
     averagePrecision: 0,
+    averageLate: 0,
+    averageEarly: 0,
+    numTimesPlayed: [0,0,0],
   });
   if (userStats && userStats.length < 1){
     let userStats = createNewUserStats();
@@ -46,7 +49,7 @@ export default function HomeScreen(props) {
               <Text style={styles.buttonText}>Profile</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text style={styles.buttonText}>Settings</Text>
+              <Text style={styles.buttonText}>About</Text>
             </TouchableOpacity>
           </View>
         </View>
