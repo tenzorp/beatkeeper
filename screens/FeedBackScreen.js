@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import feedbackBar from '../pictures/feedbackBar.png';
-import stars from '../pictures/stars.png'
 import { useSelector } from 'react-redux';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 
@@ -74,8 +72,6 @@ export default function FeedBackScreen(props) {
       
 
     }
-
-    updateGames();
     updateStats();
 
   }, []);
