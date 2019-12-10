@@ -38,24 +38,46 @@ export default function GameplayScreen(props) {
       ] }
   ]);*/
 
-  const userStats = useSelector(state => state.firestore.ordered.overallStats);
-  const gameStats = useSelector(state => state.firestore.ordered.games);
-
   const soundObject = new Audio.Sound();
 
 
+  
+  //console.log(songName);
+  async function playSong() {
 
- 
-    async function playSong() {
-        //const soundObject = new Audio.Sound();
+    const level = props.navigation.getParam('level');
+    //const songName = props.navigation.getParam('song');
+    
+    console.log(level);
+      //const soundObject = new Audio.Sound();
+    if (level === 1){ 
       try {
         await soundObject.loadAsync(require('./../songs/easybeat1.mp3'));
         await soundObject.playAsync();
       }  catch (error) {
         console.log("error0");
       }
-
     }
+
+    if (level === 2){ 
+      try {
+        await soundObject.loadAsync(require('./../songs/mediumbeat.mp3'));
+        await soundObject.playAsync();
+      }  catch (error) {
+        console.log("error0");
+      }
+    }
+
+    if (level === 3){ 
+      try {
+        await soundObject.loadAsync(require('./../songs/hardbeat.mp3'));
+        await soundObject.playAsync();
+      }  catch (error) {
+        console.log("error0");
+      }
+    }
+
+  }
 
     async function pauseSong() {
       //const soundObject = new Audio.Sound();
@@ -71,7 +93,7 @@ export default function GameplayScreen(props) {
     async function stopSong() {
       //const soundObject = new Audio.Sound();
       soundObject.stopAsync();
-      soundObject.setStatusAsync({shouldPlay: false, positionMillis: 0});
+      //soundObject.setStatusAsync({shouldPlay: false, positionMillis: 0});
 
     }; 
 
@@ -144,7 +166,8 @@ export default function GameplayScreen(props) {
       <GameEngine 
         style={styles.hexagons}
         parentCallback = {this.callbackFunction}
-        dataFromParent = {props.navigation.getParam('speed')}
+        speed = {props.navigation.getParam('speed')}
+        duration = {props.navigation.getParam('duration')}
         paused={!modal}
       />
     </View>
