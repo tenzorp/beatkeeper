@@ -112,11 +112,24 @@ export default function GameplayScreen(props) {
 
   //<HexagonsGameplay style={styles.hexagons} />
   
+
+
   callbackFunction = (childData) => {
-      stopSong();
-      props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: childData[0],numCorrectTaps: childData[1],precision:(childData[0]/childData[1])*100 });
-      //stopSong();
-  }
+    var data = childData;
+    stopSong();
+    if (test == true){
+      props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
+      test = false;
+    }
+    //this.setState({message: childData})
+    //console.log("hello")
+    //console.log(childData)
+    //console.log(props.navigation)
+    //console.log("callback")
+    //console.log(data);
+    
+    //console.log(props.navigation)
+}
 
   /*useEffect(() => {
     console.log(data);
