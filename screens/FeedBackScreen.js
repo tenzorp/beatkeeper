@@ -66,8 +66,17 @@ export default function FeedBackScreen(props) {
       if (props.navigation.getParam('numTaps') > 0){
         let updatePrecision = ref.update({averagePrecision: newPrecision})
         let updateGamesPlayed = ref.update({gamesPlayed: newGamesPlayed})
-        let updateLate = ref.update({averageLate: averageLate})
-        let updateEarly = ref.update({averageEarly: averageEarly})
+
+
+        if (userStats[0].averageEarly == 0 && userStats[0].averageLate == 0){
+          let updateEarly = ref.update({averageEarly: percentEarly})
+          let updateLate = ref.update({averageLate: percentLate})
+        }
+
+        else {
+          let updateLate = ref.update({averageLate: averageLate})
+          let updateEarly = ref.update({averageEarly: averageEarly})
+        }
       }
       
 
