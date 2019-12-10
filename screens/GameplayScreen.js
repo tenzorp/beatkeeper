@@ -7,12 +7,14 @@ import GameEngine from '../components/GameEngine';
 import { AntDesign, Foundation } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
 import {Audio} from 'expo-av';
+import {GameLoop} from "react-native-game-engine";
 
 
 export default function GameplayScreen(props) {
   // console.log(props.navigation.getParam('level'))
   const [modal, setModal] = useState(false);
-  const [play, setplay] = useState("play");
+  const [reset, setReset] = useState(false);
+  const [play, setPlay] = useState("play");
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
   var test = true;
@@ -87,15 +89,13 @@ export default function GameplayScreen(props) {
     pauseSong();
     console.log("pause song");
 
-  }
+  };
 
   if (play === "stop") {
     //stopSong();
     console.log("stopped");
     stopSong();
-  }
-  
-
+  };
 
   callbackFunction = (childData) => {
       var data = childData;
@@ -117,10 +117,7 @@ export default function GameplayScreen(props) {
             <Text style={styles.text} onPress={() => setModal(!modal)}>Resume</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.text}>Retry</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.text}>Settings</Text>
+            <Text style={styles.text} onPress={() => setReset(!reset)}>Retry</Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={styles.text} onPress={() => props.navigation.navigate('Home')}>Home</Text>
@@ -141,11 +138,13 @@ export default function GameplayScreen(props) {
         <Text style={styles.text}>Level {props.navigation.getParam('level')}</Text>
         <Text style={styles.text2}>Tap on the screen when the circles match!</Text>
       </View>
-      <GameEngine 
+      <GameEngine
         style={styles.hexagons}
         parentCallback = {this.callbackFunction}
         dataFromParent = {props.navigation.getParam('speed')}
         paused={!modal}
+        reset={reset}
+        setReset={() => {setReset(false); setModal(false)}}
       />
     </View>
   );
@@ -210,7 +209,7 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   modalText: {
-    fontSize: 30,
+    fontSize: 40,
     color: 'white',
     textAlign: 'center',
     marginVertical: 10
