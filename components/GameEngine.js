@@ -1,10 +1,24 @@
 import React, { PureComponent } from "react";
 import { AppRegistry, StyleSheet, Dimensions, View } from "react-native";
 import { GameLoop } from "react-native-game-engine";
-import {useFocusEffect  } from 'react-navigation-hooks';
+import { useFocusEffect } from 'react-navigation-hooks';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
 const RADIUS = 25;
+const baseState = {
+  x: WIDTH / 2 - RADIUS,
+  y: HEIGHT / 2 - RADIUS,
+  size: RADIUS*12,
+  growing: false,
+  running: true,
+  startTime: 0,
+  color: 'white',
+  width: 2,
+  showRed: false,
+  counter: 0,
+  numTaps: 0,
+  correctTaps: 0,
+};
 
 export default class GameEngine extends PureComponent {
   constructor(props) {
@@ -22,35 +36,36 @@ export default class GameEngine extends PureComponent {
       counter: 0,
       numTaps: 0,
       correctTaps: 0,
+      lateTaps: 0,
+      earlyTaps: 0,
     };
     this.gameEngine = null;
   }
 
   sendData = () => {
-    var data = [this.state.numTaps, this.state.correctTaps]
+    var data = [this.state.numTaps, this.state.correctTaps, this.state.earlyTaps, this.state.lateTaps]
     this.props.parentCallback(data);
   }
 
 
   onEvent = (e) => {
-        if (e.type === "game-over"){
-            this.setState({
-                running: false
-            });
-        }
+    if (e.type === "game-over"){
+      this.setState({
+          running: false
+      });
     }
-
-    reset = () => {
-        this.setState({
-            running: true
-        });
-    }
+  };
 
   updateHandler = ({ touches, screen, time }) => {
     if (this.props.paused !== this.state.running) {
       this.setState({running: this.props.paused});
     }
-    //console.log("updateHandler")
+
+    if (this.props.reset) {
+      this.props.setReset(false);
+      this.setState(baseState);
+    }
+
     if (this.state.startTime == 0){
       this.setState({
           startTime: time.current,
@@ -58,7 +73,7 @@ export default class GameEngine extends PureComponent {
         });
     }
 
-    if (time.current > (this.state.startTime + 8000)){
+    if (time.current > (this.state.startTime + this.props.duration)){
       //this.gameEngine.dispatch({ type: "game-over"});
       this.setState({
         running: false,
@@ -84,12 +99,26 @@ export default class GameEngine extends PureComponent {
         });
         }
           else {
+            if (this.state.growing == true){
+              console.log("early tap")
+              this.setState({
+                earlyTaps: this.state.earlyTaps + 1,
+              });
+            }
+            else {
+              console.log("late tap")
+              this.setState({
+                lateTaps: this.state.lateTaps + 1,
+              });
+            }
+
             this.setState({
               color: 'red',
               width: 10,
               showRed: true,
             });
           }
+
       }
         
     }
@@ -120,7 +149,7 @@ export default class GameEngine extends PureComponent {
       }
       else {
         this.setState({
-          size: this.state.size + this.props.dataFromParent,
+          size: this.state.size + this.props.speed,
         })
       }
       
@@ -134,7 +163,7 @@ export default class GameEngine extends PureComponent {
       }
       else {
         this.setState({
-          size: this.state.size - this.props.dataFromParent,
+          size: this.state.size - this.props.speed,
         })
       }
     }
@@ -147,8 +176,7 @@ export default class GameEngine extends PureComponent {
     //console.log(HEIGHT)
     return (
       <GameLoop 
-        ref={(ref) => { this.gameEngine = ref; }}
-        style={styles.container} 
+        style={styles.container}
         onUpdate={this.updateHandler}
         running={this.state.running}
         onEvent={this.onEvent}>

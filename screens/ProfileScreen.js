@@ -36,7 +36,7 @@ export default function ProfileScreen(props) {
           <Entypo name={'log-out'} size={50} color={'#FFFFFF'} onPress={()=> { firebase.logout(profile);}} />
         </TouchableOpacity>
       </View>
-      <View style={{ width: '90%', flex: 7 }}>
+      <View style={{ width: '80%', flex: 7 }}>
         <View style={styles.name}>
           <Text style={styles.title}>{profile.displayName}</Text>
         </View>
@@ -54,12 +54,21 @@ export default function ProfileScreen(props) {
           </Text>
           )}
           {userStats && (
-          <Text style={styles.text}>
-            Average accuracy:
-            <Text style={{ fontWeight: 'bold' }}> {Math.round(userStats[0].averagePrecision)}%</Text>
+          <Text style={[styles.text, {marginTop:'5%'}]}>
+            You are on beat
+            <Text style={{ fontWeight: 'bold' }}> {Math.round(userStats[0].averagePrecision)}% </Text>
+            of the time.
           </Text>
           )}
-          <Image style={styles.fbar} source={feedbackBar} alt="feedbackBar" />
+          {userStats && (
+          <Text style={[styles.text, {marginTop:'5%'}]}>
+            When you mess up, you are 
+            <Text style={{ fontWeight: 'bold' }}> {Math.round(userStats[0].averageLate)}% </Text>
+            late and 
+            <Text style={{ fontWeight: 'bold' }}> {Math.round(userStats[0].averageEarly)}% </Text>
+            early.
+          </Text>
+          )}
         </View>
       </View>
     </View>
@@ -101,8 +110,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   text: {
-    fontSize: 24,
-    textAlign: 'center',
+    fontSize: 36,
+    textAlign: 'left',
     color: 'white',
   },
   fbar: {
