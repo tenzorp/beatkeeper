@@ -36,12 +36,14 @@ export default class GameEngine extends PureComponent {
       counter: 0,
       numTaps: 0,
       correctTaps: 0,
+      lateTaps: 0,
+      earlyTaps: 0,
     };
     this.gameEngine = null;
   }
 
   sendData = () => {
-    var data = [this.state.numTaps, this.state.correctTaps]
+    var data = [this.state.numTaps, this.state.correctTaps, this.state.earlyTaps, this.state.lateTaps]
     this.props.parentCallback(data);
   }
 
@@ -97,12 +99,26 @@ export default class GameEngine extends PureComponent {
         });
         }
           else {
+            if (this.state.growing == true){
+              console.log("early tap")
+              this.setState({
+                earlyTaps: this.state.earlyTaps + 1,
+              });
+            }
+            else {
+              console.log("late tap")
+              this.setState({
+                lateTaps: this.state.lateTaps + 1,
+              });
+            }
+
             this.setState({
               color: 'red',
               width: 10,
               showRed: true,
             });
           }
+
       }
         
     }

@@ -13,11 +13,8 @@ import {GameLoop} from "react-native-game-engine";
 export default function GameplayScreen(props) {
   // console.log(props.navigation.getParam('level'))
   const [modal, setModal] = useState(false);
-<<<<<<< HEAD
   const [reset, setReset] = useState(false);
-=======
-  const [play, setplay] = useState("play");
->>>>>>> a07e77dd8fa4f046c8233e67867f9d515176ac12
+  const [play, setPlay] = useState("play");
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
   var test = true;
@@ -99,42 +96,16 @@ export default function GameplayScreen(props) {
     console.log("stopped");
     stopSong();
   };
-  
-  /*useFirestoreConnect([
-    { collection: 'games',
-      where:[
-        ['uid', '==', auth.uid]
-      ] }
-  ]);*/
-
-  //const userStats = useSelector(state => state.firestore.ordered.overallStats);
-  //const gameStats = useSelector(state => state.firestore.ordered.games);
-
-  /*
-  }*/
-  //console.log(data)
 
   callbackFunction = (childData) => {
-    var data = childData;
-    stopSong();
-    if (test == true){
-      props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
-      test = false;
-    }
-    //this.setState({message: childData})
-    //console.log("hello")
-    //console.log(childData)
-    //console.log(props.navigation)
-    //console.log("callback")
-    //console.log(data);
-    
-    //console.log(props.navigation)
-}
-
-  /*useEffect(() => {
-    console.log(data);
-    props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
-  },[data])*/
+      var data = childData;
+      stopSong();
+      if (test == true){
+        //console.log(data)
+        props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100,earlyTaps:data[2],lateTaps:data[3]});
+        test = false;
+      }
+  }
 
 
   return (
