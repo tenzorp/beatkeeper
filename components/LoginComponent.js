@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Text, View, TextInput, Keyboard, TouchableWithoutFeedback, Button, StyleSheet,
+  Text, View, TextInput, Keyboard, TouchableWithoutFeedback, Button, StyleSheet, TouchableOpacity
 } from 'react-native';
 import { Switch } from 'react-native-gesture-handler';
 
@@ -37,7 +37,7 @@ export default function LoginComponent({ login, createAccount, style }) {
           <Text style={styles.headerText}>KEEPER</Text>
         </View>
         <View style={styles.login}>
-          <Text style={{ fontSize: 24, marginBottom: '5%' }}>Create an account or log in</Text>
+          <Text style={styles.subtitle}>Create an account or log in!</Text>
           { newAccount && (
           <LabeledTextInput
             label="Username"
@@ -65,17 +65,20 @@ export default function LoginComponent({ login, createAccount, style }) {
               onValueChange={setNewAccount}
             />
           </View>
-          <Button
-            title={newAccount ? 'Create Account' : 'Log In'}
-            disabled={!email || !password || (newAccount && !username)}
-            onPress={() => {
-              if (newAccount) {
-                createAccount(email, password, username);
-              } else {
-                login(email, password);
-              }
-            }}
-          />
+          <TouchableOpacity>
+            <Button
+              title={newAccount ? 'Create Account' : 'Log In'}
+              disabled={!email || !password || (newAccount && !username)}
+              style={styles.loginButton}
+              onPress={() => {
+                if (newAccount) {
+                  createAccount(email, password, username);
+                } else {
+                  login(email, password);
+                }
+              }}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -84,7 +87,7 @@ export default function LoginComponent({ login, createAccount, style }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 7,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: '#FFE632',
@@ -109,7 +112,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   formRow: {
-    width: '80%',
+    width: '85%',
     margin: 10,
     flexDirection: 'row',
     alignItems: 'stretch',
@@ -118,13 +121,28 @@ const styles = StyleSheet.create({
   label: {
     flex: 1,
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 22,
+    color: 'white'
+  },
+  subtitle: {
+    fontSize: 28,
+    textAlign: 'center',
+    marginVertical: '10%',
+    fontWeight: 'bold',
+    color: 'white',
   },
   textInput: {
-    flex: 2,
-    fontSize: 20,
+    width: '65%',
+    fontSize: 24,
     borderStyle: 'solid',
-    borderColor: '#888',
-    borderWidth: 1,
+    borderColor: 'white',
+    borderWidth: 3,
+    borderRadius: 5,
+    bottom: 5,
+    color: 'white',
+    padding: 2
   },
+  loginButton: {
+    color: 'white'
+  }
 });

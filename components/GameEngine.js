@@ -18,6 +18,7 @@ const baseState = {
   counter: 0,
   numTaps: 0,
   correctTaps: 0,
+  reset: false
 };
 
 export default class GameEngine extends PureComponent {
@@ -38,6 +39,7 @@ export default class GameEngine extends PureComponent {
       correctTaps: 0,
       lateTaps: 0,
       earlyTaps: 0,
+      reset: this.props.reset
     };
     this.gameEngine = null;
   }
@@ -61,9 +63,9 @@ export default class GameEngine extends PureComponent {
       this.setState({running: this.props.paused});
     }
 
-    if (this.props.reset) {
-      this.props.setReset(false);
+    if (this.props.reset !== this.state.reset) {
       this.setState(baseState);
+      this.props.setReset();
     }
 
     if (this.state.startTime == 0){
@@ -79,6 +81,8 @@ export default class GameEngine extends PureComponent {
         running: false,
       });
       this.sendData();
+      this.setState(baseState);
+      this.props.setReset()
     }
     if (this.state.running == true){
 
