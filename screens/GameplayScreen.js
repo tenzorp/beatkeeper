@@ -47,10 +47,13 @@ export default function GameplayScreen(props) {
   const soundObject = new Audio.Sound();
 
 
-
- 
+  const level = props.navigation.getParam('level');
+  const songName = props.navigation.getParam('song');
+  
+  console.log(songName);
     async function playSong() {
         //const soundObject = new Audio.Sound();
+
       try {
         await soundObject.loadAsync(require('./../songs/easybeat1.mp3'));
         await soundObject.playAsync();
