@@ -38,9 +38,6 @@ export default function GameplayScreen(props) {
       ] }
   ]);*/
 
-  const userStats = useSelector(state => state.firestore.ordered.overallStats);
-  const gameStats = useSelector(state => state.firestore.ordered.games);
-
   const soundObject = new Audio.Sound();
 
 
