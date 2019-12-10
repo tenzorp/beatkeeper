@@ -13,7 +13,11 @@ import {GameLoop} from "react-native-game-engine";
 export default function GameplayScreen(props) {
   // console.log(props.navigation.getParam('level'))
   const [modal, setModal] = useState(false);
+<<<<<<< HEAD
   const [reset, setReset] = useState(false);
+=======
+  const [play, setplay] = useState("play");
+>>>>>>> a07e77dd8fa4f046c8233e67867f9d515176ac12
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
   var test = true;
@@ -27,18 +31,75 @@ export default function GameplayScreen(props) {
     },
   ]);
 
-  async function playSong() {
-      const soundObject = new Audio.Sound();
-    try {
-      await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
-      await soundObject.playAsync();
-    }  catch (error) {
-      console.log("error");
+  Audio.setAudioModeAsync({
+    playsInSilentModeIOS: true,
+    staysActiveInBackground: false
+
+  })  
+
+  /*useFirestoreConnect([
+    { collection: 'games',
+      where:[
+        ['uid', '==', auth.uid]
+      ] }
+  ]);*/
+
+  const userStats = useSelector(state => state.firestore.ordered.overallStats);
+  const gameStats = useSelector(state => state.firestore.ordered.games);
+
+  const soundObject = new Audio.Sound();
+
+
+
+ 
+    async function playSong() {
+        //const soundObject = new Audio.Sound();
+      try {
+        await soundObject.loadAsync(require('./../songs/easybeat1.mp3'));
+        await soundObject.playAsync();
+      }  catch (error) {
+        console.log("error0");
+      }
+
     }
 
-  }
+    async function pauseSong() {
+      //const soundObject = new Audio.Sound();
+      try {
+        //await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
+        await soundObject.pauseAsync();
+      }  catch (error) {
+        console.log("error1");
+      }
 
-  playSong();
+    }; 
+
+    async function stopSong() {
+      //const soundObject = new Audio.Sound();
+      soundObject.stopAsync();
+      soundObject.setStatusAsync({shouldPlay: false, positionMillis: 0});
+
+    }; 
+
+  if (play === "play"){
+
+    playSong();
+
+  }; 
+
+  if (play === "pause") {
+    
+    pauseSong();
+    console.log("pause song");
+
+  };
+
+  if (play === "stop") {
+    //stopSong();
+    console.log("stopped");
+    stopSong();
+  };
+  
   /*useFirestoreConnect([
     { collection: 'games',
       where:[
@@ -54,12 +115,21 @@ export default function GameplayScreen(props) {
   //console.log(data)
 
   callbackFunction = (childData) => {
-      var data = childData;
-      if (test == true){
-        props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
-        test = false;
-      }
-  }
+    var data = childData;
+    stopSong();
+    if (test == true){
+      props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
+      test = false;
+    }
+    //this.setState({message: childData})
+    //console.log("hello")
+    //console.log(childData)
+    //console.log(props.navigation)
+    //console.log("callback")
+    //console.log(data);
+    
+    //console.log(props.navigation)
+}
 
   /*useEffect(() => {
     console.log(data);
