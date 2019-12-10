@@ -2,19 +2,16 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useState,useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
-import HexagonsGameplay from '../components/HexagonsGameplay';
 import GameEngine from '../components/GameEngine';
 import { AntDesign, Foundation } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
 import {Audio} from 'expo-av';
-import {GameLoop} from "react-native-game-engine";
 
 
 export default function GameplayScreen(props) {
   // console.log(props.navigation.getParam('level'))
   const [modal, setModal] = useState(false);
-  const [reset, setReset] = useState(false);
-  const [play, setPlay] = useState("play");
+  const [play, setplay] = useState("play");
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
   var test = true;
@@ -47,13 +44,10 @@ export default function GameplayScreen(props) {
   const soundObject = new Audio.Sound();
 
 
-  const level = props.navigation.getParam('level');
-  const songName = props.navigation.getParam('song');
-  
-  console.log(songName);
+
+ 
     async function playSong() {
         //const soundObject = new Audio.Sound();
-
       try {
         await soundObject.loadAsync(require('./../songs/easybeat1.mp3'));
         await soundObject.playAsync();
@@ -92,17 +86,20 @@ export default function GameplayScreen(props) {
     pauseSong();
     console.log("pause song");
 
-  };
+  }
 
   if (play === "stop") {
     //stopSong();
-    console.log("stopped");
+    //console.log("stopped");
     stopSong();
-  };
+  }
+  
+
 
   callbackFunction = (childData) => {
       var data = childData;
-      stopSong();
+      setplay("stop");
+      //stopSong();
       if (test == true){
         //console.log(data)
         props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100,earlyTaps:data[2],lateTaps:data[3]});
@@ -120,7 +117,10 @@ export default function GameplayScreen(props) {
             <Text style={styles.text} onPress={() => setModal(!modal)}>Resume</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.text} onPress={() => setReset(!reset)}>Retry</Text>
+            <Text style={styles.text}>Retry</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.text}>Settings</Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={styles.text} onPress={() => props.navigation.navigate('Home')}>Home</Text>
@@ -141,13 +141,11 @@ export default function GameplayScreen(props) {
         <Text style={styles.text}>Level {props.navigation.getParam('level')}</Text>
         <Text style={styles.text2}>Tap on the screen when the circles match!</Text>
       </View>
-      <GameEngine
+      <GameEngine 
         style={styles.hexagons}
         parentCallback = {this.callbackFunction}
         dataFromParent = {props.navigation.getParam('speed')}
         paused={!modal}
-        reset={reset}
-        setReset={() => {setReset(false); setModal(false)}}
       />
     </View>
   );
@@ -212,7 +210,7 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   modalText: {
-    fontSize: 40,
+    fontSize: 30,
     color: 'white',
     textAlign: 'center',
     marginVertical: 10

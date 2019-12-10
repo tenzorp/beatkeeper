@@ -8,6 +8,7 @@ import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 export default function FeedBackScreen(props) {
   const firestore = useFirestore()
   const auth = useSelector(state => state.firebase.auth);
+  var message;
 
   useFirestoreConnect([
     { collection: 'overallStats',
@@ -16,22 +17,39 @@ export default function FeedBackScreen(props) {
       ] }
   ]);
 
+  if (props.navigation.getParam('precision') > 80){
+    message = "Awesome job!"
+  }
+
+  else if (props.navigation.getParam('precision') > 60){
+    message = "Nice work!"
+  }
+
+  else if (props.navigation.getParam('precision') > 40){
+    message = "You did okay."
+  }
+
+  else {
+    message = "Try again.."
+  }
+
   var userStats = useSelector(state => state.firestore.ordered.overallStats);
 
+  if (props.navigation.getParam('earlyTaps') > 0 || props.navigation.getParam('lateTaps') > 0){
+    var percentEarly = (props.navigation.getParam('earlyTaps')/(props.navigation.getParam('earlyTaps')+props.navigation.getParam('lateTaps')))*100
+    var percentLate = (props.navigation.getParam('lateTaps')/(props.navigation.getParam('earlyTaps')+props.navigation.getParam('lateTaps')))*100
+  }
+
+  else {
+    var percentEarly = 0;
+    var percentLate = 0;
+  }
+  
+
+
   useEffect(() => {
-    console.log(props.navigation)
+    //console.log(props.navigation)
     var gamePrecision = Math.random()*100
-
-    const createNewGame = () => ({
-      level: props.navigation.getParam('level'),
-      precision: props.navigation.getParam('precision'),
-    });
-
-    const updateGames = () => {
-      var newGameStats = createNewGame();
-      newGameStats.uid = auth.uid;
-      firestore.add({collection:'games'}, newGameStats);
-    }
 
     const updateStats = () => {
       const ref = firestore.collection('overallStats').doc(userStats[0].id);
@@ -42,25 +60,10 @@ export default function FeedBackScreen(props) {
       }
 
       var newGamesPlayed = userStats[0].gamesPlayed+1
-      //var newPrecision = userStats[0].averagePrecision+1
-      //
-      //console.log(props.navigation.getParam('earlyTaps'))
-      //console.log(props.navigation.getParam('lateTaps'))
-
-      //console.log("prev total: ",(userStats[0].averagePrecision*userStats[0].gamesPlayed))
-      //console.log("new total: ",(userStats[0].averagePrecision*userStats[0].gamesPlayed)+props.navigation.getParam('precision'))
-      var percentEarly = (props.navigation.getParam('earlyTaps')/(props.navigation.getParam('earlyTaps')+props.navigation.getParam('lateTaps')))*100
-      var percentLate = (props.navigation.getParam('lateTaps')/(props.navigation.getParam('earlyTaps')+props.navigation.getParam('lateTaps')))*100
-
-      //console.log("percent late: ",percentLate)
-      //console.log("percent early: ",percentEarly)
 
       var newPrecision = ((userStats[0].averagePrecision*userStats[0].gamesPlayed)+props.navigation.getParam('precision'))/newGamesPlayed
       var averageEarly = ((userStats[0].averageEarly*userStats[0].gamesPlayed)+percentEarly)/newGamesPlayed
       var averageLate = ((userStats[0].averageLate*userStats[0].gamesPlayed)+percentLate)/newGamesPlayed
-      
-      //console.log("average late: ",averageLate)
-      //console.log("average early: ",averageEarly)
 
       if (props.navigation.getParam('numTaps') > 0){
         let updatePrecision = ref.update({averagePrecision: newPrecision})
@@ -80,9 +83,9 @@ export default function FeedBackScreen(props) {
   return (
     <View style={styles.container}>
       <View style={styles.feedback}>
-        <Text style={styles.text}>Nice job!</Text>
-        <Text style={styles.text2}>You tapped on the screen {props.navigation.getParam('numTaps')} times.</Text>
-        <Text style={styles.text2}>Only {props.navigation.getParam('numCorrectTaps')} taps were on beat.</Text>
+        <Text style={styles.text}>{message}</Text>
+        <Text style={[styles.text2,{marginTop:'5%'}]}>You tapped on the screen {props.navigation.getParam('numTaps')} times and {props.navigation.getParam('numCorrectTaps')}/{props.navigation.getParam('numTaps')} taps were on beat.</Text>
+        <Text style={[styles.text2,{marginTop:'5%'}]}>When you missed the beat, you were {Math.round(percentLate)}% late and {Math.round(percentEarly)}% early.</Text>
       </View>
       <View style={styles.buttons}>
         <Button color="#000000" title="Retry" onPress={()=>{props.navigation.navigate('Gameplay',{level:props.navigation.getParam('level')})}} />
@@ -109,6 +112,7 @@ const styles = StyleSheet.create({
     flex: 6,
     flexDirection: 'column',
     justifyContent: 'center',
+    width: "90%",
   },
   buttons: {
     flex: 2,
@@ -118,7 +122,7 @@ const styles = StyleSheet.create({
     marginBottom: '5%',
   },
   text: {
-    fontSize: 60,
+    fontSize: 50,
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'white',

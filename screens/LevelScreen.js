@@ -5,7 +5,6 @@ import React from 'react';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { useSelector } from 'react-redux';
 import { useFirestoreConnect } from 'react-redux-firebase';
-import HexagonsLevels from '../components/HexagonsLevels';
 import {AntDesign} from "@expo/vector-icons";
 
 
@@ -46,7 +45,7 @@ export default function LevelScreen(props) {
           <Row style={styles.row}>
             <TouchableOpacity onPress={() => {
               if (highestLevel >= 1) {
-                props.navigation.navigate('Gameplay', { level: 1, speed:10, song: './../songs/easybeat1.mp3'});
+                props.navigation.navigate('Gameplay', { level: 1, speed:7.5, song: './../songs/easybeat1.mp3'});
 
 
               }
