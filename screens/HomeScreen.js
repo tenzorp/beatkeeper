@@ -36,8 +36,7 @@ export default function HomeScreen(props) {
   }
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <View style={styles.title}>
+          <View style={styles.headerView}>
             <Text style={styles.headerText}>BEAT</Text>
             <Text style={styles.headerText}>KEEPER</Text>
           </View>
@@ -52,7 +51,6 @@ export default function HomeScreen(props) {
               <Text style={styles.buttonText}>About</Text>
             </TouchableOpacity>
           </View>
-        </View>
         <Hexagons style={styles.hexagons} />
       </View>
     );
@@ -65,10 +63,12 @@ HomeScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 6,
+    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#FFE632',
+    justifyContent: 'center',
+
   },
   buttonText: {
     fontSize: 40,
@@ -80,17 +80,10 @@ const styles = StyleSheet.create({
   buttonGroup: {
     flex: 2,
   },
-  header: {
-    flex: 4,
-    height: '100%',
-    width: '100%',
+  headerView: {
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: '25%'
   },
   headerText: {
     fontSize: 80,
