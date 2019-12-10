@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } fr
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Entypo } from "@expo/vector-icons";
 
 export default function FeedBackScreen(props) {
   const firestore = useFirestore()
@@ -84,6 +84,9 @@ export default function FeedBackScreen(props) {
           <MaterialIcons name={'refresh'} size={50} color={'#FFFFFF'}
              onPress={()=> {props.navigation.navigate('Gameplay', { level: props.navigation.getParam('level'), speed:7.5, song: `./../songs/easybeat${props.navigation.getParam('level')}.mp3`})}} />
         </TouchableOpacity>
+        <TouchableOpacity>
+          <Entypo name={'home'} size={50} color={'#FFFFFF'} onPress={()=>{props.navigation.navigate('Home')}}/>
+        </TouchableOpacity>
       </View>
       <View style={styles.feedback}>
         <Text style={styles.text}>{message}</Text>
@@ -91,8 +94,7 @@ export default function FeedBackScreen(props) {
         <Text style={[styles.text2,{marginTop:'5%'}]}>When you missed the beat, you were {Math.round(percentLate)}% late and {Math.round(percentEarly)}% early.</Text>
       </View>
       <View style={styles.buttons}>
-        <Button color="#000000" title="Change Level" onPress={()=>{props.navigation.navigate('Levels')}} />
-        <Button color="#000000" title="Main Menu" onPress={()=>{props.navigation.navigate('Home')}} />
+        <Text style={styles.button} onPress={()=>{props.navigation.navigate('Levels')}}>Choose Another Level</Text>
       </View>
     </View>
   );
@@ -129,6 +131,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '95%',
     marginBottom: '5%',
+    color: 'white'
+  },
+  button: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white',
   },
   text: {
     fontSize: 50,

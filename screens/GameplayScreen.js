@@ -122,9 +122,6 @@ export default function GameplayScreen(props) {
             <Text style={styles.text} onPress={() => setReset(!reset)}>Retry</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.text}>Settings</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
             <Text style={styles.text} onPress={() => props.navigation.navigate('Home')}>Main Menu</Text>
           </TouchableOpacity>
         </View>
