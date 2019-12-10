@@ -43,14 +43,30 @@ export default function FeedBackScreen(props) {
 
       var newGamesPlayed = userStats[0].gamesPlayed+1
       //var newPrecision = userStats[0].averagePrecision+1
+      //
+      //console.log(props.navigation.getParam('earlyTaps'))
+      //console.log(props.navigation.getParam('lateTaps'))
 
       //console.log("prev total: ",(userStats[0].averagePrecision*userStats[0].gamesPlayed))
       //console.log("new total: ",(userStats[0].averagePrecision*userStats[0].gamesPlayed)+props.navigation.getParam('precision'))
+      var percentEarly = (props.navigation.getParam('earlyTaps')/(props.navigation.getParam('earlyTaps')+props.navigation.getParam('lateTaps')))*100
+      var percentLate = (props.navigation.getParam('lateTaps')/(props.navigation.getParam('earlyTaps')+props.navigation.getParam('lateTaps')))*100
+
+      //console.log("percent late: ",percentLate)
+      //console.log("percent early: ",percentEarly)
+
       var newPrecision = ((userStats[0].averagePrecision*userStats[0].gamesPlayed)+props.navigation.getParam('precision'))/newGamesPlayed
+      var averageEarly = ((userStats[0].averageEarly*userStats[0].gamesPlayed)+percentEarly)/newGamesPlayed
+      var averageLate = ((userStats[0].averageLate*userStats[0].gamesPlayed)+percentLate)/newGamesPlayed
+      
+      //console.log("average late: ",averageLate)
+      //console.log("average early: ",averageEarly)
 
       if (props.navigation.getParam('numTaps') > 0){
         let updatePrecision = ref.update({averagePrecision: newPrecision})
         let updateGamesPlayed = ref.update({gamesPlayed: newGamesPlayed})
+        let updateLate = ref.update({averageLate: averageLate})
+        let updateEarly = ref.update({averageEarly: averageEarly})
       }
       
 

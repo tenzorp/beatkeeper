@@ -37,43 +37,15 @@ export default function GameplayScreen(props) {
   }
 
   playSong();
-
-  /*useFirestoreConnect([
-    { collection: 'games',
-      where:[
-        ['uid', '==', auth.uid]
-      ] }
-  ]);*/
-
-  //const userStats = useSelector(state => state.firestore.ordered.overallStats);
-  //const gameStats = useSelector(state => state.firestore.ordered.games);
-
-  /*
-  }*/
-  //console.log(data)
-
-  //<HexagonsGameplay style={styles.hexagons} />
   
   callbackFunction = (childData) => {
       var data = childData;
       if (test == true){
-        props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
+        //console.log(data)
+        props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100,earlyTaps:data[2],lateTaps:data[3]});
         test = false;
       }
-      //this.setState({message: childData})
-      //console.log("hello")
-      //console.log(childData)
-      //console.log(props.navigation)
-      //console.log("callback")
-      //console.log(data);
-      
-      //console.log(props.navigation)
   }
-
-  /*useEffect(() => {
-    console.log(data);
-    props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
-  },[data])*/
 
 
   return (
