@@ -7,14 +7,14 @@ const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
 const RADIUS = 25;
 
 export default class GameEngine extends PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       x: WIDTH / 2 - RADIUS,
       y: HEIGHT / 2 - RADIUS,
-      size: 0,
-      growing: true,
-      running: true,
+      size: RADIUS*12,
+      growing: false,
+      running: this.props.paused,
       startTime: 0,
       color: 'white',
       width: 2,
@@ -26,10 +26,6 @@ export default class GameEngine extends PureComponent {
     this.gameEngine = null;
   }
 
-  /*componentDidMount(){
-    this.gameEngine.focus();
-  }*/
-
   sendData = () => {
     var data = [this.state.numTaps, this.state.correctTaps]
     this.props.parentCallback(data);
@@ -38,7 +34,6 @@ export default class GameEngine extends PureComponent {
 
   onEvent = (e) => {
         if (e.type === "game-over"){
-            //Alert.alert("Game Over");
             this.setState({
                 running: false
             });
@@ -46,28 +41,29 @@ export default class GameEngine extends PureComponent {
     }
 
     reset = () => {
-        //this.gameEngine.swap(this.setupWorld());
         this.setState({
             running: true
         });
     }
 
   updateHandler = ({ touches, screen, time }) => {
+    if (this.props.paused !== this.state.running) {
+      this.setState({running: this.props.paused});
+    }
     //console.log("updateHandler")
     if (this.state.startTime == 0){
       this.setState({
           startTime: time.current,
           running: true,
-        })
+        });
     }
 
     if (time.current > (this.state.startTime + 10000)){
       //this.gameEngine.dispatch({ type: "game-over"});
       this.setState({
         running: false,
-      })
+      });
       this.sendData();
-
     }
     if (this.state.running == true){
 
@@ -78,7 +74,7 @@ export default class GameEngine extends PureComponent {
         numTaps: this.state.numTaps + 1,
       })
       if (this.state.showRed == false){
-        if (this.state.size > (RADIUS*12 - 25)){
+        if (this.state.size > (RADIUS*12 - 50)){
 
           this.setState({
           color: 'blue',
@@ -115,7 +111,6 @@ export default class GameEngine extends PureComponent {
         });
       }
     }
-    console.log("size: ",this.state.size)
     
     if (this.state.growing){
       if (this.state.size >= RADIUS*12){

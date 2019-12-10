@@ -6,6 +6,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { useSelector } from 'react-redux';
 import { useFirestoreConnect } from 'react-redux-firebase';
 import HexagonsLevels from '../components/HexagonsLevels';
+import {AntDesign} from "@expo/vector-icons";
 
 
 export default function LevelScreen(props) {
@@ -33,6 +34,11 @@ export default function LevelScreen(props) {
   return (
     <View style={styles.container}>
       <View style={styles.headerView}>
+        <TouchableOpacity>
+          <AntDesign name={'arrowleft'} size={50} color={'#FFFFFF'} onPress={()=> {props.navigation.navigate('Mode')}} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.titleView}>
         <Text style={styles.text}>Choose a level!</Text>
       </View>
       <Grid style={styles.grid}>
@@ -40,7 +46,7 @@ export default function LevelScreen(props) {
           <Row style={styles.row}>
             <TouchableOpacity onPress={() => {
               if (highestLevel >= 1) {
-                props.navigation.navigate('Gameplay', { level: 1, speed:2 });
+                props.navigation.navigate('Gameplay', { level: 1, speed:10 });
               }
             }}
             >
@@ -110,7 +116,7 @@ export default function LevelScreen(props) {
           <Row style={styles.row}>
             <TouchableOpacity onPress={() => {
               if (highestLevel >= 3) {
-                props.navigation.navigate('Gameplay', { level: 3,speed:4 });
+                props.navigation.navigate('Gameplay', { level: 3,speed:4.166 });
               }
             }}
             >
@@ -176,6 +182,13 @@ const styles = StyleSheet.create({
     marginBottom: '10%',
   },
   headerView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+    width: '90%'
+  },
+  titleView: {
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',

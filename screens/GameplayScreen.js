@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import React, { useState,useCallback } from 'react';
+import React, { useState,useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 import HexagonsGameplay from '../components/HexagonsGameplay';
 import GameEngine from '../components/GameEngine';
 import { AntDesign, Foundation } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
-import {Audio} from 'expo-av'; 
+import {Audio} from 'expo-av';
 
 
 export default function GameplayScreen(props) {
@@ -15,6 +15,7 @@ export default function GameplayScreen(props) {
   const [play, setplay] = useState("play");
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
+  var test = true;
 
   useFirestoreConnect([
     {
@@ -95,15 +96,32 @@ export default function GameplayScreen(props) {
   }
   
 
+  /*useFirestoreConnect([
+    { collection: 'games',
+      where:[
+        ['uid', '==', auth.uid]
+      ] }
+  ]);*/
+
+  //const userStats = useSelector(state => state.firestore.ordered.overallStats);
+  //const gameStats = useSelector(state => state.firestore.ordered.games);
+
+  /*
+  }*/
+  //console.log(data)
 
   //<HexagonsGameplay style={styles.hexagons} />
-
-
+  
   callbackFunction = (childData) => {
       stopSong();
       props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: childData[0],numCorrectTaps: childData[1],precision:(childData[0]/childData[1])*100 });
       //stopSong();
   }
+
+  /*useEffect(() => {
+    console.log(data);
+    props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
+  },[data])*/
 
 
   return (
@@ -131,7 +149,8 @@ export default function GameplayScreen(props) {
             console.log("levels")}} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={()=> setModal(!modal)}/>
+          { !modal && <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={()=> setModal(!modal)} /> }
+          { modal && <Foundation name={'play'} size={50} color={'#FFFFFF'}  onPress={()=> setModal(!modal)} /> }
         </TouchableOpacity>
       </View>
       <View style={styles.titleView}>
@@ -142,6 +161,7 @@ export default function GameplayScreen(props) {
         style={styles.hexagons}
         parentCallback = {this.callbackFunction}
         dataFromParent = {props.navigation.getParam('speed')}
+        paused={!modal}
       />
     </View>
   );
