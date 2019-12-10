@@ -44,25 +44,16 @@ export default function GameplayScreen(props) {
   const soundObject = new Audio.Sound();
 
 
-<<<<<<< HEAD
-  const level = props.navigation.getParam('level');
-  const songName = props.navigation.getParam('song');
   
-  console.log(songName);
+  //console.log(songName);
   async function playSong() {
 
     const level = props.navigation.getParam('level');
-    const songName = props.navigation.getParam('song');
+    //const songName = props.navigation.getParam('song');
     
     console.log(level);
       //const soundObject = new Audio.Sound();
     if (level === 1){ 
-=======
-
- 
-    async function playSong() {
-        //const soundObject = new Audio.Sound();
->>>>>>> master
       try {
         await soundObject.loadAsync(require('./../songs/easybeat1.mp3'));
         await soundObject.playAsync();
@@ -131,29 +122,6 @@ export default function GameplayScreen(props) {
 
 
   callbackFunction = (childData) => {
-<<<<<<< HEAD
-    var data = childData;
-    //stopSong();
-    setPlay("stop");
-    if (test == true){
-      props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
-      test = false;
-    }
-    //this.setState({message: childData})
-    //console.log("hello")
-    //console.log(childData)
-    //console.log(props.navigation)
-    //console.log("callback")
-    //console.log(data);
-    
-    //console.log(props.navigation)
-}
-
-  /*useEffect(() => {
-    console.log(data);
-    props.navigation.navigate('Feedback', { level: props.navigation.getParam('level'), numTaps: data[0],numCorrectTaps: data[1],precision:(data[1]/data[0])*100 });
-  },[data])*/
-=======
       var data = childData;
       setplay("stop");
       //stopSong();
@@ -163,7 +131,6 @@ export default function GameplayScreen(props) {
         test = false;
       }
   }
->>>>>>> master
 
 
   return (
