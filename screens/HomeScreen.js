@@ -1,13 +1,16 @@
 import {
-    StyleSheet, Text, View, TouchableOpacity,
+    StyleSheet, Text, View, TouchableOpacity,Image
 } from 'react-native';
 import Hexagons from '../components/Hexagons';
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes, Component, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
+import Modal from 'react-native-modal';
+import cats from '../assets/cats.gif';
+import {AntDesign} from "@expo/vector-icons";
 
 export default function HomeScreen(props) {
-
+    const [modal, setModal] = useState(false);
     const firestore = useFirestore()
     const auth = useSelector(state => state.firebase.auth);
 
@@ -36,6 +39,18 @@ export default function HomeScreen(props) {
     }
     return (
         <View style={styles.container}>
+        <Modal isVisible={modal}>
+          <View style={styles.modal}>
+          <TouchableOpacity style={{margin: 0, alignSelf: 'flex-start'}}>
+              <AntDesign name={'arrowleft'} size={50} color={'#FFFFFF'} onPress={()=> {setModal(!modal)}} />
+            </TouchableOpacity>
+            <Text style={styles.modalTitle}>About</Text>
+            <Text style={styles.modalText}>This app was created by Hamza Kiyani, Tenzin Dorjee, & Zach Levitt!</Text>
+            <Image
+              style={{width: '50%', top: 15}}
+              source={cats}/>
+          </View>
+        </Modal>
             <View style={styles.headerView}>
                 <Text style={styles.headerText}>BEAT</Text>
                 <Text style={styles.headerText}>KEEPER</Text>
@@ -48,7 +63,7 @@ export default function HomeScreen(props) {
                     <Text style={styles.buttonText}>Profile</Text>
                 </TouchableOpacity>
                 <TouchableOpacity>
-                    <Text style={styles.buttonText}>About</Text>
+                    <Text style={styles.buttonText} onPress={() => setModal(!modal)}>About</Text>
                 </TouchableOpacity>
             </View>
             <Hexagons style={styles.hexagons} />
@@ -85,6 +100,26 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: '25%'
     },
+    modal: {
+    alignItems: 'center',
+    backgroundColor: '#FFE632',
+    borderWidth: 5,
+    borderColor: '#FFFFFF',
+    borderRadius: 5,
+    padding: 10,
+  },
+  modalTitle: {
+    fontSize: 60,
+    color: 'white',
+    fontWeight: 'bold',
+    marginVertical: 5
+  },
+  modalText: {
+    fontSize: 30,
+    color: 'white',
+    textAlign: 'center',
+    marginVertical: 10
+  },
     headerText: {
         fontSize: 80,
         textAlign: 'center',

@@ -87,14 +87,14 @@ export default function LoginComponent({ login, createAccount, style }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 8,
     alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: '#FFE632',
 
   },
   login: {
-    flex: 4,
+    flex: 5,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
@@ -105,11 +105,12 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   header: {
-    flex: 3,
+    flex: 2,
     height: '100%',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 20,
   },
   formRow: {
     width: '85%',

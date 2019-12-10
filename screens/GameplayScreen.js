@@ -10,7 +10,6 @@ import { set } from 'gl-matrix/src/gl-matrix/vec2';
 
 
 export default function GameplayScreen(props) {
-  // console.log(props.navigation.getParam('level'))
   const [modal, setModal] = useState(false);
   const [play, setPlay] = useState("play");
   const [reset, setReset] = useState(false);
@@ -82,12 +81,7 @@ export default function GameplayScreen(props) {
   }
 
     async function pauseSong() {
-      //const soundObject = new Audio.Sound();
-   
-        //await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
         soundObject.pauseAsync();
-        //console.log(soundObject.getPositionAsync());
-        console.log("pause game")
 
     }; 
 
@@ -102,9 +96,7 @@ export default function GameplayScreen(props) {
     }; */
 
     async function stopSong() {
-      //const soundObject = new Audio.Sound();
       soundObject.stopAsync();
-      //soundObject.setStatusAsync({shouldPlay: false, positionMillis: 0});
 
     }; 
 
@@ -125,16 +117,8 @@ export default function GameplayScreen(props) {
 
   }
 
-  // if (modal === true) {
-  //   //setPlay("pause");
-  //   console.log("paused");
-  //   setPlay("stop");
-  //   //soundObject.stopAsync();
-  // }
 
   if (play === "stop") {
-    //stopSong();
-    //console.log("stopped");
     stopSong();
   }
   
