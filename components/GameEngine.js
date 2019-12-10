@@ -63,9 +63,9 @@ export default class GameEngine extends PureComponent {
       this.setState({running: this.props.paused});
     }
 
-    if (this.state.reset) {
-      this.props.setReset();
+    if (this.props.reset !== this.state.reset) {
       this.setState(baseState);
+      this.props.setReset();
     }
 
     if (this.state.startTime == 0){
@@ -81,8 +81,8 @@ export default class GameEngine extends PureComponent {
         running: false,
       });
       this.sendData();
-      this.props.setReset()
       this.setState(baseState);
+      this.props.setReset()
     }
     if (this.state.running == true){
 
