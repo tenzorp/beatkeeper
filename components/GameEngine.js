@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { AppRegistry, StyleSheet, Dimensions, View } from "react-native";
 import { GameLoop } from "react-native-game-engine";
-import {useFocusEffect  } from 'react-navigation-hooks';
+import { useFocusEffect } from 'react-navigation-hooks';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
 const RADIUS = 25;
@@ -24,6 +24,7 @@ export default class GameEngine extends PureComponent {
       correctTaps: 0,
     };
     this.gameEngine = null;
+    this.baseState = this.state;
   }
 
   /*componentDidMount(){
