@@ -6,6 +6,7 @@ import HexagonsGameplay from '../components/HexagonsGameplay';
 import GameEngine from '../components/GameEngine';
 import { AntDesign, Foundation } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
+import {Audio} from 'expo-av';
 
 
 export default function GameplayScreen(props) {
@@ -23,6 +24,19 @@ export default function GameplayScreen(props) {
       ],
     },
   ]);
+
+  async function playSong() {
+      const soundObject = new Audio.Sound();
+    try {
+      await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
+      await soundObject.playAsync();
+    }  catch (error) {
+      console.log("error");
+    }
+
+  }
+
+  playSong();
 
   /*useFirestoreConnect([
     { collection: 'games',
