@@ -67,8 +67,17 @@ export default function FeedBackScreen(props) {
       if (props.navigation.getParam('numTaps') > 0){
         let updatePrecision = ref.update({averagePrecision: newPrecision})
         let updateGamesPlayed = ref.update({gamesPlayed: newGamesPlayed})
-        let updateLate = ref.update({averageLate: averageLate})
-        let updateEarly = ref.update({averageEarly: averageEarly})
+
+
+        if (userStats[0].averageEarly == 0 && userStats[0].averageLate == 0){
+          let updateEarly = ref.update({averageEarly: percentEarly})
+          let updateLate = ref.update({averageLate: percentLate})
+        }
+
+        else {
+          let updateLate = ref.update({averageLate: averageLate})
+          let updateEarly = ref.update({averageEarly: averageEarly})
+        }
       }
       
 
@@ -90,7 +99,7 @@ export default function FeedBackScreen(props) {
       </View>
       <View style={styles.feedback}>
         <Text style={styles.text}>{message}</Text>
-        <Text style={[styles.text2,{marginTop:'5%'}]}>You tapped on the screen {props.navigation.getParam('numTaps')} times and {props.navigation.getParam('numCorrectTaps')}/{props.navigation.getParam('numTaps')} taps were on beat.</Text>
+        <Text style={[styles.text2,{marginTop:'5%'}]}>You tapped on the screen {props.navigation.getParam('numTaps')} times and {props.navigation.getParam('numCorrectTaps')} taps were on beat.</Text>
         <Text style={[styles.text2,{marginTop:'5%'}]}>When you missed the beat, you were {Math.round(percentLate)}% late and {Math.round(percentEarly)}% early.</Text>
       </View>
       <View style={styles.buttons}>
