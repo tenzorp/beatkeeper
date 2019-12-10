@@ -72,8 +72,6 @@ export default function FeedBackScreen(props) {
       
 
     }
-
-    updateGames();
     updateStats();
 
   }, []);
