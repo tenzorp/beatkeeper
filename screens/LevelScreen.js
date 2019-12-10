@@ -5,7 +5,6 @@ import React from 'react';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { useSelector } from 'react-redux';
 import { useFirestoreConnect } from 'react-redux-firebase';
-import HexagonsLevels from '../components/HexagonsLevels';
 import {AntDesign} from "@expo/vector-icons";
 
 

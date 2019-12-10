@@ -39,7 +39,7 @@ export default function Hexagons(props) {
     ctx.lineWidth = 5;
     ctx.strokeStyle = 'white';
 
-    for (var i = 0;i < 30;i++){
+    for (var i = 0;i < 20;i++){
       drawHexagon(ctx, randomIntFromInterval(0, ctx.width), randomIntFromInterval(0, 300), randomIntFromInterval(10, 100));
     }
     

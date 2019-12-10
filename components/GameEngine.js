@@ -92,7 +92,7 @@ export default class GameEngine extends PureComponent {
         if (this.state.size > (RADIUS*12 - 50)){
 
           this.setState({
-          color: 'blue',
+          color: '#32CD32',
           width: 10,
           showRed: true,
           correctTaps: this.state.correctTaps + 1,
