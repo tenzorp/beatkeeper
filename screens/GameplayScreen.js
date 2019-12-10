@@ -12,7 +12,7 @@ import { set } from 'gl-matrix/src/gl-matrix/vec2';
 export default function GameplayScreen(props) {
   // console.log(props.navigation.getParam('level'))
   const [modal, setModal] = useState(false);
-  const [play, setplay] = useState("play");
+  const [play, setPlay] = useState("play");
   const [reset, setReset] = useState(false);
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
@@ -86,8 +86,20 @@ export default function GameplayScreen(props) {
    
         //await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
         soundObject.pauseAsync();
+        //console.log(soundObject.getPositionAsync());
+        console.log("pause game")
 
     }; 
+
+    /*async function unPauseSong() {
+      try {
+        soundObject.playAsync();
+        console.log("unpause")
+      }  catch (error) {
+        console.log("error4");
+      }
+      
+    }; */
 
     async function stopSong() {
       //const soundObject = new Audio.Sound();
@@ -102,10 +114,14 @@ export default function GameplayScreen(props) {
 
   }; 
 
+  if (play == "unpause"){
+    unPauseSong();
+
+  }
+
   if (play === "pause") {
     
     pauseSong();
-    console.log("pause song");
 
   }
 
@@ -142,7 +158,10 @@ export default function GameplayScreen(props) {
         <View style={styles.modal}>
           <Text style={styles.modalTitle}>PAUSED</Text>
           <TouchableOpacity>
-            <Text style={styles.text} onPress={() => setModal(!modal)}>Resume</Text>
+            <Text style={styles.text} 
+                  onPress={() => {setModal(!modal);
+                                  setPlay("play");
+                                  }}>Resume</Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={styles.text} onPress={() => setReset(!reset)}>Retry</Text>
@@ -161,8 +180,20 @@ export default function GameplayScreen(props) {
             console.log("levels")}} />
         </TouchableOpacity>
         <TouchableOpacity>
-          { !modal && <Foundation name={'pause'} size={50} color={'#FFFFFF'}  onPress={()=> setModal(!modal)} /> }
-          { modal && <Foundation name={'play'} size={50} color={'#FFFFFF'}  onPress={()=> setModal(!modal)} /> }
+          { !modal && <Foundation 
+                          name={'pause'} 
+                          size={50} color={'#FFFFFF'}  
+                          onPress={()=> {
+                            setModal(!modal);
+                            setPlay("pause");
+                            pauseSong();
+                          }} /> }
+          { modal && <Foundation 
+                        name={'play'} 
+                        size={50} color={'#FFFFFF'}  
+                        onPress={()=> {
+                          setModal(!modal)
+                          }} /> }
         </TouchableOpacity>
       </View>
       <View style={styles.titleView}>

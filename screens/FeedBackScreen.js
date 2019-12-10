@@ -96,7 +96,7 @@ export default function FeedBackScreen(props) {
       </View>
       <View style={styles.feedback}>
         <Text style={styles.text}>{message}</Text>
-        <Text style={[styles.text2,{marginTop:'5%'}]}>You tapped on the screen {props.navigation.getParam('numTaps')} times and {props.navigation.getParam('numCorrectTaps')}/{props.navigation.getParam('numTaps')} taps were on beat.</Text>
+        <Text style={[styles.text2,{marginTop:'5%'}]}>You tapped on the screen {props.navigation.getParam('numTaps')} times and {props.navigation.getParam('numCorrectTaps')} taps were on beat.</Text>
         <Text style={[styles.text2,{marginTop:'5%'}]}>When you missed the beat, you were {Math.round(percentLate)}% late and {Math.round(percentEarly)}% early.</Text>
       </View>
       <View style={styles.buttons}>
