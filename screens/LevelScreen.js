@@ -45,7 +45,7 @@ export default function LevelScreen(props) {
           <Row style={styles.row}>
             <TouchableOpacity onPress={() => {
               if (highestLevel >= 1) {
-                props.navigation.navigate('Gameplay', { level: 1, speed:7.5,duration:10000});
+                props.navigation.navigate('Gameplay', { level: 1, speed:7.665,duration:16000});
               }
             }}
             >
@@ -80,7 +80,7 @@ export default function LevelScreen(props) {
           <Row style={styles.row}>
             <TouchableOpacity onPress={() => {
               if (highestLevel >= 2) {
-                props.navigation.navigate('Gameplay', { level: 2,speed:10,duration:10000 });
+                props.navigation.navigate('Gameplay', { level: 2,speed:10,duration:9000 });
               }
             }}
             >

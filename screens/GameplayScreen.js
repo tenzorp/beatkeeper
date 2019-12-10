@@ -6,6 +6,7 @@ import GameEngine from '../components/GameEngine';
 import { AntDesign, Foundation } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
 import {Audio} from 'expo-av';
+import { set } from 'gl-matrix/src/gl-matrix/vec2';
 
 
 export default function GameplayScreen(props) {
@@ -13,7 +14,6 @@ export default function GameplayScreen(props) {
   const [modal, setModal] = useState(false);
   const [play, setplay] = useState("play");
   const [reset, setReset] = useState(false);
-
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
   var test = true;
@@ -83,12 +83,9 @@ export default function GameplayScreen(props) {
 
     async function pauseSong() {
       //const soundObject = new Audio.Sound();
-      try {
+   
         //await soundObject.loadAsync(require('./../songs/beat1_120bpm_44.mp3'));
-        await soundObject.pauseAsync();
-      }  catch (error) {
-        console.log("error1");
-      }
+        soundObject.pauseAsync();
 
     }; 
 
@@ -112,6 +109,13 @@ export default function GameplayScreen(props) {
 
   }
 
+  // if (modal === true) {
+  //   //setPlay("pause");
+  //   console.log("paused");
+  //   setPlay("stop");
+  //   //soundObject.stopAsync();
+  // }
+
   if (play === "stop") {
     //stopSong();
     //console.log("stopped");
@@ -122,7 +126,7 @@ export default function GameplayScreen(props) {
 
   callbackFunction = (childData) => {
       var data = childData;
-      setplay("stop");
+      setPlay("stop");
       //stopSong();
       if (test == true){
         //console.log(data)
