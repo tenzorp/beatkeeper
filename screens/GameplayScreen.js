@@ -12,6 +12,8 @@ export default function GameplayScreen(props) {
   // console.log(props.navigation.getParam('level'))
   const [modal, setModal] = useState(false);
   const [play, setplay] = useState("play");
+  const [reset, setReset] = useState(false);
+
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
   var test = true;
@@ -117,13 +119,13 @@ export default function GameplayScreen(props) {
             <Text style={styles.text} onPress={() => setModal(!modal)}>Resume</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.text}>Retry</Text>
+            <Text style={styles.text} onPress={() => setReset(!reset)}>Retry</Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={styles.text}>Settings</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.text} onPress={() => props.navigation.navigate('Home')}>Home</Text>
+            <Text style={styles.text} onPress={() => props.navigation.navigate('Home')}>Main Menu</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -146,6 +148,8 @@ export default function GameplayScreen(props) {
         parentCallback = {this.callbackFunction}
         dataFromParent = {props.navigation.getParam('speed')}
         paused={!modal}
+        reset={reset}
+        setReset={() => {setReset(false); setModal(false);}}
       />
     </View>
   );
